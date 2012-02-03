@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Protocol
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Protocol/__init__.py
+END
+AllOrNothing.py
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Protocol/AllOrNothing.py
+END
+Chaffing.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Protocol/Chaffing.py
+END

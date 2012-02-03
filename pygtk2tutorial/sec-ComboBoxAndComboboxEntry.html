@@ -1,0 +1,207 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>16.2. ComboBox and ComboBoxEntry Widgets</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-NewInPyGTK2.4.html" title="Chapter 16. New Widgets in PyGTK 2.4"><link rel="previous" href="ch-NewInPyGTK2.4.html" title="Chapter 16. New Widgets in PyGTK 2.4"><link rel="next" href="sec-ColorButtonAndFontButton.html" title="16.3. ColorButton and FontButton Widgets"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.2. ComboBox and ComboBoxEntry Widgets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-NewInPyGTK2.4.html">Prev</a> </td><th width="60%" align="center">Chapter 16. New Widgets in PyGTK 2.4</th><td width="20%" align="right"> <a accesskey="n" href="sec-ColorButtonAndFontButton.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-ComboBoxAndComboboxEntry"></a>16.2. ComboBox and ComboBoxEntry Widgets</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ComboBox"></a>16.2.1. ComboBox Widgets</h3></div></div><div></div></div><p>The <tt class="classname">ComboBox</tt> replaces the
+<tt class="classname">OptionMenu</tt> with a powerful widget that uses a
+<tt class="classname">TreeModel</tt> (usually a
+<tt class="classname">ListStore</tt>) to provide the list items to display. The
+<tt class="classname">ComboBox</tt> implements the
+<tt class="classname">CellLayout</tt> interface that provides a number of
+methods for managing the display of the list items. One or more
+<tt class="classname">CellRenderers</tt> can be packed into a
+<tt class="classname">ComboBox</tt> to customize the list item display.</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-BasicComboBox"></a>16.2.1.1. Basic ComboBox Use</h4></div></div><div></div></div><p>The easy way to create and populate a
+<tt class="classname">ComboBox</tt> is to use the convenience function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox = gtk.combo_box_new_text()
+</pre></td></tr></table><p>This function creates a <tt class="classname">ComboBox</tt> and its
+associated <tt class="classname">ListStore</tt> and packs it with a
+<tt class="classname">CellRendererText</tt>. The following convenience methods
+are used to populate or remove the contents of the
+<tt class="classname">ComboBox</tt> and its
+<tt class="classname">ListStore</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.append_text(<b class="parameter"><tt>text</tt></b>)
+  combobox.prepend_text(<b class="parameter"><tt>text</tt></b>)
+  combobox.insert_text(<b class="parameter"><tt>position</tt></b>, <b class="parameter"><tt>text</tt></b>)
+  combobox.remove_text(<b class="parameter"><tt>position</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>text</tt></i> is the string to be added to the
+<tt class="classname">ComboBox</tt> and <i class="parameter"><tt>position</tt></i> is the
+index where <i class="parameter"><tt>text</tt></i> is to be inserted or removed. In
+most cases the convenience function and methods are all you need.</p><p>The example program <a href="examples/comboboxbasic.py" target="_top">comboboxbasic.py</a> demonstrates the
+use of the above function and methods. <a href="sec-ComboBoxAndComboboxEntry.html#comboboxbasicfig" title="Figure 16.5. Basic ComboBox">Figure 16.5, “Basic ComboBox”</a> illustrates the program in
+operation:</p><div class="figure"><a name="comboboxbasicfig"></a><p class="title"><b>Figure 16.5. Basic ComboBox</b></p><div class="mediaobject" align="center"><img src="figures/comboboxbasic.png" align="middle" alt="Basic ComboBox"></div></div><p>Unfortunately, the <tt class="literal">GTK</tt>+ developers did not
+provide a convenience method to retrieve the active text. That would seem to
+be a useful method. You'll have to create your own similar to:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def get_active_text(combobox):
+      model = combobox.get_model()
+      active = combobox.get_active()
+      if active &lt; 0:
+          return None
+      return model[active][0]
+</pre></td></tr></table><p>The index of the active item is retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  active = combobox.get_active()
+</pre></td></tr></table><p>The active item can be set using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.set_active(<b class="parameter"><tt>index</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>index</tt></i> is an integer larger than
+-2. If <i class="parameter"><tt>index</tt></i> is -1 there is no active item and the
+ComboBox display will be blank. If <i class="parameter"><tt>index</tt></i> is less than
+-1, the call will be ignored. If <i class="parameter"><tt>index</tt></i> is greater
+than -1 the list item with that index value will be displayed.</p><p>You can connect to the "changed" signal of a
+<tt class="classname">ComboBox</tt> to be notified when the active item has been
+changed. The signature of the "changed" handler is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def changed_cb(combobox, ...):
+</pre></td></tr></table><p>where <i class="parameter"><tt>...</tt></i> represents the zero or more
+arguments passed to the <tt class="methodname">GObject.connect</tt>()
+method.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-AdvancedComboBox"></a>16.2.1.2. Advanced ComboBox Use</h4></div></div><div></div></div><p>Creating a <tt class="classname">ComboBox</tt> using the
+<tt class="function">gtk.combo_box_new_text</tt>() function is roughly
+equivalent to the following code:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  liststore = gtk.ListStore(str)
+  combobox = gtk.ComboBox(liststore)
+  cell = gtk.CellRendererText()
+  combobox.pack_start(cell, True)
+  combobox.add_attribute(cell, 'text', 0)  
+</pre></td></tr></table><p>To make use of the power of the various
+<tt class="classname">TreeModel</tt> and <tt class="classname">CellRenderer</tt>
+objects you need to construct a <tt class="classname">ComboBox</tt> using the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox = gtk.ComboBox(<b class="parameter"><tt>model</tt></b>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>model</tt></i> is a
+<tt class="classname">TreeModel</tt>. If you create a
+<tt class="classname">ComboBox</tt> without associating a
+<tt class="classname">TreeModel</tt>, you can add one later using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.set_model(<b class="parameter"><tt>model</tt></b>)
+</pre></td></tr></table><p>The associated <tt class="classname">TreeModel</tt> can be retrieved
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  model = combobox.get_model()
+</pre></td></tr></table><p>Some of the things you can do with a
+<tt class="classname">ComboBox</tt> are:</p><div class="itemizedlist"><ul type="disc"><li>Share the same <tt class="classname">TreeModel</tt> with
+other <tt class="classname">ComboBox</tt>es and
+<tt class="classname">TreeView</tt>s.</li><li>Display images and text in the
+<tt class="classname">ComboBox</tt> list items.</li><li>Use an existing <tt class="classname">TreeStore</tt> or
+<tt class="classname">ListStore</tt> as the model for the
+<tt class="classname">ComboBox</tt> list items.</li><li>Use a <tt class="classname">TreeModelSort</tt> to provide a
+sorted <tt class="classname">ComboBox</tt> list.</li><li>Use a <tt class="classname">TreeModelFilter</tt> to use a
+subtree of a <tt class="classname">TreeStore</tt> as the source for a
+<tt class="classname">ComboBox</tt> list items.</li><li>Use a <tt class="classname">TreeModelFilter</tt> to use a
+subset of the rows in a <tt class="classname">TreeStore</tt> or
+<tt class="classname">ListStore</tt> as the <tt class="classname">ComboBox</tt> list
+items.</li><li>Use a cell data function to modify or synthesize the
+display for list items.</li></ul></div><p>The use of the <tt class="classname">TreeModel</tt> and
+<tt class="classname">CellRenderer</tt> objects is detailed in <a href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget">Chapter 14, <i>Tree View Widget</i></a>.</p><p>The <tt class="classname">ComboBox</tt> list items can be displayed
+in a grid if you have a large number of items to display. Otherwise the list
+will have scroll arrows if the entire list cannot be displayed. The
+following method is used to set the number of columns to display:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.set_wrap_width(<b class="parameter"><tt>width</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>width</tt></i> is the number of columns of
+the grid displaying the list items. For example, the <a href="examples/comboboxwrap.py" target="_top">comboboxwrap.py</a> program displays a
+list of 50 items in 5 columns. <a href="sec-ComboBoxAndComboboxEntry.html#comboboxwrapfig" title="Figure 16.6. ComboBox with Wrapped Layout">Figure 16.6, “ComboBox with Wrapped Layout”</a>
+illustrates the program in operation:</p><div class="figure"><a name="comboboxwrapfig"></a><p class="title"><b>Figure 16.6. ComboBox with Wrapped Layout</b></p><div class="mediaobject" align="center"><img src="figures/comboboxwrap.png" align="middle" alt="ComboBox with Wrapped Layout"></div></div><p>With a large number of items, say more than 50, the use of the
+<tt class="methodname">set_wrap_width</tt>() method will have poor performance
+because of the computation for the grid layout. To get a feel for the affect
+modify the <a href="examples/comboboxwrap.py" target="_top">comboboxwrap.py</a>
+program line 18 to display 150 items.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+        for n in range(150):
+</pre></td></tr></table><p>Run the program and get a time estimate for startup. Then modify
+ it by commenting out line 17:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+        #combobox.set_wrap_width(5)
+</pre></td></tr></table><p>Run and time it again. It should start up significantly
+faster. My experience is about 20 times faster.</p><p>In addition to the <tt class="methodname">get_active</tt>() method
+described above, you can retrieve a <tt class="classname">TreeIter</tt> pointing
+at the active row by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  iter = combobox.get_active_iter()
+</pre></td></tr></table><p>You can also set the active list item using a
+<tt class="classname">TreeIter</tt> with the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.set_active_iter(<b class="parameter"><tt>iter</tt></b>)
+</pre></td></tr></table><p>The <tt class="methodname">set_row_span_column</tt>() and
+<tt class="methodname">set_column_span_column</tt>() methods are supposed to
+allow the specification of a <tt class="classname">TreeModel</tt> column number
+that contains the number of rows or columns that the list item is supposed
+to span in a grid layout. Unfortunately, in GTK+ 2.4 these methods are
+broken.</p><p>Since the <tt class="classname">ComboBox</tt> implements the
+<tt class="classname">CellLayout</tt> interface which has similar capabilities
+as the <tt class="classname">TreeViewColumn</tt> (see <a href="sec-TreeViewColumns.html" title="14.5. TreeViewColumns">Section 14.5, “TreeViewColumns”</a> for more information). Briefly, the
+interface provides:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  combobox.pack_start(<b class="parameter"><tt>cell</tt></b>, <b class="parameter"><tt>expand</tt></b>=True)
+  combobox.pack_end(<b class="parameter"><tt>cell</tt></b>, <b class="parameter"><tt>expand</tt></b>=True)
+  combobox.clear()
+</pre></td></tr></table><p>The first two methods pack a <tt class="classname">CellRenderer</tt>
+into the <tt class="classname">ComboBox</tt> and the
+<tt class="methodname">clear</tt>() method clears all attributes from all
+<tt class="classname">CellRenderer</tt>s.</p><p>The following methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  comboboxentry.add_attribute(<b class="parameter"><tt>cell</tt></b>, <b class="parameter"><tt>attribute</tt></b>, <b class="parameter"><tt>column</tt></b>)
+
+  comboboxentry.set_attributes(<i class="parameter"><tt>cell</tt></i>, <i class="parameter"><tt>...</tt></i>)
+</pre></td></tr></table><p>set attributes for the <tt class="classname">CellRenderer</tt>
+specified by <i class="parameter"><tt>cell</tt></i>. The
+<tt class="methodname">add_attribute</tt>() method takes a string
+<i class="parameter"><tt>attribute</tt></i> name (e.g. 'text') and an integer
+<i class="parameter"><tt>column</tt></i> number of the column in the
+<tt class="classname">TreeModel</tt> to use to set
+<i class="parameter"><tt>attribute</tt></i>. The additional arguments to the
+<tt class="methodname">set_attributes</tt>() method are
+<tt class="literal">attribute=column</tt> pairs (e.g text=1).</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ComboBoxEntry"></a>16.2.2. ComboBoxEntry Widgets</h3></div></div><div></div></div><p>The <tt class="classname">ComboBoxEntry</tt> widget replaces the
+<tt class="classname">Combo</tt> widget. It is subclassed from the
+<tt class="classname">ComboBox</tt> widget and contains a child
+<tt class="classname">Entry</tt> widget that has its contents set by selecting
+an item in the dropdown list or by direct text entry either from the
+keyboard or by pasting from a <tt class="classname">Clipboard</tt> or a
+selection.</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-BasicComboBoxEntry"></a>16.2.2.1. Basic ComboBoxEntry Use</h4></div></div><div></div></div><p>Like the <tt class="classname">ComboBox</tt>, the
+<tt class="classname">ComboBoxEntry</tt> can be created using the convenience
+function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  comboboxentry = gtk.combo_box_entry_new_text()
+</pre></td></tr></table><p>The <tt class="classname">ComboBoxEntry</tt> should be populated
+using the <tt class="classname">ComboBox</tt> convenience methods described in
+<a href="sec-ComboBoxAndComboboxEntry.html#sec-BasicComboBox" title="16.2.1.1. Basic ComboBox Use">Section 16.2.1.1, “Basic ComboBox Use”</a>.</p><p>Since a <tt class="classname">ComboBoxEntry</tt> widget is a
+<tt class="classname">Bin</tt> widget its child <tt class="classname">Entry</tt>
+widget is available using the "child" attribute or the
+<tt class="methodname">get_child</tt>() method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  entry = comboboxentry.child
+  entry = comboboxentry.get_child()
+</pre></td></tr></table><p>You can retrieve the <tt class="classname">Entry</tt> text using its
+<tt class="methodname">get_text</tt>() method.</p><p>Like the <tt class="classname">ComboBox</tt>, you can track changes
+in the active list item by connecting to the "changed"
+signal. Unfortunately, this doesn't help track changes to the text in the
+<tt class="classname">Entry</tt> child that are direct entry. When a direct
+entry is made to the child <tt class="classname">Entry</tt> widget the "changed"
+signal will be emitted but the index returned by the
+<tt class="methodname">get_active</tt>() method will be -1. To track all
+changes to the <tt class="classname">Entry</tt> text, you'll have to use the
+<tt class="classname">Entry</tt> "changed" signal. For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def changed_cb(entry):
+      print entry.get_text()
+
+  comboboxentry.child.connect('changed', changed_cb)
+</pre></td></tr></table><p>will print out the text after every change in the child
+<tt class="classname">Entry</tt> widget. For example, the <a href="examples/comboboxentrybasic.py" target="_top">comboboxentrybasic.py</a> program
+demonstrates the use of the convenience API. <a href="sec-ComboBoxAndComboboxEntry.html#comboboxentrybasicfig" title="Figure 16.7. Basic ComboBoxEntry">Figure 16.7, “Basic ComboBoxEntry”</a> illustrates the program in
+operation:</p><div class="figure"><a name="comboboxentrybasicfig"></a><p class="title"><b>Figure 16.7. Basic ComboBoxEntry</b></p><div class="mediaobject" align="center"><img src="figures/comboboxentrybasic.png" align="middle" alt="Basic ComboBoxEntry"></div></div><p>Note that when the <tt class="classname">Entry</tt> text is changed
+due to the selection of a dropdown list item the "changed" handler is called
+twice: once when the text is cleared; and, once when the text is set with
+the selected list item text.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec=AdvancedComboBoxEntry"></a>16.2.2.2. Advanced ComboBoxEntry Use</h4></div></div><div></div></div><p>The constructor for a ComboBoxEntry is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  comboboxentry = gtk.ComboBoxEntry(<b class="parameter"><tt>model</tt></b>=None, <b class="parameter"><tt>column</tt></b>=-1)
+</pre></td></tr></table><p>where <i class="parameter"><tt>model</tt></i> is a
+<tt class="classname">TreeModel</tt> and <i class="parameter"><tt>column</tt></i> is the
+number of the column in <i class="parameter"><tt>model</tt></i> to use for setting the
+list items. If column is not specified the default value is -1 which means
+the text column is unset.</p><p>Creating a <tt class="classname">ComboBoxEntry</tt> using the
+convenience function <tt class="function">gtk.combo_box_entry_new_text</tt>() is
+equivalent to the following:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  liststore = gtk.ListStore(str)
+  comboboxentry = gtk.ComboBoxEntry(liststore, 0)
+</pre></td></tr></table><p>The <tt class="classname">ComboBoxEntry</tt> adds a couple of
+methods that are used to set and retrieve the
+<tt class="classname">TreeModel</tt> column number to use for setting the list
+item strings:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  comboboxentry.set_text_column(<b class="parameter"><tt>text_column</tt></b>)
+  text_column = comboboxentry.get_text_column()
+</pre></td></tr></table><p>The text column can also be retrieved and set using the
+"text-column" property. See <a href="sec-ComboBoxAndComboboxEntry.html#sec-AdvancedComboBox" title="16.2.1.2. Advanced ComboBox Use">Section 16.2.1.2, “Advanced ComboBox Use”</a> for
+more information on the advanced use of the
+<tt class="classname">ComboBoxEntry</tt>.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Your application must set the text column for the
+<tt class="classname">ComboBoxEntry</tt> to set the <tt class="classname">Entry</tt>
+contents from the dropdown list. The text column can only be set once,
+either by using the constructor or by using the
+<tt class="methodname">set_text_column</tt>() method.</p></div><p>When a <tt class="classname">ComboBoxEntry</tt> is created it is
+packed with a new <tt class="classname">CellRendererText</tt> which is not
+accessible. The 'text' attribute for the
+<tt class="classname">CellRendererText</tt> has to be set as a side effect of
+setting the text column using the <tt class="methodname">set_text_column</tt>()
+method. You can pack additional <tt class="classname">CellRenderer</tt>s into a
+<tt class="classname">ComboBoxEntry</tt> for display in the dropdown list. See
+<a href="sec-ComboBoxAndComboboxEntry.html#sec-AdvancedComboBox" title="16.2.1.2. Advanced ComboBox Use">Section 16.2.1.2, “Advanced ComboBox Use”</a> for more information.</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-NewInPyGTK2.4.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-NewInPyGTK2.4.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-ColorButtonAndFontButton.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 16. New Widgets in PyGTK 2.4 </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.3. ColorButton and FontButton Widgets</td></tr></table></div></body></html>

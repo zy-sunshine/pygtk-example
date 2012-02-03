@@ -1,0 +1,52 @@
+# German translation of PACKAGE.
+# Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# manatlan <manatlan@gmail.com>, 2006.
+# , fuzzy
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: jBroutPluginComment VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-18 17:09+1300\n"
+"PO-Revision-Date: 2009-12-16 17:19+0100\n"
+"Last-Translator: Paul Dorn <lomex13@googlemail.com>\n"
+"Language-Team: German <lomex13@googlemail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../tmp/comment.glade.h:1
+msgid "All Selection"
+msgstr "Gesamte Auswahl"
+
+#. def menuEntries(self,l):
+#. return [(2000,_("Comment"),True,self.comment,"gfx/gtk-edit.png")]
+#: ../tmp/comment.glade.h:2 ../plugins/comment/__init__.py:27
+msgid "Comment"
+msgstr "Kommentieren"
+
+#: ../tmp/comment.glade.h:3
+msgid "One by One"
+msgstr "Jedes Einzeln"
+
+#: ../plugins/comment/comment.py:52
+#, python-format
+msgid "%d photo(s)"
+msgstr "%d Foto(s)"
+
+#: ../plugins/comment/__init__.py:42 ../plugins/comment/__init__.py:47
+msgid "Commenting"
+msgstr "Speichere Kommentare"
+
+#~ msgid "Photo %d/%d : %s "
+#~ msgstr "Photo %d/%d : %s "
+
+#, fuzzy
+#~ msgid "comment(%s)"
+#~ msgstr "Commenter"
+
+#, fuzzy
+#~ msgid "Photo comment"
+#~ msgstr "Commenter"

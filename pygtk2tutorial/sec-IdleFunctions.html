@@ -1,0 +1,20 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>19.3. Idle Functions</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TimeoutsIOAndIdleFunctions.html" title="Chapter 19. Timeouts, IO and Idle Functions"><link rel="previous" href="sec-MonitoringIO.html" title="19.2. Monitoring IO"><link rel="next" href="ch-AdvancedEventAndSignalHandling.html" title="Chapter 20. Advanced Event and Signal Handling"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">19.3. Idle Functions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-MonitoringIO.html">Prev</a> </td><th width="60%" align="center">Chapter 19. Timeouts, IO and Idle Functions</th><td width="20%" align="right"> <a accesskey="n" href="ch-AdvancedEventAndSignalHandling.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-IdleFunctions"></a>19.3. Idle Functions</h2></div></div><div></div></div><p>What if you have a function which you want to be called when
+nothing else is happening ? Use the function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  source_id = gobject.idle_add(<i class="parameter"><tt>callback</tt></i>, ...)
+</pre></td></tr></table><p>Any arguments beyond the first (indicated with ...) are passed to
+the <i class="parameter"><tt>callback</tt></i> in order. The
+<i class="parameter"><tt>source_id</tt></i> is returned to provide a reference to the
+handler.</p><p>This function causes GTK to call the specified
+<i class="parameter"><tt>callback</tt></i> function whenever nothing else is
+happening.</p><p>The <i class="parameter"><tt>callback</tt></i> signature is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def callback(...):
+</pre></td></tr></table><p>where the arguments passed to the <tt class="function">callback</tt>
+are the same as those specified in the
+<tt class="function">gobject.idle_add</tt>() function. As with the other callback
+functions, returning <tt class="literal">FALSE</tt> will stop the idle callback
+from being called and returning <tt class="literal">TRUE</tt> causes the callback
+function to be run at the next idle time.</p><p>An idle function can be removed from the queue by calling the
+function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  gobject.source_remove(<i class="parameter"><tt>source_id</tt></i>)
+</pre></td></tr></table><p>with the <i class="parameter"><tt>source_id</tt></i> returned from the
+<tt class="function">gobject.idle_add</tt>() function.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-MonitoringIO.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TimeoutsIOAndIdleFunctions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch-AdvancedEventAndSignalHandling.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">19.2. Monitoring IO </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 20. Advanced Event and Signal Handling</td></tr></table></div></body></html>

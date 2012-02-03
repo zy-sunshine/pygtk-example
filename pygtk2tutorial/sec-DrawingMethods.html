@@ -1,0 +1,301 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>12.2. Drawing Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-DrawingArea.html" title="Chapter 12. Drawing Area"><link rel="previous" href="ch-DrawingArea.html" title="Chapter 12. Drawing Area"><link rel="next" href="ch-TextViewWidget.html" title="Chapter 13. TextView Widget"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.2. Drawing Methods</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-DrawingArea.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Drawing Area</th><td width="20%" align="right"> <a accesskey="n" href="ch-TextViewWidget.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-DrawingMethods"></a>12.2. Drawing Methods</h2></div></div><div></div></div><p>There are a general set of methods that can be used to draw onto
+the drawing area 'canvas'. These drawing methods can be used for any
+<tt class="classname">gtk.gdk.Drawable</tt> subclass (either a
+<tt class="classname">gtk.gdk.Window</tt> or a
+<tt class="classname">gtk.gdk.Pixmap</tt>). The drawing methods are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_point(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context to be used to do
+the drawing.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the
+coordinates of the point.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_line(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x1</tt></b>, <b class="parameter"><tt>y1</tt></b>, <b class="parameter"><tt>x2</tt></b>, <b class="parameter"><tt>y2</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>x1</tt></i> and <i class="parameter"><tt>y1</tt></i> specify
+the starting point of the line. <i class="parameter"><tt>x2</tt></i> and
+<i class="parameter"><tt>y2</tt></i> specify the ending point of the line.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_rectangle(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>filled</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>filled</tt></i> is a boolean indicating the
+rectangle should be filled with the foreground color if
+<tt class="literal">TRUE</tt> or not filled, if <tt class="literal">FALSE</tt>.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the top
+left corner of the rectangle.</p><p><i class="parameter"><tt>width</tt></i> and
+<i class="parameter"><tt>height</tt></i> are the width and height of the
+rectangle.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_arc(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>filled</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>, <b class="parameter"><tt>angle1</tt></b>, <b class="parameter"><tt>angle2</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>filled</tt></i> is a boolean indicating the arc
+should be filled with the foreground color if <tt class="literal">TRUE</tt> or not
+filled, if <tt class="literal">FALSE</tt>.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the top
+left corner of the bounding rectangle. <i class="parameter"><tt>width</tt></i> and
+<i class="parameter"><tt>height</tt></i> are the width and height of the bounding
+rectangle.</p><p><i class="parameter"><tt>angle1</tt></i> is the start angle of the arc,
+relative to the 3 o'clock position, counter-clockwise, in 1/64ths of a
+degree.</p><p><i class="parameter"><tt>angle2</tt></i> is the end angle of the arc,
+relative to <i class="parameter"><tt>angle1</tt></i>, in 1/64ths of a degree counter
+clockwise.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_polygon(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>filled</tt></b>, <b class="parameter"><tt>points</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>filled</tt></i> is a boolean indicating the polygon
+should be filled with the foreground color if <tt class="literal">TRUE</tt> or not filled, if <tt class="literal">FALSE</tt>.</p><p><i class="parameter"><tt>points</tt></i> is a list of coordinate pairs in
+tuples e.g. [ (0,0), (2,5), (3,7), (4,11) ] of the points to be drawn as a
+connected polygon.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_string(<b class="parameter"><tt>font</tt></b>, <b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>string</tt></b>)
+
+  drawable.draw_text(<b class="parameter"><tt>font</tt></b>, <b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>string</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>font</tt></i> is the
+<tt class="classname">gtk.gdk.Font</tt> to use to render the string.</p><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the
+coordinates of the point to start rendering the string i.e the left
+baseline.</p><p><i class="parameter"><tt>string</tt></i> is the string of characters to
+render.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Both the <tt class="methodname">draw_string</tt>() and
+<tt class="methodname">draw_text</tt>() methods are deprecated - use a
+<tt class="classname">pango.Layout</tt> instead with the
+<tt class="methodname">draw_layout</tt>() method.</p></div><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_layout(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>layout</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the
+coordinates of the point to start rendering the layout.</p><p><i class="parameter"><tt>layout</tt></i> is the
+<tt class="classname">pango.Layout</tt> that is to be rendered.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_drawable(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>src</tt></b>, <b class="parameter"><tt>xsrc</tt></b>, <b class="parameter"><tt>ysrc</tt></b>, <b class="parameter"><tt>xdest</tt></b>, <b class="parameter"><tt>ydest</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>src</tt></i> is the source drawable.</p><p><i class="parameter"><tt>xsrc</tt></i> and <i class="parameter"><tt>ysrc</tt></i> are the
+coordinates of the top left rectangle in the source drawable.</p><p><i class="parameter"><tt>xdest</tt></i> and <i class="parameter"><tt>ydest</tt></i> are the
+coordinates of the top left corner in the drawing area.</p><p><i class="parameter"><tt>width</tt></i> and <i class="parameter"><tt>height</tt></i> are
+the width and height of the source drawable area to be copied to the
+<i class="parameter"><tt>drawable</tt></i>. If <i class="parameter"><tt>width</tt></i> or
+<i class="parameter"><tt>height</tt></i> is -1 then the full width or height of the
+<i class="parameter"><tt>drawable</tt></i> is used.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_image(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>image</tt></b>, <b class="parameter"><tt>xsrc</tt></b>, <b class="parameter"><tt>ysrc</tt></b>, <b class="parameter"><tt>xdest</tt></b>, <b class="parameter"><tt>ydest</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>image</tt></i> is the source image.</p><p><i class="parameter"><tt>xsrc</tt></i> and <i class="parameter"><tt>ysrc</tt></i> are the
+coordinates of the top left rectangle in the source drawable.</p><p><i class="parameter"><tt>xdest</tt></i> and <i class="parameter"><tt>ydest</tt></i> are the
+coordinates of the top left corner in the drawing area.</p><p><i class="parameter"><tt>width</tt></i> and <i class="parameter"><tt>height</tt></i> are
+the width and height of the source drawable area to be copied to the
+<i class="parameter"><tt>drawable</tt></i>. If <i class="parameter"><tt>width</tt></i> or
+<i class="parameter"><tt>height</tt></i> is -1 then the full width or height of the
+<i class="parameter"><tt>image</tt></i> is used.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_points(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>points</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>points</tt></i> is a list or tuple of coordinate
+pairs in tuples e.g. [ (0,0), (2,5), (3,7), (4,11) ] of the points to be
+drawn.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_segments(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>segs</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>segs</tt></i> is a list or tuple of start and end
+coordinate pairs in tuples e.g. [ (0,0, 1,5), (2,5, 1,7), (3,7, 1,11),
+(4,11, 1,13) ] of the line segments to be drawn.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_lines(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>points</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>points</tt></i> is a list or tuple of coordinate
+pairs in tuples e.g. [ (0,0), (2,5), (3,7), (4,11) ] of the points to be
+connected with lines.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable.draw_rgb_image(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>, <b class="parameter"><tt>dith</tt></b>, <b class="parameter"><tt>rgb_buf</tt></b>, <b class="parameter"><tt>rowstride</tt></b>)
+
+  drawable.draw_rgb_32_image(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>, <b class="parameter"><tt>dith</tt></b>, <b class="parameter"><tt>buf</tt></b>, <b class="parameter"><tt>rowstride</tt></b>)
+
+  drawable.draw_gray_image(<b class="parameter"><tt>gc</tt></b>, <b class="parameter"><tt>x</tt></b>, <b class="parameter"><tt>y</tt></b>, <b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>, <b class="parameter"><tt>dith</tt></b>, <b class="parameter"><tt>buf</tt></b>, <b class="parameter"><tt>rowstride</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>gc</tt></i> is the Graphics Context.</p><p><i class="parameter"><tt>x</tt></i> and <i class="parameter"><tt>y</tt></i> are the top
+left corner of the image bounding rectangle.</p><p><i class="parameter"><tt>width</tt></i> and <i class="parameter"><tt>height</tt></i> are
+the width and height of the image bounding rectangle.</p><p><i class="parameter"><tt>dith</tt></i> is the dither mode as described
+below</p><p>For the <tt class="methodname">draw_rgb_image</tt>() method,
+<i class="parameter"><tt>rgb_buf</tt></i> is the RGB Image data packed in a string as a
+sequence of 8-bit RGB pixel triplets. For the
+<tt class="methodname">draw_rgb_32_image</tt>() method,
+<i class="parameter"><tt>buf</tt></i> is the RGB Image data packed in a string as a
+sequence of 8-bit RGB pixel triplets with 8-bit padding (4 characters per
+RGB pixel). For the <tt class="methodname">draw_gray_image</tt>() method,
+<i class="parameter"><tt>buf</tt></i> is the gray image data packed in a string as
+8-bit pixel data.</p><p><i class="parameter"><tt>rowstride</tt></i> is the number of characters from
+the start of one row to the start of the next row of the image.
+<i class="parameter"><tt>rowstride</tt></i> usually defaults to: 3 *
+<i class="parameter"><tt>width</tt></i> for the
+<tt class="methodname">draw_rgb_image</tt>() method; 4 *
+<i class="parameter"><tt>width</tt></i> for the
+<tt class="methodname">draw_rgb_32_image</tt>(); and,
+<i class="parameter"><tt>width</tt></i> for the
+<tt class="methodname">draw_gray_image</tt>() method. If
+<i class="parameter"><tt>rowstride</tt></i> is 0 the line will be replicated
+<i class="parameter"><tt>height</tt></i> times.</p><p>The <i class="parameter"><tt>dither</tt></i> modes are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  RGB_DITHER_NONE    # Never use dithering.
+
+  RGB_DITHER_NORMAL  # Use dithering in 8 bits per pixel (and below) only.
+
+  RGB_DITHER_MAX     # Use dithering in 16 bits per pixel and below.
+</pre></td></tr></table><p>The <a href="examples/drawingarea.py" target="_top"><span><b class="command">drawingarea.py</b></span></a>
+example program demonstrates the use of most of the
+<tt class="classname">DrawingArea</tt> methods. It also puts the
+<tt class="classname">DrawingArea</tt> inside a
+<tt class="classname">ScrolledWindow</tt> and adds horizontal and vertical
+<tt class="classname">Ruler</tt> widgets. <a href="sec-DrawingMethods.html#drawingareafig" title="Figure 12.1. Drawing Area Example">Figure 12.1, “Drawing Area Example”</a> shows
+the program in operation:</p><div class="figure"><a name="drawingareafig"></a><p class="title"><b>Figure 12.1. Drawing Area Example</b></p><div class="mediaobject" align="center"><img src="figures/drawingarea.png" align="middle" alt="Drawing Area Example"></div></div><p>The <a href="examples/drawingarea.py" target="_top"><span><b class="command">drawingarea.py</b></span></a>
+source code is below and uses the <a href="examples/gtk.xpm" target="_top"><tt class="filename">gtk.xpm</tt></a> pixmap:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1   #!/usr/bin/env python
+    2
+    3   # example drawingarea.py
+    4
+    5   import pygtk
+    6   pygtk.require('2.0')
+    7   import gtk
+    8   import operator
+    9   import time
+   10   import string
+   11
+   12   class DrawingAreaExample:
+   13       def __init__(self):
+   14           window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+   15           window.set_title("Drawing Area Example")
+   16           window.connect("destroy", lambda w: gtk.main_quit())
+   17           self.area = gtk.DrawingArea()
+   18           self.area.set_size_request(400, 300)
+   19           self.pangolayout = self.area.create_pango_layout("")
+   20           self.sw = gtk.ScrolledWindow()
+   21           self.sw.add_with_viewport(self.area)
+   22           self.table = gtk.Table(2,2)
+   23           self.hruler = gtk.HRuler()
+   24           self.vruler = gtk.VRuler()
+   25           self.hruler.set_range(0, 400, 0, 400)
+   26           self.vruler.set_range(0, 300, 0, 300)
+   27           self.table.attach(self.hruler, 1, 2, 0, 1, yoptions=0)
+   28           self.table.attach(self.vruler, 0, 1, 1, 2, xoptions=0)
+   29           self.table.attach(self.sw, 1, 2, 1, 2)
+   30           window.add(self.table)
+   31           self.area.set_events(gtk.gdk.POINTER_MOTION_MASK |
+   32                                gtk.gdk.POINTER_MOTION_HINT_MASK )
+   33           self.area.connect("expose-event", self.area_expose_cb)
+   34           def motion_notify(ruler, event):
+   35               return ruler.emit("motion_notify_event", event)
+   36           self.area.connect_object("motion_notify_event", motion_notify,
+   37                                    self.hruler)
+   38           self.area.connect_object("motion_notify_event", motion_notify,
+   39                                    self.vruler)
+   40           self.hadj = self.sw.get_hadjustment()
+   41           self.vadj = self.sw.get_vadjustment()
+   42           def val_cb(adj, ruler, horiz):
+   43               if horiz:
+   44                   span = self.sw.get_allocation()[3]
+   45               else:
+   46                   span = self.sw.get_allocation()[2]
+   47               l,u,p,m = ruler.get_range()
+   48               v = adj.value
+   49               ruler.set_range(v, v+span, p, m)
+   50               while gtk.events_pending():
+   51                   gtk.main_iteration()
+   52           self.hadj.connect('value-changed', val_cb, self.hruler, True)
+   53           self.vadj.connect('value-changed', val_cb, self.vruler, False)
+   54           def size_allocate_cb(wid, allocation):
+   55               x, y, w, h = allocation
+   56               l,u,p,m = self.hruler.get_range()
+   57               m = max(m, w)
+   58               self.hruler.set_range(l, l+w, p, m)
+   59               l,u,p,m = self.vruler.get_range()
+   60               m = max(m, h)
+   61               self.vruler.set_range(l, l+h, p, m)
+   62           self.sw.connect('size-allocate', size_allocate_cb)
+   63           self.area.show()
+   64           self.hruler.show()
+   65           self.vruler.show()
+   66           self.sw.show()
+   67           self.table.show()
+   68           window.show()
+   69
+   70       def area_expose_cb(self, area, event):
+   71           self.style = self.area.get_style()
+   72           self.gc = self.style.fg_gc[gtk.STATE_NORMAL]
+   73           self.draw_point(10,10)
+   74           self.draw_points(110, 10)
+   75           self.draw_line(210, 10)
+   76           self.draw_lines(310, 10)
+   77           self.draw_segments(10, 100)
+   78           self.draw_rectangles(110, 100)
+   79           self.draw_arcs(210, 100)
+   80           self.draw_pixmap(310, 100)
+   81           self.draw_polygon(10, 200)
+   82           self.draw_rgb_image(110, 200)
+   83           return True
+   84
+   85       def draw_point(self, x, y):
+   86           self.area.window.draw_point(self.gc, x+30, y+30)
+   87           self.pangolayout.set_text("Point")
+   88           self.area.window.draw_layout(self.gc, x+5, y+50, self.pangolayout)
+   89           return
+   90
+   91       def draw_points(self, x, y):
+   92           points = [(x+10,y+10), (x+10,y), (x+40,y+30),
+   93                     (x+30,y+10), (x+50,y+10)]
+   94           self.area.window.draw_points(self.gc, points)
+   95           self.pangolayout.set_text("Points")
+   96           self.area.window.draw_layout(self.gc, x+5, y+50, self.pangolayout)
+   97           return
+   98
+   99       def draw_line(self, x, y):
+  100           self.area.window.draw_line(self.gc, x+10, y+10, x+20, y+30)
+  101           self.pangolayout.set_text("Line")
+  102           self.area.window.draw_layout(self.gc, x+5, y+50, self.pangolayout)
+  103           return
+  104
+  105       def draw_lines(self, x, y):
+  106           points = [(x+10,y+10), (x+10,y), (x+40,y+30),
+  107                     (x+30,y+10), (x+50,y+10)]
+  108           self.area.window.draw_lines(self.gc, points)
+  109           self.pangolayout.set_text("Lines")
+  110           self.area.window.draw_layout(self.gc, x+5, y+50, self.pangolayout)
+  111           return
+  112
+  113       def draw_segments(self, x, y):
+  114           segments = ((x+20,y+10, x+20,y+70), (x+60,y+10, x+60,y+70),
+  115               (x+10,y+30 , x+70,y+30), (x+10, y+50 , x+70, y+50))
+  116           self.area.window.draw_segments(self.gc, segments)
+  117           self.pangolayout.set_text("Segments")
+  118           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  119           return
+  120
+  121       def draw_rectangles(self, x, y):
+  122           self.area.window.draw_rectangle(self.gc, False, x, y, 80, 70)
+  123           self.area.window.draw_rectangle(self.gc, True, x+10, y+10, 20, 20)
+  124           self.area.window.draw_rectangle(self.gc, True, x+50, y+10, 20, 20)
+  125           self.area.window.draw_rectangle(self.gc, True, x+20, y+50, 40, 10)
+  126           self.pangolayout.set_text("Rectangles")
+  127           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  128           return
+  129
+  130       def draw_arcs(self, x, y):
+  131           self.area.window.draw_arc(self.gc, False, x+10, y, 70, 70,
+  132                                     0, 360*64)
+  133           self.area.window.draw_arc(self.gc, True, x+30, y+20, 10, 10,
+  134                                     0, 360*64)
+  135           self.area.window.draw_arc(self.gc, True, x+50, y+20, 10, 10,
+  136                                     0, 360*64)
+  137           self.area.window.draw_arc(self.gc, True, x+30, y+10, 30, 50,
+  138                                     210*64, 120*64)
+  139           self.pangolayout.set_text("Arcs")
+  140           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  141           return
+  142
+  143       def draw_pixmap(self, x, y):
+  144           pixmap, mask = gtk.gdk.pixmap_create_from_xpm(
+  145               self.area.window, self.style.bg[gtk.STATE_NORMAL], "gtk.xpm")
+  146
+  147           self.area.window.draw_drawable(self.gc, pixmap, 0, 0, x+15, y+25,
+  148                                          -1, -1)
+  149           self.pangolayout.set_text("Pixmap")
+  150           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  151           return
+  152
+  153       def draw_polygon(self, x, y):
+  154           points = [(x+10,y+60), (x+10,y+20), (x+40,y+70),
+  155                     (x+30,y+30), (x+50,y+40)]
+  156           self.area.window.draw_polygon(self.gc, True, points)
+  157           self.pangolayout.set_text("Polygon")
+  158           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  159           return
+  160
+  161       def draw_rgb_image(self, x, y):
+  162           b = 80*3*80*['\0']
+  163           for i in range(80):
+  164               for j in range(80):
+  165                   b[3*80*i+3*j] = chr(255-3*i)
+  166                   b[3*80*i+3*j+1] = chr(255-3*abs(i-j))
+  167                   b[3*80*i+3*j+2] = chr(255-3*j)
+  168           buff = string.join(b, '')
+  169           self.area.window.draw_rgb_image(self.gc, x, y, 80, 80,
+  170                                    gtk.gdk.RGB_DITHER_NONE, buff, 80*3)
+  171           self.pangolayout.set_text("RGB Image")
+  172           self.area.window.draw_layout(self.gc, x+5, y+80, self.pangolayout)
+  173           return
+  174
+  175   def main():
+  176       gtk.main()
+  177       return 0
+  178
+  179   if __name__ == "__main__":
+  180       DrawingAreaExample()
+  181       main()
+</pre></td></tr></table></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-DrawingArea.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-DrawingArea.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch-TextViewWidget.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 12. Drawing Area </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 13. TextView Widget</td></tr></table></div></body></html>

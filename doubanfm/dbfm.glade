@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy project-wide -->
+  <widget class="GtkWindow" id="mainWindow">
+    <property name="width_request">440</property>
+    <property name="height_request">190</property>
+    <property name="title" translatable="yes">DoubanFM</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <property name="urgency_hint">True</property>
+    <signal name="destroy_event" handler="on_mainWindow_destroy_event"/>
+    <signal name="delete_event" handler="on_mainWindow_delete_event"/>
+    <child>
+      <widget class="GtkLayout" id="layout1">
+        <property name="visible">True</property>
+        <child>
+          <widget class="GtkButton" id="skipButton">
+            <property name="label" translatable="yes">Skip</property>
+            <property name="width_request">60</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_skipButton_clicked"/>
+          </widget>
+          <packing>
+            <property name="x">150</property>
+            <property name="y">140</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkButton" id="loginWindowButton">
+            <property name="label" translatable="yes">Login</property>
+            <property name="width_request">60</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+            <signal name="clicked" handler="on_loginWindowButton_clicked" object="loginWindow"/>
+          </widget>
+          <packing>
+            <property name="x">3</property>
+            <property name="y">65</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkLabel" id="songDetail">
+            <property name="width_request">178</property>
+            <property name="height_request">114</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">detail</property>
+            <property name="wrap">True</property>
+            <property name="wrap_mode">char</property>
+            <property name="selectable">True</property>
+          </widget>
+          <packing>
+            <property name="x">115</property>
+            <property name="y">7</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkButton" id="nextButton">
+            <property name="label" translatable="yes">Next</property>
+            <property name="width_request">60</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_nextButton_clicked"/>
+          </widget>
+          <packing>
+            <property name="x">10</property>
+            <property name="y">140</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkImage" id="photo">
+            <property name="width_request">150</property>
+            <property name="height_request">150</property>
+            <property name="visible">True</property>
+            <property name="stock">gtk-network</property>
+          </widget>
+          <packing>
+            <property name="x">290</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkToggleButton" id="pauseButton">
+            <property name="label" translatable="yes">Pause/Resume</property>
+            <property name="width_request">107</property>
+            <property name="height_request">58</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_pauseButton_clicked"/>
+            <signal name="released" handler="on_pauseButton_released"/>
+            <signal name="toggled" handler="on_pauseButton_toggled"/>
+          </widget>
+        </child>
+        <child>
+          <widget class="GtkToggleButton" id="favButton">
+            <property name="label" translatable="yes">Fav</property>
+            <property name="width_request">60</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="toggled" handler="on_favButton_toggled"/>
+          </widget>
+          <packing>
+            <property name="x">80</property>
+            <property name="y">140</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkComboBox" id="channelList">
+            <property name="width_request">140</property>
+            <property name="height_request">29</property>
+            <property name="visible">True</property>
+            <signal name="changed" handler="on_channelList_changed"/>
+          </widget>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkButton" id="logoutButton">
+            <property name="label" translatable="yes">Logout</property>
+            <property name="width_request">60</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+            <signal name="clicked" handler="on_logoutButton_clicked"/>
+          </widget>
+          <packing>
+            <property name="x">3</property>
+            <property name="y">100</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkLinkButton" id="linkbutton1">
+            <property name="label" translatable="yes">Source</property>
+            <property name="width_request">59</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="relief">none</property>
+            <property name="uri">http://ciciyins.com/yinseny/code/linux-pygtk-doubanfm</property>
+          </widget>
+          <packing>
+            <property name="x">373</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

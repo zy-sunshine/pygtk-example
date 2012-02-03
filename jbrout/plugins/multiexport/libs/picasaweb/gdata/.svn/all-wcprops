@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata
+END
+test_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/test_data.py
+END
+gauth.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/gauth.py
+END
+data.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/data.py
+END
+urlfetch.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/urlfetch.py
+END
+sample_util.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/sample_util.py
+END
+client.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/client.py
+END
+test_config_template.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/test_config_template.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/__init__.py
+END
+service.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/service.py
+END
+auth.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/auth.py
+END
+test_config.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/test_config.py
+END

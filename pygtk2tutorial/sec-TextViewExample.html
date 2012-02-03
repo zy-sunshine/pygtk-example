@@ -1,0 +1,75 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>13.7. A TextView Example</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TextViewWidget.html" title="Chapter 13. TextView Widget"><link rel="previous" href="sec-TextTagsAndTextTagTables.html" title="13.6. Text Tags and Tag Tables"><link rel="next" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.7. A TextView Example</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TextTagsAndTextTagTables.html">Prev</a> </td><th width="60%" align="center">Chapter 13. TextView Widget</th><td width="20%" align="right"> <a accesskey="n" href="ch-TreeViewWidget.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TextViewExample"></a>13.7. A TextView Example</h2></div></div><div></div></div><p>The <a href="examples/testtext.py" target="_top"><span><b class="command">testtext.py</b></span></a> example
+program (derived from the <tt class="filename">testtext.c</tt> program included
+in the GTK+ 2.0.x distribution) demonstrates the use of the
+<tt class="classname">TextView</tt> widget and its associated objects:
+<tt class="classname">TextBuffer</tt>s, <tt class="classname">TextIter</tt>s,
+<tt class="classname">TextMark</tt>s, <tt class="classname">TextTag</tt>s,
+<tt class="classname">TextTagTable</tt>s.  <a href="sec-TextViewExample.html#testtextfig" title="Figure 13.2. TextView Example">Figure 13.2, “TextView Example”</a>
+illustrates its operation:</p><div class="figure"><a name="testtextfig"></a><p class="title"><b>Figure 13.2. TextView Example</b></p><div class="mediaobject" align="center"><img src="figures/testtext.png" align="middle" alt="TextView Example"></div></div><p>The <a href="examples/testtext.py" target="_top"><span><b class="command">testtext.py</b></span></a> program
+defines a number of classes in addition to the application class
+<tt class="classname">TestText</tt>:</p><div class="itemizedlist"><ul type="disc"><li><p><tt class="classname">Buffer</tt> class, lines 99-496, is
+subclassed from the <tt class="classname">gtk.TextBuffer</tt> type.  It provides
+the editing buffer capabilities used by the <tt class="classname">View</tt>
+objects.</p></li><li><p><tt class="classname">View</tt> class, lines 498-1126, is
+subclassed from the <tt class="classname">gtk.Window</tt> type and wraps a
+<tt class="classname">gtk.TextView</tt> object that uses a
+<tt class="classname">Buffer</tt> object instead of a
+<tt class="classname">gtk.TextBuffer</tt> object. It provides a window and the
+visual display of the contents of a <tt class="classname">Buffer</tt> object as
+well as a menubar.</p></li><li><p><tt class="classname">FileSel</tt> class, lines 73-97, is
+subclassed from the <tt class="classname">gtk.FileSelection</tt> type to provide
+selection of filenames for the <tt class="classname">Buffer</tt>
+contents.</p></li><li><p><tt class="classname">Stack</tt> class to provide simple stack
+objects.</p></li></ul></div><p>The color cycle display is implemented by using text tags applied
+to a section of text in a buffer. Lines 109-115 (in the
+<tt class="methodname">__init__</tt>() method) create these tags and lines
+763-784 (<tt class="methodname">do_apply_colors</tt>() method) apply the color
+tags to a section of text two characters at a time. Lines 202-239 provide
+the methods (<tt class="methodname">color_cycle_timeout</tt>(),
+<tt class="methodname">set_colors</tt>() and
+<tt class="methodname">cycle_colors</tt>()) that produce the color cycle
+display when enabled. Color cycling is enabled by setting (line 220) the
+<i class="parameter"><tt>foreground_gdk</tt></i> property of the individual
+<i class="parameter"><tt>color_tags</tt></i> (which also sets the
+<i class="parameter"><tt>foreground_set</tt></i> property). Color cycling is disabled
+by setting the <i class="parameter"><tt>foreground_set</tt></i> property to
+<tt class="literal">FALSE</tt> (line 222).  The colors are periodically changed by
+shifting the <i class="parameter"><tt>start_hue</tt></i> (line 237)</p><p>A new <tt class="classname">Buffer</tt> is filled with example content
+when the
+<span class="guimenu">Test</span>-&gt;<span class="guimenuitem">Example</span>
+menu item is selected (the <tt class="methodname">fill_example_buffer</tt>()
+method in lines 302-372).  The example buffer contains text of various
+colors, styles and languages and pixbufs. The
+<tt class="methodname">init_tags</tt>() method (lines 260-300) sets up a
+variety of <tt class="classname">TextTag</tt>s for use with the example text.
+The event signal of these tags is connected to the
+<tt class="methodname">tag_event_handler</tt>() method (lines 241-256) to
+illustrate button and motion event capture.</p><p>The <tt class="classname">TextView</tt> wrap mode is set to WRAP_WORD
+(line 580) and the <tt class="classname">TextView</tt> border windows are
+displayed by setting their sizes in lines 587-588 and line 596-597. The left
+and right border windows are used to display line numbers and the top and
+bottom border windows display the tab locations when custom tabs are
+set. The border windows are updated when an "expose-event" signal is
+received by the <tt class="classname">TextView</tt> (lines 590 and 599). The
+<tt class="methodname">line_numbers_expose</tt>() method (lines 1079-1116)
+determines whether the left or right border window has an expose event and
+if so calculates the size of the expose area. Then the location of the line
+start and the line number for each line in the exposed area is calculated in
+the <tt class="methodname">get_lines</tt>() method (lines 1057-1077).  The line
+numbers are then drawn in the border window at the location (transformed by
+line 1109).</p><p>The custom tab locations are displayed in the top and bottom
+border windows in a similar fashion (lines 1013-1055). They are displayed
+only when the cursor is moved inside a range of text that has the custom tab
+attribute set. This is detected by handling the "mark-set" signal in the
+<tt class="methodname">cursor_set_handler</tt>() method (lines 999-1011) and
+invalidating the top and bottom border windows if the mark set is the
+<i class="parameter"><tt>insert</tt></i> mark.</p><p>Movable widgets are added to a <tt class="classname">View</tt> with
+the <tt class="methodname">do_add_children</tt>() method (lines 892-899) which
+calls the <tt class="methodname">add_movable_children</tt>() method (lines
+874-890). The children are <tt class="classname">gtk.Label</tt>s that can be
+dragged around inside the various windows that are part of a
+<tt class="classname">TextView</tt> widget.</p><p>Likewise, widgets are added to the <tt class="classname">TextView</tt>
+windows of a <tt class="classname">View</tt> and the
+<tt class="classname">Buffer</tt> by using the
+<tt class="methodname">do_add_focus_children</tt>() method (lines
+901-949).</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TextTagsAndTextTagTables.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TextViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch-TreeViewWidget.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.6. Text Tags and Tag Tables </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 14. Tree View Widget</td></tr></table></div></body></html>

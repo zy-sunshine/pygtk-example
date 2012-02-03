@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/analytics
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/analytics/__init__.py
+END
+service.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/analytics/service.py
+END

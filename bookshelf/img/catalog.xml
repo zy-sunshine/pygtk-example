@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cataloglist>
+	<catalog type="RecentRead" name="最近阅读"/>
+	<catalog type="RecentAdd" name="最近添加"/>
+	<catalog type="AutoPay" name="自动订阅"/>
+	<catalog type="Magazine" name="期刊杂志"/>
+  <catalog type="App" name="我的应用"/>
+</cataloglist>

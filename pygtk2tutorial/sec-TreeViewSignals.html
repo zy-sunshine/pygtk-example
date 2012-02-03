@@ -1,0 +1,26 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>14.7. TreeView Signals</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"><link rel="previous" href="sec-ManipulatingTreeViews.html" title="14.6. Manipulating TreeViews"><link rel="next" href="sec-TreeSelections.html" title="14.8. TreeSelections"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.7. TreeView Signals</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-ManipulatingTreeViews.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Tree View Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-TreeSelections.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TreeViewSignals"></a>14.7. TreeView Signals</h2></div></div><div></div></div><p><tt class="classname">TreeView</tt>s emit a large number of signals
+that you can use to track changes in the view of the model. The signals
+generally fall into the following categories:</p><div class="itemizedlist"><ul type="disc"><li>expanding and collapsing rows: "row-collapsed",
+"row-expanded", "test-collapse-row", "test-expand-row" and
+"expand-collapse-cursor-row"</li><li>the cursor: "cursor-changed", "expand-collapse-cursor-row",
+"move-cursor", "select-cursor-parent", "select-cursor-row" and
+"toggle-cursor-row"</li><li>selection: "select-all", "select-cursor-parent",
+"select-cursor-row" and "unselect-all".</li><li>miscellaneous: "columns-changed", "row-activated",
+"set-scroll-adjustments" and "start-interactive-search".</li></ul></div><p>The "test-collapse-row" and "test-expand-row" signals are emitted
+before a row is collapsed or expanded. The return value from your callback
+can cancel or allow the operation - <tt class="literal">TRUE</tt> to allow and
+<tt class="literal">FALSE</tt> to cancel.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def callback(treeview, iter, path, user_data)
+</pre></td></tr></table><p>where <i class="parameter"><tt>iter</tt></i> is a
+<tt class="classname">TreeIter</tt> and <i class="parameter"><tt>path</tt></i> is a tree
+path pointing at the row and <i class="parameter"><tt>user_data</tt></i> is the data
+specified in the <tt class="methodname">connect</tt>() method.</p><p>The "row-activated" signal is emitted when a double click occurs
+on a row or a non-editable row is selected and one of the keys:
+<span><b class="keycap">Space</b></span>, <span><b class="keycap">Shift</b></span>+<span><b class="keycap">Space</b></span>,
+<span><b class="keycap">Return</b></span> or <span><b class="keycap">Enter</b></span> is pressed.</p><p>The rest of the signals are emitted after the
+<tt class="classname">TreeView</tt> has changed. The cursor is the row outlined
+by a box. In most cases moving the cursor also moves the selection. The
+cursor can be moved independently by <span><b class="keycap">Control</b></span>+<span><b class="keycap">Down</b></span> or
+<span><b class="keycap">Control</b></span>+<span><b class="keycap">Up</b></span> and various other key combinations.</p><p>See the <a href="http://www.pygtk.org/pygtk2reference/class-gtktreeview.html" target="_top">PyGTK
+Reference Manual</a> for more information on the
+<tt class="classname">TreeView</tt> signals.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-ManipulatingTreeViews.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TreeViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-TreeSelections.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.6. Manipulating TreeViews </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.8. TreeSelections</td></tr></table></div></body></html>

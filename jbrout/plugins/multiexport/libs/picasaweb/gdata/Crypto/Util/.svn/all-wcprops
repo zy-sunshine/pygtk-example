@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util
+END
+RFC1751.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util/RFC1751.py
+END
+number.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util/number.py
+END
+randpool.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util/randpool.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util/__init__.py
+END
+test.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/Crypto/Util/test.py
+END

@@ -1,0 +1,8 @@
+style "default"
+{
+    engine "clearlooks"
+    {
+    }
+}
+
+class "GtkWidget" style "default"

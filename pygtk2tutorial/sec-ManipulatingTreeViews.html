@@ -1,0 +1,34 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>14.6. Manipulating TreeViews</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"><link rel="previous" href="sec-TreeViewColumns.html" title="14.5. TreeViewColumns"><link rel="next" href="sec-TreeViewSignals.html" title="14.7. TreeView Signals"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.6. Manipulating TreeViews</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TreeViewColumns.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Tree View Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-TreeViewSignals.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-ManipulatingTreeViews"></a>14.6. Manipulating TreeViews</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ManagingColumns"></a>14.6.1. Managing Columns</h3></div></div><div></div></div><p>The <tt class="classname">TreeViewColumn</tt>s in a
+<tt class="classname">TreeView</tt> can be retrieved singly or as a list using
+the methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn = treeview.get_column(<b class="parameter"><tt>n</tt></b>)
+  columnlist = treeview.get_columns()
+</pre></td></tr></table><p>where <i class="parameter"><tt>n</tt></i> is the index (starting from 0)
+of the column to retrieve. A column can be removed using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeview.remove_column(<b class="parameter"><tt>column</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>column</tt></i> is a
+<tt class="classname">TreeViewColumn</tt> in
+<i class="parameter"><tt>treeview</tt></i>.</p><p>Rows that have child rows are displayed in the
+<tt class="classname">TreeView</tt> with an expander arrow (see <a href="sec-CellRenderers.html#celldatafuncfig" title="Figure 14.3. CellRenderer Data Function">Figure 14.3, “CellRenderer Data Function”</a>) that the user clicks on to hide or reveal the
+child row(s). The column that the expander arrow is displayed in can be
+changed using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeview.set_expander_column(<b class="parameter"><tt>column</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>column</tt></i> is a
+<tt class="classname">TreeViewColumn</tt> in treeview. This method is useful
+when you want the first column to not indent. For example, <a href="sec-ManipulatingTreeViews.html#treeviewcolumn1expanderfig" title="Figure 14.7. Expander Arrow in Second Column">Figure 14.7, “Expander Arrow in Second Column”</a> illustrates the expander arrow in the
+second column:</p><div class="figure"><a name="treeviewcolumn1expanderfig"></a><p class="title"><b>Figure 14.7. Expander Arrow in Second Column</b></p><div class="mediaobject" align="center"><img src="figures/treeviewcolumn1expander.png" align="middle" alt="Expander Arrow in Second Column"></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ExpandCollapseChildRows"></a>14.6.2. Expanding and Collapsing Child Rows</h3></div></div><div></div></div><p>All the rows displayed in a <tt class="classname">TreeView</tt> can
+be programmatically expanded or collapsed using the following
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeview.expand_all()
+  treeview.collapse_all()
+</pre></td></tr></table><p>These methods are useful if you want to initialize the
+<tt class="classname">TreeView</tt> display to a known state. Individual rows
+can be expanded or collapsed using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeview.expand_row(<b class="parameter"><tt>path</tt></b>, <b class="parameter"><tt>open_all</tt></b>)
+  treeview.collapse_row(<b class="parameter"><tt>path</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>path</tt></i> is the tree path to a row in
+treeview, and if <i class="parameter"><tt>open_all</tt></i> is <tt class="literal">TRUE</tt>
+all descendant rows of <i class="parameter"><tt>path</tt></i> are expanded; otherwise
+just the immediate children are expanded.</p><p>You can determine if a row is expanded using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  is_expanded = treeview.row_expanded(<b class="parameter"><tt>path</tt></b>)
+</pre></td></tr></table></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TreeViewColumns.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TreeViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-TreeViewSignals.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.5. TreeViewColumns </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.7. TreeView Signals</td></tr></table></div></body></html>

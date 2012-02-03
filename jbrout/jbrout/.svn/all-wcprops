@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/338/trunk/jbrout/jbrout
+END
+common.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/270/trunk/jbrout/jbrout/common.py
+END
+tools_old.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/83/trunk/jbrout/jbrout/tools_old.py
+END
+winshow.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/335/trunk/jbrout/jbrout/winshow.py
+END
+commongtk.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/328/trunk/jbrout/jbrout/commongtk.py
+END
+folderselect.glade
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/171/trunk/jbrout/jbrout/folderselect.glade
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/46/trunk/jbrout/jbrout/__init__.py
+END
+tools.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/335/trunk/jbrout/jbrout/tools.py
+END
+externaltools.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/290/trunk/jbrout/jbrout/externaltools.py
+END
+winbookmarks.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/108/trunk/jbrout/jbrout/winbookmarks.py
+END
+listview.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/285/trunk/jbrout/jbrout/listview.py
+END
+winpref.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/256/trunk/jbrout/jbrout/winpref.py
+END
+folderselect.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/172/trunk/jbrout/jbrout/folderselect.py
+END
+pyexiv.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/335/trunk/jbrout/jbrout/pyexiv.py
+END
+db.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/338/trunk/jbrout/jbrout/db.py
+END
+conf.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/334/trunk/jbrout/jbrout/conf.py
+END

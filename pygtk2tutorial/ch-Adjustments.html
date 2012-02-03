@@ -1,0 +1,46 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Chapter 7. Adjustments</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="previous" href="sec-RadioButtons.html" title="6.4. Radio Buttons"><link rel="next" href="sec-UsingAdjustmentsTheEasyWay.html" title="7.2. Using Adjustments the Easy Way"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 7. Adjustments</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-RadioButtons.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="sec-UsingAdjustmentsTheEasyWay.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="ch-Adjustments"></a>Chapter 7. Adjustments</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="ch-Adjustments.html#sec-CreatingAnAdjustment">7.1. Creating an Adjustment</a></span></dt><dt><span class="sect1"><a href="sec-UsingAdjustmentsTheEasyWay.html">7.2. Using Adjustments the Easy Way</a></span></dt><dt><span class="sect1"><a href="sec-AdjustmentInternals.html">7.3. Adjustment Internals</a></span></dt></dl></div><p>GTK has various widgets that can be visually adjusted by the user
+using the mouse or the keyboard, such as the range widgets, described in the
+Range Widgets section. There are also a few widgets that display some
+adjustable portion of a larger area of data, such as the text widget and the
+viewport widget.</p><p>Obviously, an application needs to be able to react to changes the
+user makes in range widgets. One way to do this would be to have each widget
+emit its own type of signal when its adjustment changes, and either pass the
+new value to the signal handler, or require it to look inside the widget's
+data structure in order to ascertain the value. But you may also want to
+connect the adjustments of several widgets together, so that adjusting one
+adjusts the others. The most obvious example of this is connecting a
+scrollbar to a panning viewport or a scrolling text area. If each widget has
+its own way of setting or getting the adjustment value, then the programmer
+may have to write their own signal handlers to translate between the output
+of one widget's signal and the "input" of another's adjustment setting
+method.</p><p>GTK solves this problem using the
+<tt class="classname">Adjustment</tt> object, which is not a widget but a way
+for widgets to store and pass adjustment information in an abstract and
+flexible form. The most obvious use of <tt class="classname">Adjustment</tt> is
+to store the configuration parameters and values of range widgets, such as
+scrollbars and scale controls. However, since
+<tt class="classname">Adjustment</tt>s are derived from
+<tt class="classname">Object</tt>, they have some special powers beyond those of
+normal data structures. Most importantly, they can emit signals, just like
+widgets, and these signals can be used not only to allow your program to
+react to user input on adjustable widgets, but also to propagate adjustment
+values transparently between adjustable widgets.</p><p>You will see how adjustments fit in when you see the other widgets
+that incorporate them: Progress Bars, Viewports, Scrolled Windows, and
+others.</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-CreatingAnAdjustment"></a>7.1. Creating an Adjustment</h2></div></div><div></div></div><p>Many of the widgets which use adjustment objects do so
+automatically, but some cases will be shown in later examples where you may
+need to create one yourself. You create an adjustment using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  adjustment = gtk.Adjustment(<b class="parameter"><tt>value</tt></b>=0, <b class="parameter"><tt>lower</tt></b>=0, <b class="parameter"><tt>upper</tt></b>=0, <b class="parameter"><tt>step_incr</tt></b>=0, <b class="parameter"><tt>page_incr</tt></b>=0, <b class="parameter"><tt>page_size</tt></b>=0)
+</pre></td></tr></table><p>The <i class="parameter"><tt>value</tt></i> argument is the initial value
+you want to give to the <i class="parameter"><tt>adjustment</tt></i>, usually
+corresponding to the topmost or leftmost position of an adjustable
+widget. The <i class="parameter"><tt>lower</tt></i> argument specifies the lowest value
+which the <i class="parameter"><tt>adjustment</tt></i> can hold. The
+<i class="parameter"><tt>step_incr</tt></i> argument specifies the "smaller" of the two
+increments by which the user can change the value, while the
+<i class="parameter"><tt>page_incr</tt></i> is the "larger" one. The
+<i class="parameter"><tt>page_size</tt></i> argument usually corresponds somehow to the
+visible area of a panning widget. The <i class="parameter"><tt>upper</tt></i> argument
+is used to represent the bottom most or right most coordinate in a panning
+widget's child. Therefore it is not always the largest number that
+<i class="parameter"><tt>value</tt></i> can take, since the
+<i class="parameter"><tt>page_size</tt></i> of such widgets is usually non-zero.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-RadioButtons.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-UsingAdjustmentsTheEasyWay.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.4. Radio Buttons </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.2. Using Adjustments the Easy Way</td></tr></table></div></body></html>

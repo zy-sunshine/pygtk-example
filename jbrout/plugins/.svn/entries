@@ -1,0 +1,98 @@
+10
+
+dir
+338
+http://jbrout.googlecode.com/svn/trunk/jbrout/plugins
+http://jbrout.googlecode.com/svn
+
+
+
+2011-07-07T08:34:19.144337Z
+338
+rob@wallace.gen.nz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b4d1b9c4-0e25-0410-a282-091a75307ab2
+
+openExplorer
+dir
+
+comment
+dir
+
+redate
+dir
+
+viewExif
+dir
+
+__init__.py
+file
+
+
+
+
+2012-02-01T03:52:12.412174Z
+af24798657d85c479f5d4f874398dedf
+2009-07-22T22:13:38.029869Z
+256
+manatlan
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11270
+
+download
+dir
+
+ushare
+dir
+
+bulkTag
+dir
+
+foldersByDates
+dir
+
+syncTags
+dir
+
+multiexport
+dir
+
+rotate
+dir
+
+instantWeb
+dir
+

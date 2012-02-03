@@ -1,0 +1,46 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>8.2. Scale Widgets</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-RangeWidgets.html" title="Chapter 8. Range Widgets"><link rel="previous" href="ch-RangeWidgets.html" title="Chapter 8. Range Widgets"><link rel="next" href="sec-CommonRangeMethods.html" title="8.3. Common Range Methods"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.2. Scale Widgets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-RangeWidgets.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Range Widgets</th><td width="20%" align="right"> <a accesskey="n" href="sec-CommonRangeMethods.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-ScaleWidgets"></a>8.2. Scale Widgets</h2></div></div><div></div></div><p><tt class="classname">Scale</tt> widgets are used to allow the user
+to visually select and manipulate a value within a specific range. You might
+want to use a scale widget, for example, to adjust the magnification level
+on a zoomed preview of a picture, or to control the brightness of a color,
+or to specify the number of minutes of inactivity before a screensaver takes
+over the screen.</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2833070"></a>8.2.1. Creating a Scale Widget</h3></div></div><div></div></div><p>As with scrollbars, there are separate widget types for
+horizontal and vertical scale widgets. (Most programmers seem to favour
+horizontal scale widgets.) Since they work essentially the same way, there's
+no need to treat them separately here. The following methods create vertical
+and horizontal scale widgets, respectively:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  vscale = gtk.VScale(<b class="parameter"><tt>adjustment</tt></b>=None)
+
+  hscale = gtk.HScale(<b class="parameter"><tt>adjustment</tt></b>=None)
+</pre></td></tr></table><p>The <i class="parameter"><tt>adjustment</tt></i> argument can either be
+an adjustment which has already been created with
+<tt class="function">gtk.Adjustment</tt>() , or nothing, in which case, an
+anonymous <tt class="classname">Adjustment</tt> is created with all of its
+values set to 0.0 (which isn't very useful in this case). In order to avoid
+confusing yourself, you probably want to create your adjustment with a
+<i class="parameter"><tt>page_size</tt></i> of 0.0 so that its
+<i class="parameter"><tt>upper</tt></i> value actually corresponds to the highest value
+the user can select. (If you're already thoroughly confused, read <a href="ch-Adjustments.html" title="Chapter 7. Adjustments">Chapter 7, <i>Adjustments</i></a> again for an explanation of what exactly
+adjustments do and how to create and manipulate them.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2833123"></a>8.2.2. 	Methods and Signals (well, methods, at least)</h3></div></div><div></div></div><p>Scale widgets can display their current value as a number
+beside the trough. The default behaviour is to show the value, but you can
+change this with this method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  scale.set_draw_value(<b class="parameter"><tt>draw_value</tt></b>)
+</pre></td></tr></table><p>As you might have guessed, <i class="parameter"><tt>draw_value</tt></i>
+is either <tt class="literal">TRUE</tt> or <tt class="literal">FALSE</tt>, with
+predictable consequences for either one.</p><p>The value displayed by a scale widget is rounded to one
+decimal point by default, as is the value field in its
+<tt class="classname">Adjustment</tt>.  You can change this with:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  scale.set_digits(<b class="parameter"><tt>digits</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>digits</tt></i> is the number of decimal
+places you want. You can set digits to anything you like, but no more than
+13 decimal places will actually be drawn on screen.</p><p>Finally, the value can be drawn in different positions
+relative to the trough:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  scale.set_value_pos(<b class="parameter"><tt>pos</tt></b>)
+</pre></td></tr></table><p>The argument <i class="parameter"><tt>pos</tt></i> can take one of the
+following values:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  POS_LEFT
+  POS_RIGHT
+  POS_TOP
+  POS_BOTTOM
+</pre></td></tr></table><p>If you position the value on the "side" of the trough (e.g.,
+on the top or bottom of a horizontal scale widget), then it will follow the
+slider up and down the trough.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-RangeWidgets.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-RangeWidgets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-CommonRangeMethods.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 8. Range Widgets </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.3. Common Range Methods</td></tr></table></div></body></html>

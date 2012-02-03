@@ -1,0 +1,166 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Chapter 14. Tree View Widget</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="previous" href="sec-TextViewExample.html" title="13.7. A TextView Example"><link rel="next" href="sec-TreeModelInterface.html" title="14.2. The TreeModel Interface and Data Stores"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 14. Tree View Widget</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TextViewExample.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="sec-TreeModelInterface.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="ch-TreeViewWidget"></a>Chapter 14. Tree View Widget</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="ch-TreeViewWidget.html#sec-TreeViewOverview">14.1. Overview</a></span></dt><dt><span class="sect1"><a href="sec-TreeModelInterface.html">14.2. The TreeModel Interface and Data Stores</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-TreeModelIntroduction">14.2.1. Introduction</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-CreatingTreeStoreAndListStore">14.2.2. Creating TreeStore and ListStore Objects</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-ReferringToTreeModelRows">14.2.3. Referring to TreeModel Rows</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-AddingStoreRows">14.2.4. Adding Rows</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-RemovingStoreRows">14.2.5. Removing Rows</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-ManagingRowData">14.2.6. Managing Row Data</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-PythonProtocolSupport">14.2.7. Python Protocol Support</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-TreeModelSignals">14.2.8. TreeModel Signals</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelInterface.html#sec-SortingTreeModelRows">14.2.9. Sorting TreeModel Rows</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-TreeViews.html">14.3. TreeViews</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeViews.html#sec-CreatingTreeView">14.3.1. Creating a TreeView</a></span></dt><dt><span class="sect2"><a href="sec-TreeViews.html#sec-TreeViewModelAccess">14.3.2. Getting and Setting the TreeView Model</a></span></dt><dt><span class="sect2"><a href="sec-TreeViews.html#sec-TreeViewProperties">14.3.3. Setting TreeView Properties</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-CellRenderers.html">14.4. CellRenderers</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellRendererOverview">14.4.1. Overview</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellRendererTypes">14.4.2. CellRenderer Types</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellRendererProperties">14.4.3. CellRenderer Properties</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellRendererAttributes">14.4.4. CellRenderer Attributes</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellDataFunction">14.4.5. Cell Data Function</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-CellRendererTextMarkup">14.4.6. CellRendererText Markup</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#EditableTextCells">14.4.7. Editable Text Cells</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-ActivatableToggleCells">14.4.8. Activatable Toggle Cells</a></span></dt><dt><span class="sect2"><a href="sec-CellRenderers.html#sec-EditableActivatableProgram">14.4.9. Editable and Activatable Cell Example Program</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-TreeViewColumns.html">14.5. TreeViewColumns</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeViewColumns.html#sec-CreatingTreeViewColumns">14.5.1. Creating TreeViewColumns</a></span></dt><dt><span class="sect2"><a href="sec-TreeViewColumns.html#sec-ManagingCellRenderers">14.5.2. Managing CellRenderers</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-ManipulatingTreeViews.html">14.6. Manipulating TreeViews</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-ManipulatingTreeViews.html#sec-ManagingColumns">14.6.1. Managing Columns</a></span></dt><dt><span class="sect2"><a href="sec-ManipulatingTreeViews.html#sec-ExpandCollapseChildRows">14.6.2. Expanding and Collapsing Child Rows</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-TreeViewSignals.html">14.7. TreeView Signals</a></span></dt><dt><span class="sect1"><a href="sec-TreeSelections.html">14.8. TreeSelections</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeSelections.html#sec-GettingTheTreeSelection">14.8.1. Getting the TreeSelection</a></span></dt><dt><span class="sect2"><a href="sec-TreeSelections.html#sec-TreeSelectionMode">14.8.2. TreeSelection Modes</a></span></dt><dt><span class="sect2"><a href="sec-TreeSelections.html#sec-RetrievingTheTreeSelection">14.8.3. Retrieving the Selection</a></span></dt><dt><span class="sect2"><a href="sec-TreeSelections.html#sec-TreeSelectionFunction">14.8.4. Using a TreeSelection Function</a></span></dt><dt><span class="sect2"><a href="sec-TreeSelections.html#sec-SelectingAndUnselectingRows">14.8.5. Selecting and Unselecting Rows</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-TreeViewDragAndDrop.html">14.9. TreeView Drag and Drop</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeViewDragAndDrop.html#DragDropReordering">14.9.1. Drag and Drop Reordering</a></span></dt><dt><span class="sect2"><a href="sec-TreeViewDragAndDrop.html#sec-ExternalDragDrop">14.9.2. External Drag and Drop</a></span></dt><dt><span class="sect2"><a href="sec-TreeViewDragAndDrop.html#sec-TreeViewDnDExample">14.9.3. TreeView Drag and Drop Example</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-TreeModelSortAndTreeModelFilter.html">14.10. TreeModelSort and TreeModelFilter</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-TreeModelSortAndTreeModelFilter.html#sec-TreeModelSort">14.10.1. TreeModelSort</a></span></dt><dt><span class="sect2"><a href="sec-TreeModelSortAndTreeModelFilter.html#sec-TreeModelFilter">14.10.2. TreeModelFilter</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-GenericTreeModel.html">14.11. The Generic TreeModel</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-GenericTreeModelOverview">14.11.1. GenericTreeModel Overview</a></span></dt><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-GenericTreeModelInterface">14.11.2. The GenericTreeModel Interface</a></span></dt><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-AddRemoveGenericTreeModelRows">14.11.3. Adding and Removing Rows</a></span></dt><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-GenericTreeModelMemoryManagement">14.11.4. Memory Management</a></span></dt><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-OtherInterfaces">14.11.5. Other Interfaces</a></span></dt><dt><span class="sect2"><a href="sec-GenericTreeModel.html#sec-ApplyingGenericTreeModel">14.11.6. Applying The GenericTreeModel</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-GenericCellRenderer.html">14.12. The Generic CellRenderer</a></span></dt></dl></div><p>The <tt class="classname">TreeView</tt> widget displays lists and trees
+displaying multiple columns. It replaces the previous set of List,
+<tt class="classname">CList</tt>, <tt class="classname">Tree</tt> and
+<tt class="classname">CTree</tt> widgets with a much more powerful and flexible
+set of objects that use the Model-View-Controller (MVC) principle to provide
+the following features:</p><div class="itemizedlist"><ul type="disc"><li>two pre-defined models: one for lists and one for
+trees</li><li>multiple views of the same model are automatically
+updated when the model changes</li><li>selective display of the model data</li><li>use of model data to customize the TreeView display on a
+row-by-row basis</li><li>pre-defined data rendering objects for displaying text,
+images and boolean data</li><li>stackable models for providing sorted and filtered views of
+the underlying model data</li><li>reorderable and resizeable columns</li><li>automatic sort by clicking column headers</li><li>drag and drop support</li><li>support for custom models entirely written in
+Python</li><li>support for custom cell renderers entirely written in
+Python</li></ul></div><p>Of course, all this capability comes at the price of a significantly
+more complex set of objects and interfaces that appear overwhelming at
+first. In the rest of this chapter we'll explore the TreeView objects and
+interfaces to reach an understanding of common usage. The more esoteric
+aspects, you'll have to explore on your own.</p><p>We'll start with a quick overview tour of the objects and interfaces
+and then dive into the <tt class="classname">TreeModel</tt> interface and the
+predefined <tt class="classname">ListStore</tt> and
+<tt class="classname">TreeStore</tt> classes.</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TreeViewOverview"></a>14.1. Overview</h2></div></div><div></div></div><p>A <tt class="classname">TreeView</tt> widget is the user interface
+object that displays the data stored in an object that implements the
+<tt class="classname">TreeModel</tt> interface. Two base tree model classes are
+provided in PyGTK 2.0:</p><div class="itemizedlist"><ul type="disc"><li>the <tt class="classname">TreeStore</tt> that provides
+hierarchical data storage organized as tree rows with columnar data. Each
+tree row can have zero or more child rows. All rows must have the same
+number of columns.</li><li>the <tt class="classname">ListStore</tt> that provides tabular
+data storage organized in rows and columns similar to a table in a
+relational database. The <tt class="classname">ListStore</tt> is really a
+simplified version of a <tt class="classname">TreeStore</tt> where the rows have
+no children. It has been created to provide a simpler (and presumably more
+efficient) interface to this common data model. And,</li></ul></div><p>The two additional tree models stack on top of (or interpose on)
+the base models:</p><div class="itemizedlist"><ul type="disc"><li>the <tt class="classname">TreeModelSort</tt> that provides a
+model where the data of the underlying tree model is maintained in a sorted
+order. And,</li><li>the <tt class="classname">TreeModelFilter</tt> that provides a
+model containing a subset of the data in the underlying model. Note this
+model is available only in PyGTK 2.4 and above.</li></ul></div><p>A <tt class="classname">TreeView</tt> displays all of the rows of a
+<tt class="classname">TreeModel</tt> but may display only some of the columns.
+Also the columns may be
+presented in a different order than the <tt class="classname">TreeModel</tt>
+stores them.</p><p>The <tt class="classname">TreeView</tt> uses
+<tt class="classname">TreeViewColumn</tt> objects to organize the display of the
+columnar data. Each <tt class="classname">TreeViewColumn</tt> displays one
+column with an optional header that may contain the data from several
+<tt class="classname">TreeModel</tt> columns. The individual
+<tt class="classname">TreeViewColumn</tt>s are packed (similar to
+<tt class="classname">HBox</tt> containers) with
+<tt class="classname">CellRenderer</tt> objects to render the display of the
+associated data from a <tt class="classname">TreeModel</tt> row and column
+location. There are three predefined <tt class="classname">CellRenderer</tt>
+classes:</p><div class="itemizedlist"><ul type="disc"><li>the <tt class="classname">CellRendererPixbuf</tt> that renders
+a pixbuf image into the cells of a
+<tt class="classname">TreeViewColumn</tt>.</li><li>the <tt class="classname">CellRendererText</tt> that renders a
+string into the cells of a <tt class="classname">TreeViewColumn</tt>. It will
+convert the column data to a string format if needed i.e. if displaying a
+model column containing float data, the
+<tt class="classname">CellRendererText</tt> will convert it to a string before
+rendering it.</li><li>the <tt class="classname">CellRendererToggle</tt> that renders
+a boolean value as a toggle button into the cells of a
+<tt class="classname">TreeViewColumn</tt>.</li></ul></div><p>A <tt class="classname">TreeViewColumn</tt> can contain several
+<tt class="classname">CellRenderer</tt> objects to provide a column that, for
+example, may have an image and text packed together.</p><p>Finally, the <tt class="classname">TreeIter</tt>,
+<tt class="classname">TreeRowReference</tt> and
+<tt class="classname">TreeSelection</tt> objects provide a transient pointer to
+a row in a <tt class="classname">TreeModel</tt>, a persistent pointer to a row
+in a <tt class="classname">TreeModel</tt> and an object managing the selections
+in a <tt class="classname">TreeView</tt>.</p><p>A <tt class="classname">TreeView</tt> display is composed using the
+following general operations not necessarily in this order:</p><div class="itemizedlist"><ul type="disc"><li>A tree model object is created usually a
+<tt class="classname">ListStore</tt> or <tt class="classname">TreeStore</tt> with
+one or more columns of a specified data type.</li><li>The tree model may be populated with one or more rows of
+data.</li><li>A <tt class="classname">TreeView</tt> widget is created and
+associated with the tree model.</li><li>One or more <tt class="classname">TreeViewColumn</tt>s are
+created and inserted in the <tt class="classname">TreeView</tt>. Each of these
+will present a single display column.</li><li>For each <tt class="classname">TreeViewColumn</tt> one or more
+<tt class="classname">CellRenderer</tt>s are created and added to the
+<tt class="classname">TreeViewColumn</tt>.</li><li>The attributes of each <tt class="classname">CellRenderer</tt>
+are set to indicate from which column of the tree model to retrieve the
+attribute data. for example the text to be rendered. This allows the
+<tt class="classname">CellRenderer</tt> to render each column in a row
+differently.</li><li>The <tt class="classname">TreeView</tt> is inserted and
+displayed in a <tt class="classname">Window</tt> or
+<tt class="classname">ScrolledWindow</tt>.</li><li>The data in the tree model is manipulated programmatically
+in response to user actions. The <tt class="classname">TreeView</tt> will
+automatically track the changes.</li></ul></div><p>The example program <a href="examples/basictreeview.py" target="_top"><span><b class="command">basictreeview.py</b></span></a>
+illustrates the creation and display of a simple
+<tt class="classname">TreeView</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1   #!/usr/bin/env python
+    2
+    3   # example basictreeview.py
+    4
+    5   import pygtk
+    6   pygtk.require('2.0')
+    7   import gtk
+    8
+    9   class BasicTreeViewExample:
+   10
+   11       # close the window and quit
+   12       def delete_event(self, widget, event, data=None):
+   13           gtk.main_quit()
+   14           return False
+   15
+   16       def __init__(self):
+   17           # Create a new window
+   18           self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+   19
+   20           self.window.set_title("Basic TreeView Example")
+   21
+   22           self.window.set_size_request(200, 200)
+   23
+   24           self.window.connect("delete_event", self.delete_event)
+   25
+   26           # create a TreeStore with one string column to use as the model
+   27           self.treestore = gtk.TreeStore(str)
+   28
+   29           # we'll add some data now - 4 rows with 3 child rows each
+   30           for parent in range(4):
+   31               piter = self.treestore.append(None, ['parent %i' % parent])
+   32               for child in range(3):
+   33                   self.treestore.append(piter, ['child %i of parent %i' %
+   34                                                 (child, parent)])
+   35
+   36           # create the TreeView using treestore
+   37           self.treeview = gtk.TreeView(self.treestore)
+   38
+   39           # create the TreeViewColumn to display the data
+   40           self.tvcolumn = gtk.TreeViewColumn('Column 0')
+   41
+   42           # add tvcolumn to treeview
+   43           self.treeview.append_column(self.tvcolumn)
+   44
+   45           # create a CellRendererText to render the data
+   46           self.cell = gtk.CellRendererText()
+   47
+   48           # add the cell to the tvcolumn and allow it to expand
+   49           self.tvcolumn.pack_start(self.cell, True)
+   50
+   51           # set the cell "text" attribute to column 0 - retrieve text
+   52           # from that column in treestore
+   53           self.tvcolumn.add_attribute(self.cell, 'text', 0)
+   54
+   55           # make it searchable
+   56           self.treeview.set_search_column(0)
+   57
+   58           # Allow sorting on the column
+   59           self.tvcolumn.set_sort_column_id(0)
+   60
+   61           # Allow drag and drop reordering of rows
+   62           self.treeview.set_reorderable(True)
+   63
+   64           self.window.add(self.treeview)
+   65
+   66           self.window.show_all()
+   67
+   68   def main():
+   69       gtk.main()
+   70
+   71   if __name__ == "__main__":
+   72       tvexample = BasicTreeViewExample()
+   73       main()
+</pre></td></tr></table><p>In real programs the <tt class="classname">TreeStore</tt> would likely
+be populated with data after the <tt class="classname">TreeView</tt> is
+displayed due to some user action. We'll look at the details of the
+<tt class="classname">TreeView</tt> interfaces in more detail in the sections to
+come. <a href="ch-TreeViewWidget.html#basictreeviewfig" title="Figure 14.1. Basic TreeView Example Program">Figure 14.1, “Basic TreeView Example Program”</a> shows the window created by the
+<a href="examples/basictreeview.py" target="_top"><span><b class="command">basictreeview.py</b></span></a>
+program after a couple of parent rows have been expanded.</p><div class="figure"><a name="basictreeviewfig"></a><p class="title"><b>Figure 14.1. Basic TreeView Example Program</b></p><div class="mediaobject" align="center"><img src="figures/basictreeview.png" align="middle" alt="Basic TreeView Example Program"></div></div><p>Next let's examine the <tt class="classname">TreeModel</tt> interface
+and the models that implement it.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TextViewExample.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-TreeModelInterface.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.7. A TextView Example </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.2. The TreeModel Interface and Data Stores</td></tr></table></div></body></html>

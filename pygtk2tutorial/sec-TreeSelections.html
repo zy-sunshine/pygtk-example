@@ -1,0 +1,133 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>14.8. TreeSelections</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"><link rel="previous" href="sec-TreeViewSignals.html" title="14.7. TreeView Signals"><link rel="next" href="sec-TreeViewDragAndDrop.html" title="14.9. TreeView Drag and Drop"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.8. TreeSelections</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TreeViewSignals.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Tree View Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-TreeViewDragAndDrop.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TreeSelections"></a>14.8. TreeSelections</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-GettingTheTreeSelection"></a>14.8.1. Getting the TreeSelection</h3></div></div><div></div></div><p><tt class="classname">TreeSelection</tt>s are objects that manage
+selections in a <tt class="classname">TreeView</tt>. When a
+<tt class="classname">TreeView</tt> is created a
+<tt class="classname">TreeSelection</tt> is automatically created as well. The
+<tt class="classname">TreeSelection</tt> can be retrieved from the <tt class="classname">TreeView</tt>
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection = treeview.get_selection()
+</pre></td></tr></table><p>You can retrieve the <tt class="classname">TreeView</tt> associated
+with a <tt class="classname">TreeSelection</tt> by calling the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeview = treeselection.get_treeview()
+</pre></td></tr></table></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-TreeSelectionMode"></a>14.8.2. TreeSelection Modes</h3></div></div><div></div></div><p>The <tt class="classname">TreeSelection</tt> supports the following
+selection modes:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term"><tt class="literal">gtk.SELECTION_NONE</tt></span></td><td>No selection is allowed.</td></tr><tr><td><span class="term"><tt class="literal">gtk.SELECTION_SINGLE</tt></span></td><td>A single selection is allowed by clicking.</td></tr><tr><td><span class="term"><tt class="literal">gtk.SELECTION_BROWSE</tt></span></td><td>A single selection allowed by browsing with the pointer.</td></tr><tr><td><span class="term"><tt class="literal">gtk.SELECTION_MULTIPLE</tt></span></td><td>Multiple items can be selected at once.</td></tr></tbody></table><p>You can retrieve the current selection mode by calling the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  mode = treeselection.get_mode()
+</pre></td></tr></table><p>The mode can be set using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection.set_mode(<b class="parameter"><tt>mode</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>mode</tt></i> is one of the above selection
+modes.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-RetrievingTheTreeSelection"></a>14.8.3. Retrieving the Selection</h3></div></div><div></div></div><p>The method to use to retrieve the selection depends on the
+current selection mode. If the selection mode is
+<tt class="literal">gtk.SELECTION_SINGLE</tt> or
+<tt class="literal">gtk.SELECTION_BROWSE</tt>, you should use the following
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  (model, iter) = treeselection.get_selected()
+</pre></td></tr></table><p>that returns a 2-tuple containing <i class="parameter"><tt>model</tt></i>,
+the <tt class="classname">TreeModel</tt> used by the
+<tt class="classname">TreeView</tt> associated with
+<i class="parameter"><tt>treeselection</tt></i> and <i class="parameter"><tt>iter</tt></i>, a
+<tt class="classname">TreeIter</tt> pointing at the selected row. If no row is
+selected then <i class="parameter"><tt>iter</tt></i> is <tt class="literal">None</tt>. If the
+selection mode is <tt class="literal">gtk.SELECTION_MULTIPLE</tt> a TypeError
+exception is raised.</p><p>If you have a <tt class="classname">TreeView</tt> using the
+<tt class="literal">gtk.SELECTION_MULTIPLE</tt> selection mode then you should use
+the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  (model, pathlist) = treeselection.get_selected_rows()
+</pre></td></tr></table><p>that returns a 2-tuple containing the tree model and a list of
+the tree paths of the selected rows. This method is not available in PyGTK
+2.0 so you'll have to use a helper function to retrieve the list by
+using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection.selected_foreach(<i class="parameter"><tt>func</tt></i>, <i class="parameter"><tt>data</tt></i>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>func</tt></i> is a function that is called
+on each selected row with <i class="parameter"><tt>data</tt></i>. The signature of
+<i class="parameter"><tt>func</tt></i> is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def func(<i class="parameter"><tt>model</tt></i>, <i class="parameter"><tt>path</tt></i>, <i class="parameter"><tt>iter</tt></i>, <i class="parameter"><tt>data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>model</tt></i> is the
+<tt class="classname">TreeModel</tt>, <i class="parameter"><tt>path</tt></i> is the tree
+path of the selected row and <i class="parameter"><tt>iter</tt></i> is a
+<tt class="classname">TreeIter</tt> pointing at the selected row.</p><p>This method can be used to simulate the
+<tt class="methodname">get_selected_row</tt>() method as follows:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  ...
+  def foreach_cb(model, path, iter, pathlist):
+      list.append(path)
+  ...
+  def my_get_selected_rows(treeselection):
+      pathlist = []
+      treeselection.selected_foreach(foreach_cb, pathlist)
+      model = sel.get_treeview().get_model()
+      return (model, pathlist)
+  ...
+</pre></td></tr></table><p>The <tt class="methodname">selected_foreach</tt>() method cannot be
+used to modify the tree model or the selection though you can change the
+data in the rows.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-TreeSelectionFunction"></a>14.8.4. Using a TreeSelection Function</h3></div></div><div></div></div><p>If you want ultimate control over row selection you can set a
+function to be called before a row is selected or unselected by using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection.set_select_function(<i class="parameter"><tt>func</tt></i>, <i class="parameter"><tt>data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>func</tt></i> is a callback function and
+<i class="parameter"><tt>data</tt></i> is user data to be passed to
+<i class="parameter"><tt>func</tt></i> when it is called. <i class="parameter"><tt>func</tt></i>
+has the signature:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def func(<i class="parameter"><tt>selection</tt></i>, <i class="parameter"><tt>model</tt></i>, <i class="parameter"><tt>path</tt></i>, <i class="parameter"><tt>is_selected</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>selection</tt></i> is the
+<tt class="classname">TreeSelection</tt>, <i class="parameter"><tt>model</tt></i> is the
+<tt class="classname">TreeModel</tt> used with the
+<tt class="classname">TreeView</tt> associated with
+<i class="parameter"><tt>selection</tt></i>, <i class="parameter"><tt>path</tt></i> is the tree
+path of the selected row, <i class="parameter"><tt>is_selected</tt></i> is
+<tt class="literal">TRUE</tt> if the row is currently selected and
+<i class="parameter"><tt>user_data</tt></i> is
+<i class="parameter"><tt>data</tt></i>. <i class="parameter"><tt>func</tt></i> should return
+<tt class="literal">TRUE</tt> if the row's selection status should be
+toggled.</p><p>Setting a select function is useful if:</p><div class="itemizedlist"><ul type="disc"><li>you want to control the selection or unselection of a row
+based on some additional context information. You will need to indicate in
+some way that the selection change can't be made and perhaps why. For
+example, you can visually differentiate the row or pop up a
+<tt class="classname">MessageDialog</tt>.</li><li>you need to maintain your own list of selected or
+unselected rows though this can also be done by connecting to the "changed"
+signal but with more effort.</li><li>you want to do some additional processing before a row is
+selected or unselected. For example change the look of the row or modify the
+row data.</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-SelectingAndUnselectingRows"></a>14.8.5. Selecting and Unselecting Rows</h3></div></div><div></div></div><p>You can change the selection programmatically using the
+following methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection.select_path(<b class="parameter"><tt>path</tt></b>)
+  treeselection.unselect_path(<b class="parameter"><tt>path</tt></b>)
+
+  treeselection.select_iter(<b class="parameter"><tt>iter</tt></b>)
+  treeselection.unselect_iter(<b class="parameter"><tt>iter</tt></b>)
+</pre></td></tr></table><p>These methods select or unselect a single row that is specified
+by either <i class="parameter"><tt>path</tt></i>, a tree path or
+<i class="parameter"><tt>iter</tt></i>, a <tt class="classname">TreeIter</tt> pointing at
+the row. The following methods select or unselect several rows at
+once:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeselection.select_all()
+  treeselection.unselect_all()
+
+  treeselection.select_range(<b class="parameter"><tt>start_path</tt></b>, <b class="parameter"><tt>end_path</tt></b>)
+  treeselection.unselect_range(<b class="parameter"><tt>start_path</tt></b>, <b class="parameter"><tt>end_path</tt></b>)
+</pre></td></tr></table><p>The <tt class="methodname">select_all</tt>() method requires that
+the selection mode be <tt class="literal">gtk.SELECTION_MULTIPLE</tt> as does the
+<tt class="methodname">select_range</tt>() method. The
+<tt class="methodname">unselect_all</tt>() and
+<tt class="methodname">unselect_range</tt>() methods will function with any
+selection mode. Note that the <tt class="methodname">unselect_all</tt>() method
+is not available in PyGTK 2.0</p><p>You can check if a row is selected by using one of the
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  result = treeselection.path_is_selected(path)
+  result = treeselection.iter_is_selected(iter)
+</pre></td></tr></table><p>that return <tt class="literal">TRUE</tt> if the row specified by
+<i class="parameter"><tt>path</tt></i> or <i class="parameter"><tt>iter</tt></i> is currently
+selected. You can retrieve a count of the number of selected rows using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  count = treeselection.count_selected_rows()
+</pre></td></tr></table><p>This method is not available in PyGTK 2.0 so you'll have to
+simulate it using the <tt class="methodname">selected_foreach</tt>() method
+similar to the simulation of the
+<tt class="methodname">get_selected_rows</tt>() method in <a href="sec-RetrievingTheSelection.html" title="21.2. Retrieving the Selection">Section 21.2, “Retrieving the Selection”</a>. For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  ...
+  def foreach_cb(model, path, iter, counter):
+      counter[0] += 1
+  ...
+  def my_count_selected_rows(treeselection):
+      counter = [0]
+      treeselection.selected_foreach(foreach_cb, counter)
+      return counter[0]
+  ...
+</pre></td></tr></table></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TreeViewSignals.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TreeViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-TreeViewDragAndDrop.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.7. TreeView Signals </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.9. TreeView Drag and Drop</td></tr></table></div></body></html>

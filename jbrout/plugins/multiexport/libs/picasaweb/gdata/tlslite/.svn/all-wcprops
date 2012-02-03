@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite
+END
+TLSRecordLayer.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/TLSRecordLayer.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/__init__.py
+END
+Checker.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/Checker.py
+END
+X509.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/X509.py
+END
+FileObject.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/FileObject.py
+END
+messages.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/messages.py
+END
+SessionCache.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/SessionCache.py
+END
+HandshakeSettings.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/HandshakeSettings.py
+END
+api.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/api.py
+END
+mathtls.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/mathtls.py
+END
+errors.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/errors.py
+END
+constants.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/constants.py
+END
+BaseDB.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/BaseDB.py
+END
+VerifierDB.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/VerifierDB.py
+END
+TLSConnection.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/TLSConnection.py
+END
+Session.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/Session.py
+END
+SharedKeyDB.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/SharedKeyDB.py
+END
+X509CertChain.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/tlslite/X509CertChain.py
+END

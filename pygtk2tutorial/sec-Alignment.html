@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>10.2. The Alignment widget</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-ContainerWidgets.html" title="Chapter 10. Container Widgets"><link rel="previous" href="ch-ContainerWidgets.html" title="Chapter 10. Container Widgets"><link rel="next" href="sec-Fixed.html" title="10.3. Fixed Container"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.2. The Alignment widget</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-ContainerWidgets.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Container Widgets</th><td width="20%" align="right"> <a accesskey="n" href="sec-Fixed.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-Alignment"></a>10.2. The Alignment widget</h2></div></div><div></div></div><p>The <tt class="classname">Alignment</tt> widget allows you to place
+a widget within its window at a position and size relative to the size of
+the <tt class="classname">Alignment</tt> widget itself. For example, it can be
+very useful for centering a widget within the window.</p><p>There are only two calls associated with the
+<tt class="classname">Alignment</tt> widget:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  alignment = gtk.Alignment(<b class="parameter"><tt>xalign</tt></b>=0.0, <b class="parameter"><tt>yalign</tt></b>=0.0, <b class="parameter"><tt>xscale</tt></b>=0.0, <b class="parameter"><tt>yscale</tt></b>=0.0)
+
+  alignment.set(<b class="parameter"><tt>xalign</tt></b>, <b class="parameter"><tt>yalign</tt></b>, <b class="parameter"><tt>xscale</tt></b>, <b class="parameter"><tt>yscale</tt></b>)
+</pre></td></tr></table><p>The <tt class="function">gtk.Alignment</tt>() function creates a new
+<tt class="classname">Alignment</tt> widget with the specified parameters. The
+<tt class="methodname">set</tt>() method allows the alignment parameters of an
+existing <tt class="classname">Alignment</tt> widget to be altered.</p><p>All four alignment parameters are floating point numbers which
+can range from 0.0 to 1.0. The <i class="parameter"><tt>xalign</tt></i> and
+<i class="parameter"><tt>yalign</tt></i> arguments affect the position of the widget
+placed within the <a href="http://www.pygtk.org/pygtk2reference/class-gtkalignment.html" target="_top"><tt class="classname">gtk.Alignment</tt></a>
+widget. The align properties specify the fraction of
+<span class="emphasis"><em>free</em></span> space that will be placed above or to the left of
+the child widget. The values range from 0.0 (no <span class="emphasis"><em>free</em></span>
+space above or to the left of the child) to 1.0 (all
+<span class="emphasis"><em>free</em></span> space above or to the left of the child). Of
+course, if the scale properties are both set to 1.0, the alignment
+properties have no effect since the child widget will expand to fill the
+available space.</p><p>The <i class="parameter"><tt>xscale</tt></i> and
+<i class="parameter"><tt>yscale</tt></i> arguments specify the fraction of
+<span class="emphasis"><em>free</em></span> space absorbed by the child widget. The values can
+range from 0.0 (meaning the child absorbs none) to 1.0 (meaning the child
+absorbs all of the <span class="emphasis"><em>free</em></span> space).</p><p>A child widget can be added to this
+<tt class="classname">Alignment</tt> widget using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  alignment.add(<b class="parameter"><tt>widget</tt></b>)
+</pre></td></tr></table><p>For an example of using an <tt class="classname">Alignment</tt>
+widget, refer to the <a href="examples/progressbar.py" target="_top"><span><b class="command">progressbar.py</b></span></a>
+example for the Progress Bar widget.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-ContainerWidgets.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-ContainerWidgets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-Fixed.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 10. Container Widgets </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.3. Fixed Container</td></tr></table></div></body></html>

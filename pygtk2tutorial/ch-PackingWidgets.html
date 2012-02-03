@@ -1,0 +1,29 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Chapter 4. Packing Widgets</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="previous" href="sec-UpgradedHelloWorld.html" title="3.2. An Upgraded Hello World"><link rel="next" href="sec-DetailsOfBoxes.html" title="4.2. Details of Boxes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 4. Packing Widgets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-UpgradedHelloWorld.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="sec-DetailsOfBoxes.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="ch-PackingWidgets"></a>Chapter 4. Packing Widgets</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="ch-PackingWidgets.html#sec-TheoryOfPackingBoxes">4.1. Theory of Packing Boxes</a></span></dt><dt><span class="sect1"><a href="sec-DetailsOfBoxes.html">4.2. Details of Boxes</a></span></dt><dt><span class="sect1"><a href="sec-PackingDemonstrationProgram.html">4.3. Packing Demonstration Program</a></span></dt><dt><span class="sect1"><a href="sec-PackingUsingTables.html">4.4. Packing Using Tables</a></span></dt><dt><span class="sect1"><a href="sec-TablePackingExample.html">4.5. Table Packing Example</a></span></dt></dl></div><p>When creating an application, you'll want to put more than one
+widget inside a window. Our first helloworld example only used one widget so
+we could simply use the <tt class="classname">gtk.Container</tt>
+<tt class="methodname">add</tt>() method to "pack" the widget into the window. But
+when you want to put more than one widget into a window, how do you control
+where that widget is positioned? This is where packing comes in.</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TheoryOfPackingBoxes"></a>4.1. Theory of Packing Boxes</h2></div></div><div></div></div><p>Most packing is done by creating boxes. These are invisible
+widget containers that we can pack our widgets into which come in two forms,
+a horizontal box, and a vertical box. When packing widgets into a horizontal
+box, the objects are inserted horizontally from left to right or right to
+left depending on the call used. In a vertical box, widgets are packed from
+top to bottom or vice versa. You may use any combination of boxes inside or
+beside other boxes to create the desired effect.</p><p>To create a new horizontal box, we use a call to
+<tt class="function">gtk.HBox</tt>(), and for vertical boxes,
+<tt class="function">gtk.VBox</tt>() . The <tt class="methodname">pack_start</tt>() and
+<tt class="methodname">pack_end</tt>() methods are used to place objects inside of
+these containers. The <tt class="methodname">pack_start</tt>() method will start at
+the top and work its way down in a vbox, and pack left to right in an hbox.
+The <tt class="methodname">pack_end</tt>() method will do the opposite, packing
+from bottom to top in a vbox, and right to left in an hbox. Using these
+methods allows us to right justify or left justify our widgets and may be
+mixed in any way to achieve the desired effect. We will use
+<tt class="methodname">pack_start</tt>() in most of our examples. An object may be
+another container or a widget. In fact, many widgets are actually containers
+themselves, including the button, but we usually only use a label inside a
+button.</p><p>By using these calls, GTK knows where you want to place your
+widgets so it can do automatic resizing and other nifty things. There are
+also a number of options as to how your widgets should be packed. As you can
+imagine, this method gives us a quite a bit of flexibility when placing and
+creating widgets.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-UpgradedHelloWorld.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-DetailsOfBoxes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.2. An Upgraded Hello World </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.2. Details of Boxes</td></tr></table></div></body></html>

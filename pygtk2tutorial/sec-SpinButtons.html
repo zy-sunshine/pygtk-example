@@ -1,0 +1,290 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>9.10. Spin Buttons</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-MiscellaneousWidgets.html" title="Chapter 9. Miscellaneous Widgets"><link rel="previous" href="sec-TextEntries.html" title="9.9. Text Entries"><link rel="next" href="sec-ComboWidget.html" title="9.11. Combo Widget"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.10. Spin Buttons</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TextEntries.html">Prev</a> </td><th width="60%" align="center">Chapter 9. Miscellaneous Widgets</th><td width="20%" align="right"> <a accesskey="n" href="sec-ComboWidget.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-SpinButtons"></a>9.10. Spin Buttons</h2></div></div><div></div></div><p>The <tt class="classname">SpinButton</tt> widget is generally used
+to allow the user to select a value from a range of numeric values. It
+consists of a text entry box with up and down arrow buttons attached to the
+side. Selecting one of the buttons causes the value to "spin" up and down
+the range of possible values. The entry box may also be edited directly to
+enter a specific value.</p><p>The <tt class="classname">SpinButton</tt> allows the value to have
+zero or more decimal places and to be incremented/decremented in
+configurable steps. The action of holding down one of the buttons optionally
+results in an acceleration of change in the value according to how long it
+is depressed.</p><p>The <tt class="classname">SpinButton</tt> uses an
+<tt class="classname">Adjustment</tt> (see <a href="ch-Adjustments.html" title="Chapter 7. Adjustments">Chapter 7, <i>Adjustments</i></a>) object to hold information about the range
+of values that the spin button can take. This makes for a powerful
+<tt class="classname">SpinButton</tt> widget.</p><p>Recall that an <tt class="classname">Adjustment</tt> widget is
+created with the following function, which illustrates the information that
+it holds:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  adjustment = gtk.Adjustment(<b class="parameter"><tt>value</tt></b>=0, <b class="parameter"><tt>lower</tt></b>=0, <b class="parameter"><tt>upper</tt></b>=0, <b class="parameter"><tt>step_incr</tt></b>=0, <b class="parameter"><tt>page_incr</tt></b>=0, <b class="parameter"><tt>page_size</tt></b>=0)
+</pre></td></tr></table><p>These attributes of an <tt class="classname">Adjustment</tt> are
+used by the <tt class="classname">SpinButton</tt> in the following way:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><i class="parameter"><tt>value</tt></i></td><td>initial value for the Spin Button</td></tr><tr><td><i class="parameter"><tt>lower</tt></i></td><td>lower range value</td></tr><tr><td><i class="parameter"><tt>upper</tt></i></td><td><i class="parameter"><tt>upper</tt></i> range value</td></tr><tr><td><i class="parameter"><tt>step_increment</tt></i></td><td>value to increment/decrement when pressing mouse
+<span class="mousebutton">button-1</span> on a button</td></tr><tr><td><i class="parameter"><tt>page_increment</tt></i></td><td>value to increment/decrement when pressing mouse
+<span class="mousebutton">button-2</span> on a button</td></tr><tr><td><i class="parameter"><tt>page_size</tt></i></td><td>unused</td></tr></tbody></table></div><p>Additionally, mouse <span class="mousebutton">button-3</span> can be
+used to jump directly to the <i class="parameter"><tt>upper</tt></i> or
+<i class="parameter"><tt>lower</tt></i> values when used to select one of the
+buttons. Lets look at how to create a
+<tt class="classname">SpinButton</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button = gtk.SpinButton(<b class="parameter"><tt>adjustment</tt></b>=None, <b class="parameter"><tt>climb_rate</tt></b>=0.0, <b class="parameter"><tt>digits</tt></b>=0)
+</pre></td></tr></table><p>The <i class="parameter"><tt>climb_rate</tt></i> argument take a value
+between 0.0 and 1.0 and indicates the amount of acceleration that the
+<tt class="classname">SpinButton</tt> has. The <i class="parameter"><tt>digits</tt></i>
+argument specifies the number of decimal places to which the value will be
+displayed.</p><p>A <tt class="classname">SpinButton</tt> can be reconfigured after
+creation using the following method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.configure(<b class="parameter"><tt>adjustment</tt></b>, <b class="parameter"><tt>climb_rate</tt></b>, <b class="parameter"><tt>digits</tt></b>)
+</pre></td></tr></table><p>The <i class="parameter"><tt>spin_button</tt></i> argument specifies the
+<tt class="classname">SpinButton</tt> widget that is to be reconfigured. The
+other arguments are as specified above.</p><p>The <i class="parameter"><tt>adjustment</tt></i> can be set and retrieved
+independently using the following two methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_adjustment(<b class="parameter"><tt>adjustment</tt></b>)
+
+  adjustment = spin_button.get_adjustment()
+</pre></td></tr></table><p>The number of decimal places can also be altered using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_digits(<b class="parameter"><tt>digits</tt></b>)
+</pre></td></tr></table><p>The value that a <tt class="classname">SpinButton</tt> is currently
+displaying can be changed using the following method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_value(<b class="parameter"><tt>value</tt></b>)
+</pre></td></tr></table><p>The current value of a <tt class="classname">SpinButton</tt> can be
+retrieved as either a floating point or integer value with the following
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  float_value = spin_button.get_value()
+
+  int_value = spin_button.get_value_as_int()
+</pre></td></tr></table><p>If you want to alter the value of a
+<tt class="classname">SpinButton</tt> relative to its current value, then the
+following method can be used:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.spin(<b class="parameter"><tt>direction</tt></b>, <b class="parameter"><tt>increment</tt></b>)
+</pre></td></tr></table><p>The <i class="parameter"><tt>direction</tt></i> parameter can take one of
+the following values:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  SPIN_STEP_FORWARD
+  SPIN_STEP_BACKWARD
+  SPIN_PAGE_FORWARD
+  SPIN_PAGE_BACKWARD
+  SPIN_HOME
+  SPIN_END
+  SPIN_USER_DEFINED
+</pre></td></tr></table><p>This method packs in quite a bit of functionality, which I will
+attempt to clearly explain. Many of these settings use values from the
+<tt class="classname">Adjustment</tt> object that is associated with a
+<tt class="classname">SpinButton</tt>.</p><p><tt class="literal">SPIN_STEP_FORWARD</tt> and
+<tt class="literal">SPIN_STEP_BACKWARD</tt> change the value of the
+<tt class="classname">SpinButton</tt> by the amount specified by
+<i class="parameter"><tt>increment</tt></i>, unless <i class="parameter"><tt>increment</tt></i> is
+equal to 0, in which case the value is changed by the value of
+<i class="parameter"><tt>step_increment</tt></i> in the
+<tt class="classname">Adjustment</tt>.</p><p><tt class="literal">SPIN_PAGE_FORWARD</tt> and
+<tt class="literal">SPIN_PAGE_BACKWARD</tt> simply alter the value of the
+<tt class="classname">SpinButton</tt> by
+<i class="parameter"><tt>increment</tt></i>.</p><p><tt class="literal">SPIN_HOME</tt> sets the value of the
+<tt class="classname">SpinButton</tt> to the bottom of the
+<tt class="classname">Adjustment</tt> range.</p><p><tt class="literal">SPIN_END</tt> sets the value of the
+<tt class="classname">SpinButton</tt> to the top of the
+<tt class="classname">Adjustment</tt> range.</p><p><tt class="literal">SPIN_USER_DEFINED</tt> simply alters the value of
+the <tt class="classname">SpinButton</tt> by the specified amount.</p><p>We move away from methods for setting and retrieving the range
+attributes of the <tt class="classname">SpinButton</tt> now, and move onto
+methods that effect the appearance and behavior of the
+<tt class="classname">SpinButton</tt> widget itself.</p><p>The first of these methods is used to constrain the text box of
+the <tt class="classname">SpinButton</tt> such that it may only contain a
+numeric value. This prevents a user from typing anything other than numeric
+values into the text box of a <tt class="classname">SpinButton</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_numeric(<b class="parameter"><tt>numeric</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>numeric</tt></i> is <tt class="literal">TRUE</tt> to
+constrain the text entry to numeric values or <tt class="literal">FALSE</tt> to
+unconstrain the text entry.</p><p>You can set whether a <tt class="classname">SpinButton</tt> will
+wrap around between the upper and lower range values with the following
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_wrap(<b class="parameter"><tt>wrap</tt></b>)
+</pre></td></tr></table><p>The <tt class="classname">SpinButton</tt> will wrap when
+<i class="parameter"><tt>wrap</tt></i> is set to <tt class="literal">TRUE</tt>.</p><p>You can set a <tt class="classname">SpinButton</tt> to round the
+value to the nearest <i class="parameter"><tt>step_increment</tt></i>, which is set
+within the <tt class="classname">Adjustment</tt> object used with the
+<tt class="classname">SpinButton</tt>. This is accomplished with the following
+method when <i class="parameter"><tt>snap_to_ticks</tt></i> is
+<tt class="literal">TRUE</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_snap_to_ticks(<b class="parameter"><tt>snap_to_ticks</tt></b>)
+</pre></td></tr></table><p>The update policy of a <tt class="classname">SpinButton</tt> can be
+changed with the following method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.set_update_policy(<b class="parameter"><tt>policy</tt></b>)
+</pre></td></tr></table><p>The possible values of policy are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  UPDATE_ALWAYS
+
+  UPDATE_IF_VALID
+</pre></td></tr></table><p>These policies affect the behavior of a
+<tt class="classname">SpinButton</tt> when parsing inserted text and syncing its
+value with the values of the <tt class="classname">Adjustment</tt>.</p><p>In the case of <tt class="literal">UPDATE_IF_VALID</tt> the
+<tt class="classname">SpinButton</tt> value only gets changed if the text input
+is a numeric value that is within the range specified by the
+<tt class="classname">Adjustment</tt>. Otherwise the text is reset to the
+current value.</p><p>In case of <tt class="literal">UPDATE_ALWAYS</tt> we ignore errors while
+converting text into a numeric value.</p><p>Finally, you can explicitly request that a
+<tt class="classname">SpinButton</tt> update itself:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  spin_button.update()
+</pre></td></tr></table><p>The <a href="examples/spinbutton.py" target="_top"><span><b class="command">spinbutton.py</b></span></a>
+example program illustrates the use of spinbuttons including setting a
+number of characteristics.
+<a href="sec-SpinButtons.html#spingbuttonfig" title="Figure 9.11. Spin Button Example">Figure 9.11, “Spin Button Example”</a> shows the result of running the example
+program:</p><div class="figure"><a name="spingbuttonfig"></a><p class="title"><b>Figure 9.11. Spin Button Example</b></p><div class="mediaobject" align="center"><img src="figures/spinbutton.png" align="middle" alt="Spin Button Example"></div></div><p>The <a href="examples/spinbutton.py" target="_top"><span><b class="command">spinbutton.py</b></span></a> source
+code is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1	#!/usr/bin/env python
+    2	
+    3	# example spinbutton.py
+    4	
+    5	import pygtk
+    6	pygtk.require('2.0')
+    7	import gtk
+    8	
+    9	class SpinButtonExample:
+   10	    def toggle_snap(self, widget, spin):
+   11	        spin.set_snap_to_ticks(widget.get_active())
+   12	
+   13	    def toggle_numeric(self, widget, spin):
+   14	        spin.set_numeric(widget.get_active())
+   15	
+   16	    def change_digits(self, widget, spin, spin1):
+   17	        spin1.set_digits(spin.get_value_as_int())
+   18	
+   19	    def get_value(self, widget, data, spin, spin2, label):
+   20	        if data == 1:
+   21	            buf = "%d" % spin.get_value_as_int()
+   22	        else:
+   23	            buf = "%0.*f" % (spin2.get_value_as_int(),
+   24	                             spin.get_value())
+   25	        label.set_text(buf)
+   26	
+   27	    def __init__(self):
+   28	        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+   29	        window.connect("destroy", lambda w: gtk.main_quit())
+   30	        window.set_title("Spin Button")
+   31	
+   32	        main_vbox = gtk.VBox(False, 5)
+   33	        main_vbox.set_border_width(10)
+   34	        window.add(main_vbox)
+   35	
+   36	        frame = gtk.Frame("Not accelerated")
+   37	        main_vbox.pack_start(frame, True, True, 0)
+   38	  
+   39	        vbox = gtk.VBox(False, 0)
+   40	        vbox.set_border_width(5)
+   41	        frame.add(vbox)
+   42	
+   43	        # Day, month, year spinners
+   44	        hbox = gtk.HBox(False, 0)
+   45	        vbox.pack_start(hbox, True, True, 5)
+   46	  
+   47	        vbox2 = gtk.VBox(False, 0)
+   48	        hbox.pack_start(vbox2, True, True, 5)
+   49	
+   50	        label = gtk.Label("Day :")
+   51	        label.set_alignment(0, 0.5)
+   52	        vbox2.pack_start(label, False, True, 0)
+   53	  
+   54	        adj = gtk.Adjustment(1.0, 1.0, 31.0, 1.0, 5.0, 0.0)
+   55	        spinner = gtk.SpinButton(adj, 0, 0)
+   56	        spinner.set_wrap(True)
+   57	        vbox2.pack_start(spinner, False, True, 0)
+   58	  
+   59	        vbox2 = gtk.VBox(False, 0)
+   60	        hbox.pack_start(vbox2, True, True, 5)
+   61	  
+   62	        label = gtk.Label("Month :")
+   63	        label.set_alignment(0, 0.5)
+   64	        vbox2.pack_start(label, False, True, 0)
+   65	
+   66	        adj = gtk.Adjustment(1.0, 1.0, 12.0, 1.0, 5.0, 0.0)
+   67	        spinner = gtk.SpinButton(adj, 0, 0)
+   68	        spinner.set_wrap(True)
+   69	        vbox2.pack_start(spinner, False, True, 0)
+   70	  
+   71	        vbox2 = gtk.VBox(False, 0)
+   72	        hbox.pack_start(vbox2, True, True, 5)
+   73	  
+   74	        label = gtk.Label("Year :")
+   75	        label.set_alignment(0, 0.5)
+   76	        vbox2.pack_start(label, False, True, 0)
+   77	  
+   78	        adj = gtk.Adjustment(1998.0, 0.0, 2100.0, 1.0, 100.0, 0.0)
+   79	        spinner = gtk.SpinButton(adj, 0, 0)
+   80	        spinner.set_wrap(False)
+   81	        spinner.set_size_request(55, -1)
+   82	        vbox2.pack_start(spinner, False, True, 0)
+   83	  
+   84	        frame = gtk.Frame("Accelerated")
+   85	        main_vbox.pack_start(frame, True, True, 0)
+   86	  
+   87	        vbox = gtk.VBox(False, 0)
+   88	        vbox.set_border_width(5)
+   89	        frame.add(vbox)
+   90	  
+   91	        hbox = gtk.HBox(False, 0)
+   92	        vbox.pack_start(hbox, False, True, 5)
+   93	  
+   94	        vbox2 = gtk.VBox(False, 0)
+   95	        hbox.pack_start(vbox2, True, True, 5)
+   96	  
+   97	        label = gtk.Label("Value :")
+   98	        label.set_alignment(0, 0.5)
+   99	        vbox2.pack_start(label, False, True, 0)
+  100	  
+  101	        adj = gtk.Adjustment(0.0, -10000.0, 10000.0, 0.5, 100.0, 0.0)
+  102	        spinner1 = gtk.SpinButton(adj, 1.0, 2)
+  103	        spinner1.set_wrap(True)
+  104	        spinner1.set_size_request(100, -1)
+  105	        vbox2.pack_start(spinner1, False, True, 0)
+  106	  
+  107	        vbox2 = gtk.VBox(False, 0)
+  108	        hbox.pack_start(vbox2, True, True, 5)
+  109	  
+  110	        label = gtk.Label("Digits :")
+  111	        label.set_alignment(0, 0.5)
+  112	        vbox2.pack_start(label, False, True, 0)
+  113	  
+  114	        adj = gtk.Adjustment(2, 1, 5, 1, 1, 0)
+  115	        spinner2 = gtk.SpinButton(adj, 0.0, 0)
+  116	        spinner2.set_wrap(True)
+  117	        adj.connect("value_changed", self.change_digits, spinner2, spinner1)
+  118	        vbox2.pack_start(spinner2, False, True, 0)
+  119	  
+  120	        hbox = gtk.HBox(False, 0)
+  121	        vbox.pack_start(hbox, False, True, 5)
+  122	
+  123	        button = gtk.CheckButton("Snap to 0.5-ticks")
+  124	        button.connect("clicked", self.toggle_snap, spinner1)
+  125	        vbox.pack_start(button, True, True, 0)
+  126	        button.set_active(True)
+  127	  
+  128	        button = gtk.CheckButton("Numeric only input mode")
+  129	        button.connect("clicked", self.toggle_numeric, spinner1)
+  130	        vbox.pack_start(button, True, True, 0)
+  131	        button.set_active(True)
+  132	  
+  133	        val_label = gtk.Label("")
+  134	  
+  135	        hbox = gtk.HBox(False, 0)
+  136	        vbox.pack_start(hbox, False, True, 5)
+  137	        button = gtk.Button("Value as Int")
+  138	        button.connect("clicked", self.get_value, 1, spinner1, spinner2,
+  139	                       val_label)
+  140	        hbox.pack_start(button, True, True, 5)
+  141	  
+  142	        button = gtk.Button("Value as Float")
+  143	        button.connect("clicked", self.get_value, 2, spinner1, spinner2,
+  144	                       val_label)
+  145	        hbox.pack_start(button, True, True, 5)
+  146	  
+  147	        vbox.pack_start(val_label, True, True, 0)
+  148	        val_label.set_text("0")
+  149	  
+  150	        hbox = gtk.HBox(False, 0)
+  151	        main_vbox.pack_start(hbox, False, True, 0)
+  152	  
+  153	        button = gtk.Button("Close")
+  154	        button.connect("clicked", lambda w: gtk.main_quit())
+  155	        hbox.pack_start(button, True, True, 5)
+  156	        window.show_all()
+  157	
+  158	def main():
+  159	    gtk.main()
+  160	    return 0
+  161	
+  162	if __name__ == "__main__":
+  163	    SpinButtonExample()
+  164	    main()
+</pre></td></tr></table></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TextEntries.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-MiscellaneousWidgets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-ComboWidget.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.9. Text Entries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.11. Combo Widget</td></tr></table></div></body></html>

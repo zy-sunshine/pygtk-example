@@ -1,0 +1,591 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Chapter 16. New Widgets in PyGTK 2.4</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="previous" href="ch-NewInPyGTK2.2.html" title="Chapter 15. New Widgets in PyGTK 2.2"><link rel="next" href="sec-ComboBoxAndComboboxEntry.html" title="16.2. ComboBox and ComboBoxEntry Widgets"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 16. New Widgets in PyGTK 2.4</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-NewInPyGTK2.2.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="sec-ComboBoxAndComboboxEntry.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="ch-NewInPyGTK2.4"></a>Chapter 16. New Widgets in PyGTK 2.4</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="ch-NewInPyGTK2.4.html#sec-ActionsAndActionGroups">16.1. The Action and ActionGroup Objects</a></span></dt><dd><dl><dt><span class="sect2"><a href="ch-NewInPyGTK2.4.html#sec-Actions">16.1.1. Actions</a></span></dt><dt><span class="sect2"><a href="ch-NewInPyGTK2.4.html#sec-ActionGroups">16.1.2. ActionGroups</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-ComboBoxAndComboboxEntry.html">16.2. ComboBox and ComboBoxEntry Widgets</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-ComboBoxAndComboboxEntry.html#sec-ComboBox">16.2.1. ComboBox Widgets</a></span></dt><dt><span class="sect2"><a href="sec-ComboBoxAndComboboxEntry.html#sec-ComboBoxEntry">16.2.2. ComboBoxEntry Widgets</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-ColorButtonAndFontButton.html">16.3. ColorButton and FontButton Widgets</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-ColorButtonAndFontButton.html#sec-ColorButton">16.3.1. ColorButton Widgets</a></span></dt><dt><span class="sect2"><a href="sec-ColorButtonAndFontButton.html#sec-FontButton">16.3.2. FontButton Widgets</a></span></dt></dl></dd><dt><span class="sect1"><a href="sec-EntryCompletion.html">16.4. EntryCompletion Objects</a></span></dt><dt><span class="sect1"><a href="sec-ExpanderWidget.html">16.5. Expander Widgets</a></span></dt><dt><span class="sect1"><a href="sec-FileChoosers.html">16.6. File Selections using FileChooser-based Widgets</a></span></dt><dt><span class="sect1"><a href="sec-UIManager.html">16.7. The UIManager</a></span></dt><dd><dl><dt><span class="sect2"><a href="sec-UIManager.html#sec-UIManagerOverview">16.7.1. Overview</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-CreatingUIManager">16.7.2. Creating a UIManager</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-AddRemoveActionGroups">16.7.3. Adding and Removing ActionGroups</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-UIDescriptions">16.7.4. UI Descriptions</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-AddRemoveUIDescriptions">16.7.5. Adding and Removing UI Descriptions</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-AccessingUIWidgets">16.7.6. Accessing UI Widgets</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-SimpleUIManagerExample">16.7.7. A Simple UIManager Example</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-MergingUIDescriptions">16.7.8. Merging UI Descriptions</a></span></dt><dt><span class="sect2"><a href="sec-UIManager.html#sec-UIManagerSignals">16.7.9. UIManager Signals</a></span></dt></dl></dd></dl></div><p>Quite a few new widgets and support objects were added in PyGTK
+2.4 including:</p><div class="itemizedlist"><ul type="disc"><li><tt class="classname">Action</tt>,
+<tt class="classname">RadioAction</tt>, <tt class="classname">ToggleAction</tt> -
+objects that represent actions that a user can take. Actions contain
+information to be used to create proxy widgets ( for example, icons, menu
+items and toolbar items).</li><li><tt class="classname">ActionGroup</tt> - an object containing
+Actions that have some relationship, for example, actions to open, close and
+print a document.</li><li><tt class="classname">Border</tt> - an object containing the
+values for a border.</li><li><tt class="classname">ColorButton</tt> - a button used to
+launch a ColorSelectionDialog.</li><li><tt class="classname">ComboBox</tt> - a widget providing a list
+of items to choose from. It replaces the
+<tt class="classname">OptionMenu</tt>.</li><li><tt class="classname">ComboBoxEntry</tt> - a widget providing a
+text entry field with a dropdown list of items to choose from. It replaces
+the <tt class="classname">Combo</tt>.</li><li><tt class="classname">EntryCompletion</tt> - an object
+providing completion for an <tt class="classname">Entry</tt> widget.</li><li><tt class="classname">Expander</tt> - a container that can show
+and hide its child in response to its button click.</li><li><tt class="classname">FileChooser</tt> - an interface for
+        choosing files.</li><li><tt class="classname">FileChooserWidget</tt> - a widget
+implementing the <tt class="classname">FileChooser</tt> interface. It replaces
+the <tt class="classname">FileSelection</tt> widget.</li><li><tt class="classname">FileChooserDialog</tt> - a dialog used
+for "File/Open" and "File/Save" actions. It replaces the
+<tt class="classname">FileSelectionDialog</tt>.</li><li><tt class="classname">FileFilter</tt> - an object used to
+filter files based on an internal set of rules.</li><li><tt class="classname">FontButton</tt> - a button that launches
+the <tt class="classname">FontSelectionDialog</tt>.</li><li><tt class="classname">IconInfo</tt> - an object containing
+information about an icon in an <tt class="classname">IconTheme</tt>.</li><li><tt class="classname">IconTheme</tt> - an object providing
+lookup of icons by name and size.</li><li><tt class="classname">ToolItem</tt>,
+<tt class="classname">ToolButton</tt>, <tt class="classname">RadioToolButton</tt>,
+<tt class="classname">SeparatorToolItem</tt>,
+<tt class="classname">ToggleToolButton</tt> - widgets that can be added to a
+<tt class="classname">Toolbar</tt>. These replace the previous
+<tt class="classname">Toolbar</tt> items.</li><li><tt class="classname">TreeModelFilter</tt> - an object providing
+a powerful mechanism for revising the representation of an underlying
+<tt class="classname">TreeModel</tt>. This is described in <a href="sec-TreeModelSortAndTreeModelFilter.html#sec-TreeModelFilter" title="14.10.2. TreeModelFilter">Section 14.10.2, “TreeModelFilter”</a>.</li><li><tt class="classname">UIManager</tt> - an object providing a
+way to construct menus and toolbars from an XML UI description. It also has
+methods to manage the merging and separation of multiple UI
+descriptions.</li></ul></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-ActionsAndActionGroups"></a>16.1. The Action and ActionGroup Objects</h2></div></div><div></div></div><p>The <tt class="classname">Action</tt> and
+<tt class="classname">ActionGroup</tt> objects work together to provide the
+images, text, callbacks and accelerators for your application menus and
+toolbars. The <tt class="classname">UIManager</tt> uses
+<tt class="classname">Action</tt>s and <tt class="classname">ActionGroup</tt>s to
+build the menubars and toolbars automatically based on a XML
+specification. It's much easier to create and populate menus and toolbars
+using the <tt class="classname">UIManager</tt> described in a later section. The
+following sections on the <tt class="classname">Action</tt> and
+<tt class="classname">ActionGroup</tt> objects describe how to directly apply
+these objects but I recommend using the <tt class="classname">UIManager</tt>
+whenever possible.</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-Actions"></a>16.1.1. Actions</h3></div></div><div></div></div><p>An <tt class="classname">Action</tt> object represents an action that
+the user can take using an application user interface. It contains
+information used by proxy UI elements (for example,
+<tt class="classname">MenuItem</tt>s or <tt class="classname">Toolbar</tt> items) to
+present the action to the user. There are two subclasses of
+<tt class="classname">Action</tt>:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term">ToggleAction</span></td><td>An <tt class="classname">Action</tt> that can be toggled
+between two states.</td></tr><tr><td><span class="term">RadioAction</span></td><td>An <tt class="classname">Action</tt> that can be grouped so
+that only one can be active.</td></tr></tbody></table><p>For example, the standard <span class="guimenu">File</span>-&gt;<span class="guimenuitem">Quit</span> menu item can be represented
+with an icon, mnemonic text and accelerator. When activated, the menu item
+triggers a callback that could exit the application. Likewise a
+<tt class="classname">Toolbar</tt> <span class="guibutton">Quit</span> button could
+share the icon, mnemonic text and callback. Both of these UI elements could
+be proxies of the same <tt class="classname">Action</tt>.</p><p>Ordinary <tt class="classname">Button</tt>,
+<tt class="classname">ToggleButton</tt> and <tt class="classname">RadioButton</tt>
+widgets can also act as proxies for an <tt class="classname">Action</tt> though
+there is no support for these in the
+<tt class="classname">UIManager</tt>.</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-CreatingActions"></a>16.1.1.1. Creating Actions</h4></div></div><div></div></div><p>An <tt class="classname">Action</tt> can be created using the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action = gtk.Action(<b class="parameter"><tt>name</tt></b>, <b class="parameter"><tt>label</tt></b>, <b class="parameter"><tt>tooltip</tt></b>, <b class="parameter"><tt>stock_id</tt></b>)
+</pre></td></tr></table><p><i class="parameter"><tt>name</tt></i> is a string used to identify the
+<tt class="classname">Action</tt> in an <tt class="classname">ActionGroup</tt> or in
+a <tt class="classname">UIManager</tt>
+specification. <i class="parameter"><tt>label</tt></i> and
+<i class="parameter"><tt>tooltip</tt></i> are strings used as the label and tooltip in
+proxy widgets. If <i class="parameter"><tt>label</tt></i> is <tt class="literal">None</tt>
+then the <i class="parameter"><tt>stock_id</tt></i> must be a string specifying a Stock
+Item to get the label from. If <i class="parameter"><tt>tooltip</tt></i> is
+<tt class="literal">None</tt> the <tt class="classname">Action</tt> will not have a
+tooltip.</p><p>As we'll see in <a href="ch-NewInPyGTK2.4.html#sec-ActionGroups" title="16.1.2. ActionGroups">Section 16.1.2, “ActionGroups”</a> it's
+much easier to create Action objects using the
+<tt class="classname">ActionGroup</tt> convenience methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.add_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>user_data</tt></b>=None)
+  actiongroup.add_toggle_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>user_data</tt></b>=None)
+  actiongroup.add_radio_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>value</tt></b>=0, <b class="parameter"><tt>on_change</tt></b>=None, <b class="parameter"><tt>user_data=None</tt></b>)
+</pre></td></tr></table><p>More about these later but first I'll describe how to use an
+<tt class="classname">Action</tt> with a <tt class="classname">Button</tt> to
+illustrate the basic operations of connecting an
+<tt class="classname">Action</tt> to a proxy widget.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-UsingActions"></a>16.1.1.2. Using Actions</h4></div></div><div></div></div><p>The basic procedure for using an <tt class="classname">Action</tt>
+with a <tt class="classname">Button</tt> proxy is illustrated by the <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example program. The
+<tt class="classname">Button</tt> is connected to the
+<tt class="classname">Action</tt> using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action.connect_proxy(<b class="parameter"><tt>proxy</tt></b>)
+</pre></td></tr></table><p>where proxy is a <tt class="classname">MenuItem</tt>,
+<tt class="classname">ToolItem</tt> or <tt class="classname">Button</tt>
+widget.</p><p>An <tt class="classname">Action</tt> has one signal the "activate"
+signal that is triggered when the <tt class="classname">Action</tt> is activated
+usually as the result of a proxy widget being activated (for example a
+<tt class="classname">ToolButton</tt> is clicked). You just have connect a
+callback to this signal to handle the activation of any of the proxy
+widgets.</p><p>The source code for the <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example program
+is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1   #!/usr/bin/env python
+    2
+    3   import pygtk
+    4   pygtk.require('2.0')
+    5   import gtk
+    6
+    7   class SimpleAction:
+    8       def __init__(self):
+    9           # Create the toplevel window
+   10           window = gtk.Window()
+   11           window.set_size_request(70, 30)
+   12           window.connect('destroy', lambda w: gtk.main_quit())
+   13
+   14           # Create an accelerator group
+   15           accelgroup = gtk.AccelGroup()
+   16           # Add the accelerator group to the toplevel window
+   17           window.add_accel_group(accelgroup)
+   18
+   19           # Create an action for quitting the program using a stock item
+   20           action = gtk.Action('Quit', None, None, gtk.STOCK_QUIT)
+   21           # Connect a callback to the action
+   22           action.connect('activate', self.quit_cb)
+   23
+   24           # Create an ActionGroup named SimpleAction
+   25           actiongroup = gtk.ActionGroup('SimpleAction')
+   26           # Add the action to the actiongroup with an accelerator
+   27           # None means use the stock item accelerator
+   28           actiongroup.add_action_with_accel(action, None)
+   29
+   30           # Have the action use accelgroup
+   31           action.set_accel_group(accelgroup)
+   32
+   33           # Connect the accelerator to the action
+   34           action.connect_accelerator()
+   35
+   36           # Create the button to use as the action proxy widget
+   37           quitbutton = gtk.Button()
+   38           # add it to the window
+   39           window.add(quitbutton)
+   40
+   41           # Connect the action to its proxy widget
+   42           action.connect_proxy(quitbutton)
+   43
+   44           window.show_all()
+   45           return
+   46
+   47       def quit_cb(self, b):
+   48           print 'Quitting program'
+   49           gtk.main_quit()
+   50
+   51   if __name__ == '__main__':
+   52       sa = SimpleAction()
+   53       gtk.main()
+</pre></td></tr></table><p>The example creates an <tt class="classname">Action</tt> (line 20)
+that uses a Stock Item to provide the label text with mnemonic, icon,
+accelerator and translation domain. If a Stock Item is not used you'll need
+to specify a label instead. Line 22 connects the "activate" signal of
+<i class="parameter"><tt>action</tt></i> to the <tt class="methodname">self.quit_cb</tt>()
+method so that it is invoked when the <tt class="classname">Action</tt> is
+activated by <i class="parameter"><tt>quitbutton</tt></i>. Line 42 connects
+<i class="parameter"><tt>quitbutton</tt></i> to <i class="parameter"><tt>action</tt></i> as a
+proxy widget. When <i class="parameter"><tt>quitbutton</tt></i> is clicked it will
+activate <i class="parameter"><tt>action</tt></i> and thereby invoke the
+<tt class="methodname">self.quit_cb</tt>() method. The <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example uses quite a
+bit of code (lines 15, 17, 31 and 34 to setup the accelerator for the
+<tt class="classname">Button</tt>. The procedure is similar for
+<tt class="classname">MenuItem</tt>s and <tt class="classname">Toolbar</tt>
+<tt class="classname">ToolItem</tt>s.</p><p><a href="ch-NewInPyGTK2.4.html#simpleactionfig" title="Figure 16.1. Simple Action Example">Figure 16.1, “Simple Action Example”</a> shows the <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example in
+operation.</p><div class="figure"><a name="simpleactionfig"></a><p class="title"><b>Figure 16.1. Simple Action Example</b></p><div class="mediaobject" align="center"><img src="figures/simpleaction.png" align="middle" alt="Simple Action Example"></div></div></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-CreatingProxies"></a>16.1.1.3. Creating Proxy Widgets</h4></div></div><div></div></div><p>In the previous section we saw that an existing widget could be
+connected to an <tt class="classname">Action</tt> as a proxy. In this section
+we'll see how a proxy widget can be created using the
+<tt class="classname">Action</tt> methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  menuitem = action.create_menu_item()
+
+  toolitem = action.create_tool_item()
+</pre></td></tr></table><p>The <a href="examples/basicaction.py" target="_top">basicaction.py</a>
+example illustrates a <tt class="classname">MenuItem</tt>,
+<tt class="classname">ToolButton</tt> and a <tt class="classname">Button</tt>
+sharing an <tt class="classname">Action</tt>. The
+<tt class="classname">MenuItem</tt> and the <tt class="classname">ToolButton</tt>
+are created using the above methods. The <a href="examples/basicaction.py" target="_top">basicaction.py</a> example program source
+code is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1   #!/usr/bin/env python
+    2
+    3   import pygtk
+    4   pygtk.require('2.0')
+    5   import gtk
+    6
+    7   class BasicAction:
+    8       def __init__(self):
+    9           # Create the toplevel window
+   10           window = gtk.Window()
+   11           window.connect('destroy', lambda w: gtk.main_quit())
+   12           vbox = gtk.VBox()
+   13           vbox.show()
+   14           window.add(vbox)
+   15
+   16           # Create an accelerator group
+   17           accelgroup = gtk.AccelGroup()
+   18           # Add the accelerator group to the toplevel window
+   19           window.add_accel_group(accelgroup)
+   20
+   21           # Create an action for quitting the program using a stock item
+   22           action = gtk.Action('Quit', '_Quit me!', 'Quit the Program',
+   23                               gtk.STOCK_QUIT)
+   24           action.set_property('short-label', '_Quit')
+   25           # Connect a callback to the action
+   26           action.connect('activate', self.quit_cb)
+   27
+   28           # Create an ActionGroup named BasicAction
+   29           actiongroup = gtk.ActionGroup('BasicAction')
+   30           # Add the action to the actiongroup with an accelerator
+   31           # None means use the stock item accelerator
+   32           actiongroup.add_action_with_accel(action, None)
+   33
+   34           # Have the action use accelgroup
+   35           action.set_accel_group(accelgroup)
+   36
+   37           # Create a MenuBar
+   38           menubar = gtk.MenuBar()
+   39           menubar.show()
+   40           vbox.pack_start(menubar, False)
+   41
+   42           # Create the File Action and MenuItem
+   43           file_action = gtk.Action('File', '_File', None, None)
+   44           actiongroup.add_action(file_action)
+   45           file_menuitem = file_action.create_menu_item()
+   46           menubar.append(file_menuitem)
+   47
+   48           # Create the File Menu
+   49           file_menu = gtk.Menu()
+   50           file_menuitem.set_submenu(file_menu)
+   51
+   52           # Create a proxy MenuItem
+   53           menuitem = action.create_menu_item()
+   54           file_menu.append(menuitem)
+   55
+   56           # Create a Toolbar
+   57           toolbar = gtk.Toolbar()
+   58           toolbar.show()
+   59           vbox.pack_start(toolbar, False)
+   60
+   61           # Create a proxy ToolItem
+   62           toolitem = action.create_tool_item()
+   63           toolbar.insert(toolitem, 0)
+   64
+   65           # Create and pack a Label
+   66           label = gtk.Label('''
+   67   Select File-&gt;Quit me! or
+   68   click the toolbar Quit button or
+   69   click the Quit button below or
+   70   press Control+q
+   71   to quit.
+   72   ''')
+   73           label.show()
+   74           vbox.pack_start(label)
+   75
+   76           # Create a button to use as another proxy widget
+   77           quitbutton = gtk.Button()
+   78           # add it to the window
+   79           vbox.pack_start(quitbutton, False)
+   80
+   81           # Connect the action to its proxy widget
+   82           action.connect_proxy(quitbutton)
+   83           # Have to set tooltip after toolitem is added to toolbar
+   84           action.set_property('tooltip', action.get_property('tooltip'))
+   85           tooltips = gtk.Tooltips()
+   86           tooltips.set_tip(quitbutton, action.get_property('tooltip'))
+   87
+   88           window.show()
+   89           return
+   90
+   91       def quit_cb(self, b):
+   92           print 'Quitting program'
+   93           gtk.main_quit()
+   94
+   95   if __name__ == '__main__':
+   96       ba = BasicAction()
+   97       gtk.main()
+</pre></td></tr></table><p>This example introduces an <tt class="classname">ActionGroup</tt> to
+hold the <tt class="classname">Action</tt>s used in the program. <a href="ch-NewInPyGTK2.4.html#sec-ActionGroups" title="16.1.2. ActionGroups">Section 16.1.2, “ActionGroups”</a> will go into more detail on the use of
+<tt class="classname">ActionGroup</tt>s.</p><p>The code in lines 9-14 sets up a top level window containing a
+<tt class="classname">VBox</tt>. Lines 16-35 set up the "Quit"
+<tt class="classname">Action</tt> similar to that in the <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example program and
+add it with the <tt class="literal">gtk.STOCK_QUIT</tt> Stock Item accelerator
+(line 32) to the "BasicAction" <tt class="classname">ActionGroup</tt> (created
+in line 29). Note that, unlike the <a href="examples/simpleaction.py" target="_top">simpleaction.py</a> example program, you
+don't have to call the <tt class="methodname">connect_accelerator</tt>() method
+for the action since it is called automatically when the
+<tt class="methodname">create_menu_item</tt>() method is called in line
+53.</p><p>Lines 38-40 create a <tt class="classname">MenuBar</tt> and pack it
+into the <tt class="classname">VBox</tt>. Lines 43-44 create an
+<tt class="classname">Action</tt> (<i class="parameter"><tt>file_action</tt></i>) for the
+<span class="guimenu">File</span> menu and add it to
+<i class="parameter"><tt>actiongroup</tt></i>. The <span class="guimenu">File</span> and
+<span class="guimenuitem">Quit</span> menu items are created in lines 45 and 53
+and added to <i class="parameter"><tt>menubar</tt></i> and
+<i class="parameter"><tt>file_menu</tt></i> respectively in lines 46 and 54.</p><p>Likewise a <tt class="classname">Toolbar</tt> is created and added
+to the <tt class="classname">VBox</tt> in lines 57-59. The proxy
+<tt class="classname">ToolItem</tt> is created and added to
+<i class="parameter"><tt>toolbar</tt></i> in lines 62-63. Note the
+<tt class="classname">Action</tt> tooltip must be set (line 84) after the
+<tt class="classname">ToolItem</tt> is added to the
+<tt class="classname">Toolbar</tt> for it to be used. Also the
+<tt class="classname">Button</tt> tooltip must be added manually (lines
+84-86).</p><p><a href="ch-NewInPyGTK2.4.html#basicactionfig" title="Figure 16.2. Basic Action Example">Figure 16.2, “Basic Action Example”</a> displays the <a href="examples/basicaction.py" target="_top">basicaction.py</a> example program in
+operation:</p><div class="figure"><a name="basicactionfig"></a><p class="title"><b>Figure 16.2. Basic Action Example</b></p><div class="mediaobject" align="center"><img src="figures/basicaction.png" align="middle" alt="Basic Action Example"></div></div><p>A proxy widget can be disconnected from an
+<tt class="classname">Action</tt> by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action.disconnect_proxy(<b class="parameter"><tt>proxy</tt></b>)
+</pre></td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ActionProperties"></a>16.1.1.4. Action Properties</h4></div></div><div></div></div><p>An <tt class="classname">Action</tt> has a number of properties that
+control the display and function of its proxy widgets. The most important of
+these are the "sensitive" and "visible" properties. The "sensitive" property
+determines the sensitivity of the proxy widgets. If "sensitive" is
+<tt class="literal">FALSE</tt> the proxy widgets are not activatable and will
+usually be displayed "grayed out". Likewise, the "visible" property
+determines whether the proxy widgets will be visible. If an
+<tt class="classname">Action</tt>'s "visible" property is
+<tt class="literal">FALSE</tt> its proxy widgets will be hidden.</p><p>As we'll see in the next section, an
+<tt class="classname">Action</tt>'s sensitivity or visibility is also controlled
+by the sensitivity or visibility of the <tt class="classname">ActionGroup</tt>
+it belongs to. Therefore, for an <tt class="classname">Action</tt> to be
+sensitive (or visible) both it and its <tt class="classname">ActionGroup</tt>
+must be sensitive (or visible). To determine the effective sensitivity or
+visibility of an <tt class="classname">Action</tt> you should use the following
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  result = action.is_sensitive()
+
+  result = action.is_visible()
+</pre></td></tr></table><p>The name assigned to an <tt class="classname">Action</tt> is
+contained in its "name" property which is set when the
+<tt class="classname">Action</tt> is created. You can retrieve that name using
+the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  name = action.get_name()
+</pre></td></tr></table><p>Other properties that control the display of the proxy widgets
+of an <tt class="classname">Action</tt> include:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term">"hide-if-empty"</span></td><td>If <tt class="literal">TRUE</tt>, empty menu proxies for this
+action are hidden.</td></tr><tr><td><span class="term">"is-important"</span></td><td>If <tt class="literal">TRUE</tt>,
+<tt class="classname">ToolItem</tt> proxies for this action show text in
+<tt class="literal">gtk.TOOLBAR_BOTH_HORIZ</tt> mode.</td></tr><tr><td><span class="term">"visible-horizontal"</span></td><td>If <tt class="literal">TRUE</tt>, the
+<tt class="classname">ToolItem</tt> is visible when the toolbar is in a
+horizontal orientation.</td></tr><tr><td><span class="term">"visible-vertical"</span></td><td>If <tt class="literal">TRUE</tt>, the
+<tt class="classname">ToolItem</tt> is visible when the toolbar is in a vertical
+orientation.</td></tr></tbody></table><p>Other properties of interest include:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term">"label"</span></td><td>The label used for menu items and buttons that activate
+this action.</td></tr><tr><td><span class="term">"short-label"</span></td><td>A shorter label that may be used on toolbar buttons and
+buttons.</td></tr><tr><td><span class="term">"stock-id"</span></td><td>The Stock Item to be used to retrieve the icon, label
+and accelerator to be used in widgets representing this action.</td></tr><tr><td><span class="term">"tooltip"</span></td><td>A tooltip for this action.</td></tr></tbody></table><p>Note that the <a href="examples/basicaction.py" target="_top">basicaction.py</a> example program
+overrides the <tt class="literal">gtk.STOCK_QUIT</tt> label with "_Quit me!" and
+sets the "short-label" property to "_Quit". The short label is used for the
+<tt class="classname">ToolButton</tt> and the <tt class="classname">Button</tt>
+labels but the full label is used for the <tt class="classname">MenuItem</tt>
+label. Also note that the tooltip cannot be set on a
+<tt class="classname">ToolItem</tt> until it is added to a
+<tt class="classname">Toolbar</tt>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ActionAccelerators"></a>16.1.1.5. Actions and Accelerators</h4></div></div><div></div></div><p>An <tt class="classname">Action</tt> has three methods that are used
+to set up an accelerator:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action.set_accel_group(<b class="parameter"><tt>accel_group</tt></b>)
+
+  action.set_accel_path(<b class="parameter"><tt>accel_path</tt></b>)
+
+  action.connect_accelerator()
+</pre></td></tr></table><p>These, in conjunction with the
+<tt class="methodname">gtk.ActionGroup.add_action_with_accel</tt>() method,
+should cover most cases of accelerator set up.</p><p>An <tt class="classname">AccelGroup</tt> must always be set for an
+<tt class="classname">Action</tt>. The <tt class="methodname">set_accel_path</tt>()
+method is called by the
+<tt class="methodname">gtk.ActionGroup.add_action_with_accel</tt>() method. If
+<tt class="methodname">set_accel_path</tt>() is used the accelerator path
+should match the default format:
+"&lt;Actions&gt;/actiongroup_name/action_name". Finally, the
+<tt class="methodname">connect_accelerator</tt>() method is called to complete
+the accelerator set up.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>An <tt class="classname">Action</tt> must have an
+<tt class="classname">AccelGroup</tt> and an accelerator path associated with it
+before <tt class="methodname">connect_accelerator</tt>() is called.</p></div><p>Since the <tt class="methodname">connect_accelerator</tt>() method
+can be called several times (i.e. once for each proxy widget), the number of
+calls is counted so that an equal number of
+<tt class="methodname">disconnect_accelerator</tt>() calls must be made before
+removing the accelerator.</p><p>As illustrated in the previous example programs, an
+<tt class="classname">Action</tt> accelerator can be used by all the proxy
+widgets. An <tt class="classname">Action</tt> should be part of an
+<tt class="classname">ActionGroup</tt> in order to use the default accelerator
+path that has the format:
+"&lt;Actions&gt;/actiongroup_name/action_name". The easiest way to add an
+accelerator is to use the
+<tt class="methodname">gtk.ActionGroup.add_action_with_accel</tt>() method and
+the following general procedure:</p><div class="itemizedlist"><ul type="disc"><li>Create an <tt class="classname">AccelGroup</tt> and add it to
+the top level window.</li><li>Create a new <tt class="classname">ActionGroup</tt></li><li>Create an <tt class="classname">Action</tt> specifying a
+Stock Item with an accelerator.</li><li>Add the <tt class="classname">Action</tt> to the
+<tt class="classname">ActionGroup</tt> using the
+<tt class="methodname">gtk.ActionGroup.add_action_with_accel</tt>() method
+specifying <tt class="literal">None</tt> to use the Stock Item accelerator or an
+accelerator string acceptable to
+<tt class="function">gtk.accelerator_parse</tt>().</li><li>Set the <tt class="classname">AccelGroup</tt> for the
+<tt class="classname">Action</tt> using the
+<tt class="methodname">gtk.Action.set_accel_group</tt>() method.</li><li>Complete the accelerator set up using the
+<tt class="methodname">gtk.Action.connect_accelerator</tt>() method.</li></ul></div><p>Any proxy widgets created by or connected to the
+<tt class="classname">Action</tt> will use the accelerator.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ToggleActions"></a>16.1.1.6. Toggle Actions</h4></div></div><div></div></div><p>As mentioned previously a <tt class="classname">ToggleAction</tt> is
+a subclass of <tt class="classname">Action</tt> that can be toggled between two
+states. The constructor for a <tt class="classname">ToggleAction</tt> takes the
+same parameters as an <tt class="classname">Action</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  toggleaction = gtk.ToggleAction(<b class="parameter"><tt>name</tt></b>, <b class="parameter"><tt>label</tt></b>, <b class="parameter"><tt>tooltip</tt></b>, <b class="parameter"><tt>stock_id</tt></b>)
+</pre></td></tr></table><p>In addition to the <tt class="classname">Action</tt> methods the
+following <tt class="classname">ToggleAction</tt> methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  toggleaction.set_active(<b class="parameter"><tt>is_active</tt></b>)
+  is_active = toggleaction.get_active()
+</pre></td></tr></table><p>set and get the current state of
+<i class="parameter"><tt>toggleaction</tt></i>. <i class="parameter"><tt>is_active</tt></i> is a
+boolean value.</p><p>You can connect to the "toggled" signal specifying a callback
+with the signature:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def toggled_cb(<i class="parameter"><tt>toggleaction</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>The "toggled" signal is emitted when the
+<tt class="classname">ToggleAction</tt> changes state.</p><p>A <tt class="classname">MenuItem</tt> proxy widget of a
+<tt class="classname">ToggleAction</tt> will be displayed like a
+<tt class="classname">CheckMenuItem</tt> by default. To have the proxy
+<tt class="classname">MenuItem</tt> displayed like a
+<tt class="classname">RadioMenuItem</tt> set the "draw-as-radio" property to
+<tt class="literal">TRUE</tt> using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  toggleaction.set_draw_as_radio(<b class="parameter"><tt>draw_as_radio</tt></b>)
+</pre></td></tr></table><p>You can use the following method to determine whether the
+<tt class="classname">ToggleAction</tt> <tt class="classname">MenuItem</tt>s will be
+displayed like <tt class="classname">RadioMenuItem</tt>s:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  draw_as_radio = toggleaction.get_draw_as_radio()
+</pre></td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-RadioActions"></a>16.1.1.7. Radio Actions</h4></div></div><div></div></div><p>A <tt class="classname">RadioAction</tt> is a subclass of
+<tt class="classname">ToggleAction</tt> that can be grouped so that only one
+<tt class="classname">RadioAction</tt> is active at a time. The corresponding
+proxy widgets are the <tt class="classname">RadioMenuItem</tt> and
+<tt class="classname">RadioToolButton</tt>.</p><p>The constructor for a <tt class="classname">RadioAction</tt> takes
+the same arguments as an <tt class="classname">Action</tt> with the addition of
+a unique integer value that is used to identify the active
+<tt class="classname">RadioAction</tt> in a group:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  radioaction = gtk.RadioAction(<tt class="classname">name</tt>, <tt class="classname">label</tt>, <tt class="classname">tooltip</tt>, <tt class="classname">stock_id</tt>, <tt class="classname">value</tt>)
+</pre></td></tr></table><p>The group for a <tt class="classname">RadioAction</tt> can be set
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  radioaction.set_group(<b class="parameter"><tt>group</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>group</tt></i> is another
+<tt class="classname">RadioAction</tt> that <i class="parameter"><tt>radioaction</tt></i>
+should be grouped with. The group containing a
+<tt class="classname">RadioAction</tt> can be retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  group = radioaction.get_group()
+</pre></td></tr></table><p>that returns a list of the group of
+<tt class="classname">RadioAction</tt> objects that includes
+<i class="parameter"><tt>radioaction</tt></i>.</p><p>The value of the currently active group member can retrieved
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  active_value = radioaction.get_current_value()
+</pre></td></tr></table><p>You can connect a callback to the "changed" signal to be
+notified when the active member of the <tt class="classname">RadioAction</tt>
+group has been changed. Note that you only have to connect to one of the
+<tt class="classname">RadioAction</tt> objects to track changes. The callback
+signature is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def changed_cb(<i class="parameter"><tt>radioaction</tt></i>, <i class="parameter"><tt>current</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>current</tt></i> is the currently active
+<tt class="classname">RadioAction</tt> in the group.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ActionsExample"></a>16.1.1.8. An Actions Example</h4></div></div><div></div></div><p>The <a href="examples/actions.py" target="_top">actions.py</a> example
+program illustrates the use of the <tt class="classname">Action</tt>,
+<tt class="classname">ToggleAction</tt> and <tt class="classname">RadioAction</tt>
+objects. <a href="ch-NewInPyGTK2.4.html#actionsfig" title="Figure 16.3. Actions Example">Figure 16.3, “Actions Example”</a> displays the example
+program in operation:</p><div class="figure"><a name="actionsfig"></a><p class="title"><b>Figure 16.3. Actions Example</b></p><div class="mediaobject" align="center"><img src="figures/actions.png" align="middle" alt="Actions Example"></div></div><p>This example is similar enough to the <a href="examples/basicaction.py" target="_top">basicaction.py</a> example program that a
+detailed description is not necessary.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ActionGroups"></a>16.1.2. ActionGroups</h3></div></div><div></div></div><p>As mentioned in the previous section, related
+<tt class="classname">Action</tt> objects should be added to an
+<tt class="classname">ActionGroup</tt> to provide common control over their
+visibility and sensitivity. For example, in a text processing application
+the menu items and toolbar buttons for specifying the text justification
+could be contained in an <tt class="classname">ActionGroup</tt>. A user
+interface is expected to have multiple <tt class="classname">ActionGroup</tt>
+objects that cover various aspects of the application. For example, global
+actions like creating new documents, opening and saving a document and
+quitting the application likely form one <tt class="classname">ActionGroup</tt>
+while actions such as modifying the view of the document would form
+another.</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-CreatingActionGroups"></a>16.1.2.1. Creating ActionGroups</h4></div></div><div></div></div><p>An <tt class="classname">ActionGroup</tt> is created using the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup = gtk.ActionGroup(<b class="parameter"><tt>name</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>name</tt></i> is a unique name for the
+<tt class="classname">ActionGroup</tt>. The name should be unique because it is
+used to form the default accelerator path for its
+<tt class="classname">Action</tt> objects.</p><p>The <i class="parameter"><tt>ActionGroup</tt></i> name can be retrieved
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  name = actiongroup.get_name()
+</pre></td></tr></table><p>or by retrieving the contents of the "name" property.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-AddingActions"></a>16.1.2.2. Adding Actions</h4></div></div><div></div></div><p>As illustrated in <a href="ch-NewInPyGTK2.4.html#sec-Actions" title="16.1.1. Actions">Section 16.1.1, “Actions”</a> an
+existing <tt class="classname">Action</tt> can be added to an
+<tt class="classname">ActionGroup</tt> using one of the methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.add_action(<b class="parameter"><tt>action</tt></b>)
+
+  actiongroup.add_action_with_accel(<b class="parameter"><tt>action</tt></b>, <b class="parameter"><tt>accelerator</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>action</tt></i> is the
+<tt class="classname">Action</tt> to be added and
+<i class="parameter"><tt>accelerator</tt></i> is a string accelerator specification
+acceptable to <tt class="function">gtk.accelerator_parse</tt>(). If
+<i class="parameter"><tt>accelerator</tt></i> is <tt class="literal">None</tt> the
+accelerator (if any) associated with the "stock-id" property of
+<i class="parameter"><tt>action</tt></i> will be used. As previously noted the
+<tt class="methodname">add_action_wih_accel</tt>() method is preferred if you
+want to use accelerators.</p><p>The <tt class="classname">ActionGroup</tt> offers three convenience
+methods that make the job of creating and adding
+<tt class="classname">Action</tt> objects to an
+<tt class="classname">ActionGroup</tt> much easier:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.add_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>user_data</tt></b>=None)
+
+  actiongroup.add_toggle_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>user_data</tt></b>=None)
+
+  actiongroup.add_radio_actions(<b class="parameter"><tt>entries</tt></b>, <b class="parameter"><tt>value</tt></b>=0, <b class="parameter"><tt>on_change</tt></b>=None, <b class="parameter"><tt>user_data</tt></b>=None)
+</pre></td></tr></table><p>The <i class="parameter"><tt>entries</tt></i> parameter is a sequence of
+action entry tuples that provide the information used to create the actions
+that are added to the <tt class="classname">ActionGroup</tt>. The
+<tt class="classname">RadioAction</tt> with the value of
+<i class="parameter"><tt>value</tt></i> is initially set
+active. <i class="parameter"><tt>on_change</tt></i> is a callback that is connected to
+the "changed" signal of the first <tt class="classname">RadioAction</tt> in the
+group. The signature of <i class="parameter"><tt>on_changed</tt></i> is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def on_changed_cb(<i class="parameter"><tt>radioaction</tt></i>, <i class="parameter"><tt>current</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>The entry tuples for <tt class="classname">Action</tt> objects
+contain:</p><div class="itemizedlist"><ul type="disc"><li>The name of the action. Must be specified.</li><li>The stock id for the action. Optional with a default
+value of <tt class="literal">None</tt> if a label is specified.</li><li>The label for the action. Optional with a default value of
+<tt class="literal">None</tt> if a stock id is specified.</li><li>The accelerator for the action, in the format understood by
+the <tt class="function">gtk.accelerator_parse</tt>() function. Optional with a
+default value of <tt class="literal">None</tt>.</li><li>The tooltip for the action. Optional with a default value
+of <tt class="literal">None</tt>.</li><li>The callback function invoked when the action is
+activated. Optional with a default value of
+<tt class="literal">None</tt>.</li></ul></div><p>You must minimally specify a value for the
+<i class="parameter"><tt>name</tt></i> field and a value in either the <i class="parameter"><tt>stock
+id</tt></i> field or the <i class="parameter"><tt>label</tt></i> field. If you
+specify a label then you can specify <tt class="literal">None</tt> for the stock
+id if you aren't using one. For example the following method call:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.add_actions([('quit', gtk.STOCK_QUIT, '_Quit me!', None, 
+                            'Quit the Program', quit_cb)])
+</pre></td></tr></table><p>adds an action to <i class="parameter"><tt>actiongroup</tt></i> for
+exiting a program.</p><p>The entry tuples for the <tt class="classname">ToggleAction</tt>
+objects are similar to the <tt class="classname">Action</tt> entry tuples except
+there is an additional optional <i class="parameter"><tt>flag</tt></i> field containing
+a boolean value indicating whether the action is active. The default value
+for the <i class="parameter"><tt>flag</tt></i> field is <tt class="literal">FALSE</tt>. For
+example the following method call:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.add_toggle_actions([('mute, None, '_Mute', '&lt;control&gt;m', 
+                                   'Mute the volume', mute_cb, True)])
+</pre></td></tr></table><p>adds a <tt class="classname">ToggleAction</tt> to
+<i class="parameter"><tt>actiongroup</tt></i> and sets it to be initially
+active.</p><p>The entry tuples for the <tt class="classname">RadioAction</tt>
+objects are similar to the <tt class="classname">Action</tt> entry tuples but
+specify a <i class="parameter"><tt>value</tt></i> field instead of a
+<i class="parameter"><tt>callback</tt></i> field:</p><div class="itemizedlist"><ul type="disc"><li>The name of the action. Must be specified.</li><li>The stock id for the action. Optional with a default
+value of <tt class="literal">None</tt> if a label is specified.</li><li>The label for the action.Optional with a default value of
+<tt class="literal">None</tt> if a stock id is specified.</li><li>The accelerator for the action, in the format understood by
+the <tt class="function">gtk.accelerator_parse</tt>() function. Optional with a
+default value of <tt class="literal">None</tt>.</li><li>The tooltip for the action. Optional with a default value
+of <tt class="literal">None</tt>.</li><li>The value to set on the radio action. Optional with a
+default value of <tt class="literal">0</tt>. Should always be specified in
+applications.</li></ul></div><p>For example the following code fragment:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  radioactionlist = [('am', None, '_AM', '&lt;control&gt;a', 'AM Radio', 0)
+                     ('fm', None, '_FM', '&lt;control&gt;f', 'FM Radio', 1)
+                     ('ssb', None, '_SSB', '&lt;control&gt;s', 'SSB Radio', 2)]
+  actiongroup.add_radio_actions(radioactionlist, 0, changed_cb)
+</pre></td></tr></table><p>creates three <tt class="classname">RadioAction</tt> objects and
+sets the initial active action to 'am' and the callback that is invoked when
+any of the actions is activated to <tt class="function">changed_cb</tt>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-RetrievingActions"></a>16.1.2.3. Retrieving Actions</h4></div></div><div></div></div><p>An <tt class="classname">Action</tt> can be retrieved by name from
+an <tt class="classname">ActionGroup</tt> by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action = actiongroup.get_action(<b class="parameter"><tt>action_name</tt></b>)
+</pre></td></tr></table><p>A list of all the <tt class="classname">Action</tt> objects
+contained in an <tt class="classname">ActionGroup</tt> can be retrieved using
+the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actionlist = actiongroup.list_actions()
+</pre></td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ControllingActions"></a>16.1.2.4. Controlling Actions</h4></div></div><div></div></div><p>The sensitivity and visibility of all
+<tt class="classname">Action</tt> objects in an
+<tt class="classname">ActionGroup</tt> can be controlled by setting the
+associated property values. The following convenience methods get and set
+the properties:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  is_sensitive = actiongroup.get_sensitive()
+  actiongroup.set_sensitive(sensitive)
+
+  is_visible = actiongroup.get_visible()
+  actiongroup.set_visible(visible)
+</pre></td></tr></table><p>Finally you can remove an <tt class="classname">Action</tt> from an
+<tt class="classname">ActionGroup</tt> using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongroup.remove_action(<b class="parameter"><tt>action</tt></b>)
+</pre></td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ActionGroupExample"></a>16.1.2.5. An ActionGroup Example</h4></div></div><div></div></div><p>The <a href="examples/actiongroup.py" target="_top">actiongroup.py</a>
+example program duplicates the menubar and toolbar of the <a href="examples/actions.py" target="_top">actions.py</a> example program using the
+<tt class="classname">ActionGroup</tt> methods. In addition the program provides
+buttons to control the sensitivity and visibility of the menu items and
+toolbar items. <a href="ch-NewInPyGTK2.4.html#actiongroupfig" title="Figure 16.4. ActionGroup Example">Figure 16.4, “ActionGroup Example”</a> illustrates the
+program in operation:</p><div class="figure"><a name="actiongroupfig"></a><p class="title"><b>Figure 16.4. ActionGroup Example</b></p><div class="mediaobject" align="center"><img src="figures/actiongroup.png" align="middle" alt="ActionGroup Example"></div></div></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="sec-ActionGroupSignals"></a>16.1.2.6. ActionGroup Signals</h4></div></div><div></div></div><p>Your application can track the connection and removal of proxy
+widgets to the <tt class="classname">Action</tt> objects in an
+<tt class="classname">ActionGroup</tt> using the "connect-proxy" and
+disconnect-proxy" signals. The signatures of your signal handler callbacks
+should be:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def connect_proxy_cb(<i class="parameter"><tt>actiongroup</tt></i>, <i class="parameter"><tt>action</tt></i>, <i class="parameter"><tt>proxy</tt></i>, <i class="parameter"><tt>user_params</tt></i>)
+
+  def disconnect_proxy_cb(<i class="parameter"><tt>actiongroup</tt></i>, <i class="parameter"><tt>action</tt></i>, <i class="parameter"><tt>proxy</tt></i>, <i class="parameter"><tt>user_params</tt></i>)
+</pre></td></tr></table><p>For example, you might want to track these changes to make some
+additional changes to the properties of the new proxy widget when it is
+connected or to update some other part of the user interface when a proxy
+widget is disconnected.</p><p>The "pre-activate" and "post-activate" signals allow your
+application to do some additional processing immediately before or after an
+action is activated. The signatures of the signal handler callbacks should
+be:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def pre_activate_cb(actiongroup, action, user_params)
+
+  def post_activate_cb(actiongroup, action, user_params)
+</pre></td></tr></table><p>These signals are mostly used by the
+<tt class="classname">UIManager</tt> to provide global notification for all
+<tt class="classname">Action</tt> objects in <tt class="classname">ActionGroup</tt>
+objects used by it.</p></div></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-NewInPyGTK2.2.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-ComboBoxAndComboboxEntry.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 15. New Widgets in PyGTK 2.2 </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.2. ComboBox and ComboBoxEntry Widgets</td></tr></table></div></body></html>

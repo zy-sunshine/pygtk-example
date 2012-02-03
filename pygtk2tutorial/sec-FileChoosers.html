@@ -1,0 +1,108 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>16.6. File Selections using FileChooser-based Widgets</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-NewInPyGTK2.4.html" title="Chapter 16. New Widgets in PyGTK 2.4"><link rel="previous" href="sec-ExpanderWidget.html" title="16.5. Expander Widgets"><link rel="next" href="sec-UIManager.html" title="16.7. The UIManager"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.6. File Selections using FileChooser-based Widgets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-ExpanderWidget.html">Prev</a> </td><th width="60%" align="center">Chapter 16. New Widgets in PyGTK 2.4</th><td width="20%" align="right"> <a accesskey="n" href="sec-UIManager.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-FileChoosers"></a>16.6. File Selections using FileChooser-based Widgets</h2></div></div><div></div></div><p>The new way to select files in PyGTK 2.4 is to use the variants of
+the <tt class="classname">FileChooser</tt> widget. The two objects that
+implement this new interface in PyGTK 2.4 are
+<tt class="classname">FileChooserWidget</tt> and
+<tt class="classname">FileChooserDialog</tt>.  The latter is the complete dialog
+with the window and easily defined buttons. The former is a widget useful
+for embedding within another widget.</p><p>Both the <tt class="classname">FileChooserWidget</tt> and
+<tt class="classname">FileChooserDialog</tt> possess the means for navigating
+the filesystem tree and selecting files. The view of the widgets depends on
+the action used to open a widget.</p><p>To create a new file chooser dialog to select an existing file (as
+in typical
+<span class="guimenu">File</span>-&gt;<span class="guimenuitem">Open</span>
+option of a typical application), use:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser = gtk.FileChooserDialog(<b class="parameter"><tt>title</tt></b>=None,<b class="parameter"><tt>action</tt></b>=gtk.FILE_CHOOSER_ACTION_OPEN,
+                                  <b class="parameter"><tt>buttons</tt></b>=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,gtk.RESPONSE_OK))
+</pre></td></tr></table><p>To create a new file chooser dialog to select a new file name (as in
+the typical
+<span class="guimenu">File</span>-&gt;<span class="guimenuitem">Save</span>
+as option of a typical application), use:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser = gtk.FileChooserDialog(<b class="parameter"><tt>title</tt></b>=None,<b class="parameter"><tt>action</tt></b>=gtk.FILE_CHOOSER_ACTION_SAVE,
+                                  <b class="parameter"><tt>buttons</tt></b>=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,gtk.RESPONSE_OK))
+</pre></td></tr></table><p>In the above examples, the two buttons (the stock
+<span class="guibutton">Cancel</span> and <span class="guibutton">Open</span> items) are
+created and connected to their respective responses (stock
+<span class="guibutton">Cancel</span> and <span class="guibutton">OK</span> responses).
+      </p><p>To set the folder displayed in the file chooser, use the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.set_current_folder(<b class="parameter"><tt>pathname</tt></b>)
+</pre></td></tr></table><p>To set the suggested file name as if it was typed by a user (the
+typical <span class="guimenu">File</span>-&gt;<span class="guimenuitem">Save
+As</span>situation), use the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.set_current_name(<b class="parameter"><tt>name</tt></b>)
+</pre></td></tr></table><p>The above method does not require the filename to exist. If you want
+to preselect a particular existing file (as in the
+<span class="guimenu">File</span>-&gt;<span class="guimenuitem">Open</span>
+situation), you should use the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.set_filename(<b class="parameter"><tt>filename</tt></b>)
+</pre></td></tr></table><p>To obtain the filename that the user has entered or clicked
+on, use this method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  filename = chooser.get_filename()
+</pre></td></tr></table><p>It is possible to allow multiple file selections (only for the
+<tt class="literal">gtk.FILE_CHOOSER_ACTION_OPEN</tt> action) by using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.set_select_multiple(<b class="parameter"><tt>select_multiple</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>select_mutiple</tt></i> should be
+<tt class="literal">TRUE</tt> to allow multiple selections. In this case, you will
+need to use the following method to retrieve a list of the selected
+filenames:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  filenames = chooser.get_filenames()
+</pre></td></tr></table><p>An important feature of all file choosers is the ability to add file
+selection filters. The filter may be added by the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.add_filter(<b class="parameter"><tt>filter</tt></b>)
+</pre></td></tr></table><p>In the example above, <i class="parameter"><tt>filter</tt></i> must be an
+instance of the <tt class="classname">FileFilter</tt>class.</p><p>The left panel of the file chooser lists some shortcut folders such
+as <span class="guilabel">Home</span>, <span class="guilabel">Filesystem</span>,
+<span class="guilabel">CDROM</span>, etc. You may add a folder to the list of these
+shortcuts and remove it from the list by using these methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  chooser.add_shortcut_folder(<b class="parameter"><tt>folder</tt></b>)
+  chooser.remove_shortcut_folder(<b class="parameter"><tt>folder</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>folder</tt></i> is the pathname of folder. The
+<a href="examples/filechooser.py" target="_top"><span><b class="command">filechooser.py</b></span></a>
+example program illustrates the use of the filechooser widget.  <a href="sec-FileChoosers.html#filechooserfig" title="Figure 16.12. File Selection Example">Figure 16.12, “File Selection Example”</a> shows the resulting display:</p><div class="figure"><a name="filechooserfig"></a><p class="title"><b>Figure 16.12. File Selection Example</b></p><div class="mediaobject" align="center"><img src="figures/filechooser.png" align="middle" alt="File Selection Example"></div></div><p>The source code for the <a href="examples/filechooser.py" target="_top"><span><b class="command">filechooser.py</b></span></a>
+example program is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+    1   #!/usr/bin/env python
+    2
+    3   # example filechooser.py
+    4
+    5   import pygtk
+    6   pygtk.require('2.0')
+    7
+    8   import gtk
+    9
+   10   # Check for new pygtk: this is new class in PyGtk 2.4
+   11   if gtk.pygtk_version &lt; (2,3,90):
+   12      print "PyGtk 2.3.90 or later required for this example"
+   13      raise SystemExit
+   14
+   15   dialog = gtk.FileChooserDialog("Open..",
+   16                                  None,
+   17                                  gtk.FILE_CHOOSER_ACTION_OPEN,
+   18                                  (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+   19                                   gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+   20   dialog.set_default_response(gtk.RESPONSE_OK)
+   21
+   22   filter = gtk.FileFilter()
+   23   filter.set_name("All files")
+   24   filter.add_pattern("*")
+   25   dialog.add_filter(filter)
+   26
+   27   filter = gtk.FileFilter()
+   28   filter.set_name("Images")
+   29   filter.add_mime_type("image/png")
+   30   filter.add_mime_type("image/jpeg")
+   31   filter.add_mime_type("image/gif")
+   32   filter.add_pattern("*.png")
+   33   filter.add_pattern("*.jpg")
+   34   filter.add_pattern("*.gif")
+   35   filter.add_pattern("*.tif")
+   36   filter.add_pattern("*.xpm")
+   37   dialog.add_filter(filter)
+   38
+   39   response = dialog.run()
+   40   if response == gtk.RESPONSE_OK:
+   41       print dialog.get_filename(), 'selected'
+   42   elif response == gtk.RESPONSE_CANCEL:
+   43       print 'Closed, no files selected'
+   44   dialog.destroy()
+</pre></td></tr></table></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-ExpanderWidget.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-NewInPyGTK2.4.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-UIManager.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">16.5. Expander Widgets </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.7. The UIManager</td></tr></table></div></body></html>

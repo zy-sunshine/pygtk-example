@@ -1,0 +1,25 @@
+  engine "equinox"
+  {
+    #contrast = 1.0
+  }
+#style "GKDefault"
+#{
+#	bg[NORMAL] = "#FFCCCC"
+#}
+#style "GKMainButton" = "GKDefault"
+#{
+#	bg[NORMAL] = "#CCCC00"
+#}
+#style "GKShortcutButton" = "GKDefault"
+#{
+#	bg[NORMAL] = "#CC00CC"
+#}
+#style "GKCustomButton" = "GKDefault"
+#{
+#	bg[NORMAL] = "#00CCCC"
+#}
+#
+#widget "CSMainWindow" style "GKDefault"
+#widget "CSMainWindow.*.GKLPMain.GtkButton" style "GKMainButton"
+#widget "CSMainWindow.*.GKLPShortcut.GtkButton" style "GKShortcutButton"
+#widget "CSMainWindow.*.GKLPCustom.GtkButton" style "GKCustomButton"

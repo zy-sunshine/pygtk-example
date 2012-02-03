@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/336/trunk/jbrout/plugins/download
+END
+nameBuilder.glade
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/61/trunk/jbrout/plugins/download/nameBuilder.glade
+END
+download.glade
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/169/trunk/jbrout/plugins/download/download.glade
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/277/trunk/jbrout/plugins/download/__init__.py
+END
+download.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/336/trunk/jbrout/plugins/download/download.py
+END
+nameBuilder.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/285/trunk/jbrout/plugins/download/nameBuilder.py
+END

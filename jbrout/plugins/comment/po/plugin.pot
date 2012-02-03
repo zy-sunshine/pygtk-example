@@ -1,0 +1,40 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-18 17:09+1300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../tmp/comment.glade.h:1
+msgid "All Selection"
+msgstr ""
+
+#. def menuEntries(self,l):
+#. return [(2000,_("Comment"),True,self.comment,"gfx/gtk-edit.png")]
+#: ../tmp/comment.glade.h:2 ../plugins/comment/__init__.py:27
+msgid "Comment"
+msgstr ""
+
+#: ../tmp/comment.glade.h:3
+msgid "One by One"
+msgstr ""
+
+#: ../plugins/comment/comment.py:52
+#, python-format
+msgid "%d photo(s)"
+msgstr ""
+
+#: ../plugins/comment/__init__.py:42 ../plugins/comment/__init__.py:47
+msgid "Commenting"
+msgstr ""

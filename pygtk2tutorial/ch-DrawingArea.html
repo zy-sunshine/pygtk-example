@@ -1,0 +1,217 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Chapter 12. Drawing Area</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="previous" href="sec-ItemFactoryExample.html" title="11.4. Item Factory Example"><link rel="next" href="sec-DrawingMethods.html" title="12.2. Drawing Methods"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 12. Drawing Area</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-ItemFactoryExample.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="sec-DrawingMethods.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="ch-DrawingArea"></a>Chapter 12. Drawing Area</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="ch-DrawingArea.html#sec-GraphicsContext">12.1. Graphics Context</a></span></dt><dt><span class="sect1"><a href="sec-DrawingMethods.html">12.2. Drawing Methods</a></span></dt></dl></div><p>The <tt class="classname">DrawingArea</tt> widget wraps a
+<tt class="classname">gtk.gdk.Window</tt> which is a subclass of
+<tt class="classname">gtk.gdk.Drawable</tt> (as is a
+<tt class="classname">gtk.gdk.Pixmap</tt>). In effect the
+<tt class="classname">DrawingArea</tt> provides a simple 'canvas' area (the
+wrapped <tt class="classname">gtk.gdk.Window</tt>) that can be drawn on using
+the methods of the <tt class="classname">gtk.gdk.Drawable</tt> class.</p><p>A <tt class="classname">DrawingArea</tt> is created using the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawing_area = gtk.DrawingArea()
+</pre></td></tr></table><p>A <tt class="classname">DrawingArea</tt> is initially created with a
+size of (0, 0) so you should use the following method to make the
+<i class="parameter"><tt>drawing_area</tt></i> visible by setting its width and height
+to useful values greater than zero:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawing_area.set_size_request(<b class="parameter"><tt>width</tt></b>, <b class="parameter"><tt>height</tt></b>)
+</pre></td></tr></table><p>To draw on a <tt class="classname">DrawingArea</tt> you must retrieve
+the wrapped <tt class="classname">gtk.gdk.Window</tt> using the
+<i class="parameter"><tt>window</tt></i> attribute of the
+<tt class="classname">DrawingArea</tt> as follows:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  drawable = drawing_area.window
+</pre></td></tr></table><p>Then you can draw on <i class="parameter"><tt>drawable</tt></i> using the
+<tt class="classname">gtk.gdk.Drawable</tt> methods described in <a href="sec-DrawingMethods.html" title="12.2. Drawing Methods">Section 12.2, “Drawing Methods”</a>.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The <tt class="classname">DrawingArea</tt> must be realized (i.e. the
+Widget methods <tt class="methodname">realize</tt>() or
+<tt class="methodname">show</tt>() have been called) to have an associated
+<tt class="classname">gtk.gdk.Window</tt> that can be used for drawing.</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-GraphicsContext"></a>12.1. Graphics Context</h2></div></div><div></div></div><p>A variety of methods are available to draw onto the
+<tt class="classname">gtk.gdk.Window</tt> of a
+<tt class="classname">DrawingArea</tt>. All these methods require a graphics
+context (<tt class="classname">gtk.gdk.GC</tt>) to encapsulate, as attributes,
+the information required for drawing. The attributes of a
+<tt class="classname">gtk.gdk.GC</tt> are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+background
+cap_style
+clip_mask
+clip_x_origin
+clip_y_origin
+fill
+font
+foreground
+function
+graphics_exposures
+join_style
+line_style
+line_width
+stipple
+sub_window
+tile
+ts_x_origin
+ts_y_origin
+</pre></td></tr></table><p><i class="parameter"><tt>background</tt></i> specifies an allocated
+<tt class="classname">gtk.gdk.Color</tt> that is used to draw the background
+color.</p><p><i class="parameter"><tt>foreground</tt></i> specifies an allocated
+<tt class="classname">gtk.gdk.Color</tt> that is used to draw the foreground
+color.</p><p>A <tt class="classname">gtk.gdk.Color</tt> represents a color that
+may be allocated or unallocated. An unallocated color can be created
+using the constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  color = gtk.gdk.Color(<b class="parameter"><tt>red</tt></b>=0, <b class="parameter"><tt>green</tt></b>=0, <b class="parameter"><tt>blue</tt></b>=0, <b class="parameter"><tt>pixel</tt></b>=0)
+</pre></td></tr></table><p>where <i class="parameter"><tt>red</tt></i>, <i class="parameter"><tt>green</tt></i> and
+<i class="parameter"><tt>blue</tt></i> are integers in the range of 0 to
+65535. <i class="parameter"><tt>pixel</tt></i> is not usually specified because it is
+overwritten when the color is allocated.</p><p>Alternatively, an unallocated <tt class="classname">gtk.gdk.Color</tt>
+can be created using the function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  color = gtk.gdk.color_parse(<b class="parameter"><tt>spec</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>spec</tt></i> is a color specification string
+that can be either:</p><div class="itemizedlist"><ul type="disc"><li>a color name (e.g. "red", "orange", "navajo white" as
+defined in the X Window file <tt class="filename">rgb.txt</tt>), or</li><li>a hexadecimal string starting with '#' and containing three
+sets of hex digits of the same length (1, 2, 3 or 4 digits). For example,
+"#F0A", "#FF00AA", "#FFF000AAA" and "#FFFF0000AAAA" all represent the same
+color.</li></ul></div><p>A <tt class="classname">gtk.gdk.Color</tt> representing an allocated
+color is created using the <tt class="classname">gtk.gdk.Colormap</tt>
+<tt class="methodname">alloc_color</tt>() method which has three
+signatures:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  color = colormap.alloc_color(<b class="parameter"><tt>color</tt></b>, <b class="parameter"><tt>writeable</tt></b>=FALSE, <b class="parameter"><tt>best_match</tt></b>=TRUE)
+
+  color = colormap.alloc_color(<b class="parameter"><tt>spec</tt></b>, <b class="parameter"><tt>writeable</tt></b>=FALSE, <b class="parameter"><tt>best_match</tt></b>=TRUE)
+
+  color = colormap.alloc_color(<b class="parameter"><tt>red</tt></b>, <b class="parameter"><tt>green</tt></b>, <b class="parameter"><tt>blue</tt></b>, <b class="parameter"><tt>writeable</tt></b>=FALSE, <b class="parameter"><tt>best_match</tt></b>=TRUE)
+</pre></td></tr></table><p><i class="parameter"><tt>color</tt></i> is an unallocated
+<tt class="classname">gtk.gdk.Color</tt>. <i class="parameter"><tt>spec</tt></i> is a color
+specification string as described above for the
+<tt class="function">gtk.gdk.color_parse</tt>()
+function. <i class="parameter"><tt>red</tt></i>, <i class="parameter"><tt>green</tt></i> and
+<i class="parameter"><tt>blue</tt></i> are integer color values as described for the
+<tt class="function">gtk.gdk.Color</tt>() constructor. You can optionally specify
+whether the allocated color should be writeable (i.e. can be changed later
+but cannot be shared) or whether a best match with existing colors should be
+made if the exact color is not available. </p><p>For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  navajowhite = colormap.alloc('navajo white')
+
+  cyan = colormap.alloc(0, 65535, 65535)
+
+  red = colormap.alloc_color('#FF0000', True, True)
+</pre></td></tr></table><p>The colormap associated with a widget can be retrieved using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  colormap = widget.get_colormap()
+</pre></td></tr></table><p><i class="parameter"><tt>cap_style</tt></i> specifies the line ending style
+that is used when drawing the end of a line that is not joined to another
+line. The available cap styles are:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><tt class="literal">CAP_NOT_LAST</tt></td><td>draws line ends the same as <tt class="literal">CAP_BUTT</tt>
+for lines of non-zero width. For zero width lines, the final point on the
+line will not be drawn.</td></tr><tr><td><tt class="literal">CAP_BUTT</tt></td><td>the ends of the lines are drawn squared off and extending
+to the coordinates of the end point.</td></tr><tr><td><tt class="literal">CAP_ROUND</tt></td><td>the ends of the lines are drawn as semicircles with the
+diameter equal to the line width and centered at the end point.</td></tr><tr><td><tt class="literal">CAP_PROJECTING</tt></td><td>the ends of the lines are drawn squared off and extending
+half the width of the line beyond the end point.</td></tr></tbody></table></div><p><i class="parameter"><tt>clip_mask</tt></i> specifies a
+<tt class="classname">gtk.gdk.Pixmap</tt> that is used to clip the drawing in
+the <i class="parameter"><tt>drawing_area</tt></i>.</p><p><i class="parameter"><tt>clip_x_origin</tt></i> and
+<i class="parameter"><tt>clip_y_origin</tt></i> specify the origin x and y values relative
+to the upper left corner of the <i class="parameter"><tt>drawing_area</tt></i> for
+clipping.</p><p><i class="parameter"><tt>fill</tt></i> specifies the fill style to be used
+when drawing. The available fill styles are:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><tt class="literal">SOLID</tt></td><td>draw with the foreground color.</td></tr><tr><td><tt class="literal">TILED</tt></td><td>draw with a tiled pixmap.</td></tr><tr><td><tt class="literal">STIPPLED</tt></td><td>draw using the stipple bitmap. Pixels corresponding to
+bits in the stipple bitmap that are set will be drawn in the foreground
+color; pixels corresponding to bits that are not set will be left
+untouched.</td></tr><tr><td><tt class="literal">OPAQUE_STIPPLED</tt></td><td>draw using the stipple bitmap. Pixels corresponding to
+bits in the stipple bitmap that are set will be drawn in the foreground
+color; pixels corresponding to bits that are not set will be drawn with the
+background color.</td></tr></tbody></table></div><p><i class="parameter"><tt>font</tt></i> is a
+<tt class="classname">gtk.gdk.Font</tt> that is used as the default font for
+drawing text.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The use of the <i class="parameter"><tt>font</tt></i> attribute is
+deprecated.</p></div><p><i class="parameter"><tt>function</tt></i> specifies how the bit values for
+the source pixels are combined with the bit values for destination pixels to
+produce the resulting pixels bits. The sixteen values here correspond to the
+16 different possible 2x2 truth tables but only a couple of these values are
+usually useful. For color images, only COPY, XOR and INVERT are generally
+useful while for bitmaps, AND and OR are also useful. The function values
+are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  COPY
+  INVERT
+  XOR
+  CLEAR
+  AND
+  AND_REVERSE
+  AND_INVERT
+  NOOP
+  OR
+  EQUIV
+  OR_REVERSE
+  COPY_INVERT
+  OR_INVERT
+  NAND
+  SET
+</pre></td></tr></table><p><i class="parameter"><tt>graphics_exposures</tt></i> specifies whether
+graphics exposures are enabled (<tt class="literal">TRUE</tt>) or disabled
+(<tt class="literal">FALSE</tt>). When <i class="parameter"><tt>graphics_exposures</tt></i>
+is <tt class="literal">TRUE</tt>, a failure when copy pixels in a drawing
+operation will cause an expose event to be issued. If the copy succeeds, a
+noexpose event is issued.</p><p><i class="parameter"><tt>join_style</tt></i> specifies the style of joint to be
+used when lines meet at an angle. The available styles are:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><tt class="literal">JOIN_MITER</tt></td><td>the sides of each line are extended to meet at an
+angle.</td></tr><tr><td><tt class="literal">JOIN_ROUND</tt></td><td>the sides of the two lines are joined by a circular
+arc.</td></tr><tr><td><tt class="literal">JOIN_BEVEL</tt></td><td>the sides of the two lines are joined by a straight line
+which makes an equal angle with each line.</td></tr></tbody></table></div><p><i class="parameter"><tt>line_style</tt></i> specifies the style that a line
+will be drawn with. The available styles are:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><tt class="literal">LINE_SOLID</tt></td><td>lines are drawn as continuous segments.</td></tr><tr><td><tt class="literal">LINE_ON_OFF_DASH</tt></td><td>even segments are drawn; odd segments are not
+drawn.</td></tr><tr><td><tt class="literal">LINE_DOUBLE_DASH</tt></td><td>even segments are normally. Odd segments are drawn in the
+background color if the fill style is <tt class="literal">SOLID</tt>, or in the
+background color masked by the stipple if the fill style is
+<tt class="literal">STIPPLED</tt>.</td></tr></tbody></table></div><p><i class="parameter"><tt>line_width</tt></i> specifies the width that lines
+will be drawn with.</p><p><i class="parameter"><tt>stipple</tt></i> specifies the
+<tt class="classname">gtk.gdk.Pixmap</tt> that will be used for stippled drawing
+when the <i class="parameter"><tt>fill</tt></i> is set to either <tt class="literal">STIPPLED</tt> or <tt class="literal">OPAQUE_STIPPLED</tt>.</p><p><i class="parameter"><tt>sub_window</tt></i> specifies the mode of drawing
+into a <tt class="classname">gtk.gdk.Window</tt> that has child
+<tt class="classname">gtk.gdk.Window</tt>s. The possible values of
+<i class="parameter"><tt>sub_window</tt></i> are:</p><div class="informaltable"><table width="100%" border="1"><colgroup><col><col></colgroup><tbody><tr><td><tt class="literal">CLIP_BY_CHILDREN</tt></td><td>only draw onto the window itself but not its child
+windows</td></tr><tr><td><tt class="literal">INCLUDE_INFERIORS</tt></td><td>draw onto the window and its child windows.</td></tr></tbody></table></div><p><i class="parameter"><tt>tile</tt></i> specifies the
+<tt class="classname">gtk.gdk.Pixmap</tt> to used for tiled drawing when the
+<i class="parameter"><tt>fill</tt></i> is set to <tt class="literal">TILED</tt>.</p><p><i class="parameter"><tt>ts_x_origin</tt></i> and
+<i class="parameter"><tt>ts_y_origin</tt></i> specify the tiling/stippling origin (the
+starting position for the stippling bitmap or tiling pixmap).</p><p>A new Graphics Context is created by a call to the
+<tt class="methodname">gtk.gdk.Drawable.new_gc</tt>() method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+gc = drawable.new_gc(<b class="parameter"><tt>foreground</tt></b>=None, <b class="parameter"><tt>background</tt></b>=None, <b class="parameter"><tt>font</tt></b>=None, 
+                     <b class="parameter"><tt>function</tt></b>=-1, <b class="parameter"><tt>fill</tt></b>=-1, <b class="parameter"><tt>tile</tt></b>=None,
+                     <b class="parameter"><tt>stipple</tt></b>=None, <b class="parameter"><tt>clip_mask</tt></b>=None, <b class="parameter"><tt>subwindow_mode</tt></b>=-1,
+                     <b class="parameter"><tt>ts_x_origin</tt></b>=-1, <b class="parameter"><tt>ts_y_origin</tt></b>=-1, <b class="parameter"><tt>clip_x_origin</tt></b>=-1,
+                     <b class="parameter"><tt>clip_y_origin</tt></b>=-1, <b class="parameter"><tt>graphics_exposures</tt></b>=-1,
+                     <b class="parameter"><tt>line_width</tt></b>=-1, <b class="parameter"><tt>line_style</tt></b>=-1, <b class="parameter"><tt>cap_style</tt></b>=-1
+                     <b class="parameter"><tt>join_style</tt></b>=-1)
+</pre></td></tr></table><p>In order for a new Graphics Context to be created with this
+method, the drawable must be:</p><div class="itemizedlist"><ul type="disc"><li><p>a <tt class="classname">gtk.gdk.Window</tt> which has been
+realized (created), or;</p></li><li><p>a <tt class="classname">gtk.gdk.Pixmap</tt> associated with a
+realized <tt class="classname">gtk.gdk.Window</tt>.</p></li></ul></div><p>The various attributes of the Graphics Context have default values
+if not set in the <tt class="methodname">new_gc</tt>() method. If you want to
+set the GC attributes using the <tt class="methodname">new_gc</tt>() method,
+it's much easier to use the Python keyword arguments.</p><p>The individual attributes of a <tt class="classname">gtk.gdk.GC</tt>
+can also be set by assigning a value to the GC object attribute. For
+example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  gc.cap_style = CAP_BUTT
+  gc.line_width = 10
+  gc.fill = SOLD
+  gc.foreground = mycolor
+</pre></td></tr></table><p>or by using the following methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  gc.set_foreground(color)
+  gc.set_background(color)
+  gc.set_function(function)
+  gc.set_fill(fill)
+  gc.set_tile(tile)
+  gc.set_stipple(stipple)
+  gc.set_ts_origin(x, y)
+  gc.set_clip_origin(x, y)
+  gc.set_clip_mask(mask)
+  gc.set_clip_rectangle(rectangle)
+  gc.set_subwindow(mode)
+  gc.set_exposures(exposures)
+  gc.set_line_attributes(line_width, line_style, cap_style, join_style)
+</pre></td></tr></table><p>The dash pattern to be used when the
+<i class="parameter"><tt>line_style</tt></i> is <tt class="literal">LINE_ON_OFF_DASH</tt> or
+<tt class="literal">LINE_DOUBLE_DASH</tt> can be set using the following
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  gc.set_dashes(offset, dash_list)
+</pre></td></tr></table><p>where <i class="parameter"><tt>offset</tt></i> is the index of the starting
+dash value in <i class="parameter"><tt>dash_list</tt></i> and
+<i class="parameter"><tt>dash_list</tt></i> is a list or tuple containing numbers of
+pixels to be drawn or skipped to form the dashes. The dashes are drawn
+starting with the number of pixels at the offset position; then the next
+number of pixels is skipped; and then the next number is drawn; and so on
+rotating through all the dash_list numbers and starting over when the end is
+reached. For example, if the dash_list is (2, 4, 8, 16) and the offset is 1,
+the dashes will be drawn as: draw 4 pixels, skip 8 pixels, draw 16 pixels,
+skip 2 pixels, draw 4 pixels and so on.</p><p>A copy of an existing <tt class="classname">gtk.gdk.GC</tt> can be
+made using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  gc.copy(<b class="parameter"><tt>src_gc</tt></b>)
+</pre></td></tr></table><p>The attributes of <i class="parameter"><tt>gc</tt></i> will then be the same as
+<i class="parameter"><tt>src_gc</tt></i>.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-ItemFactoryExample.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-DrawingMethods.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.4. Item Factory Example </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 12.2. Drawing Methods</td></tr></table></div></body></html>

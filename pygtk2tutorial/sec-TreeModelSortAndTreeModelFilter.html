@@ -1,0 +1,185 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>14.10. TreeModelSort and TreeModelFilter</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"><link rel="previous" href="sec-TreeViewDragAndDrop.html" title="14.9. TreeView Drag and Drop"><link rel="next" href="sec-GenericTreeModel.html" title="14.11. The Generic TreeModel"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.10. TreeModelSort and TreeModelFilter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TreeViewDragAndDrop.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Tree View Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-GenericTreeModel.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TreeModelSortAndTreeModelFilter"></a>14.10. TreeModelSort and TreeModelFilter</h2></div></div><div></div></div><p>The <tt class="classname">TreeModelSort</tt> and
+<tt class="classname">TreeModelFilter</tt> objects are tree models that
+interpose between the base <tt class="classname">TreeModel</tt> (either a
+<tt class="classname">TreeStore</tt> or a <tt class="classname">ListStore</tt>) and
+the <tt class="classname">TreeView</tt> to provide a modified model while still
+retaining the original structure of the base model. These interposing models
+implement the <tt class="classname">TreeModel</tt> and
+<tt class="classname">TreeSortable</tt> interfaces but do not provide any
+methods for inserting or removing rows in the model; you have to insert or
+remove rows from the underlying store. The
+<tt class="classname">TreeModelSort</tt> provides a model where the rows are
+always sorted while the <tt class="classname">TreeModelFilter</tt> provides a
+model containing a subset of the rows of the base model.</p><p>These models can be chained to an arbitrary length if desired; i.e
+a <tt class="classname">TreeModelFilter</tt> could have a child
+<tt class="classname">TreeModelSort</tt> that could have a child
+<tt class="classname">TreeModelFilter</tt>, and so on. As long as there is a
+<tt class="classname">TreeStore</tt> or <tt class="classname">ListStore</tt> as the
+anchor of the chain it should just work. In PyGTK 2.0 and 2.2 the
+<tt class="classname">TreeModelSort</tt> and
+<tt class="classname">TreeModelFilter</tt> objects do not support the
+<tt class="classname">TreeModel</tt> Python mapping protocol.</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-TreeModelSort"></a>14.10.1. TreeModelSort</h3></div></div><div></div></div><p>The <tt class="classname">TreeModelSort</tt> maintains a sorted
+model of the child model specified in its constructor. The main use of a
+<tt class="classname">TreeModelSort</tt> is to provide multiple views of a model
+that can be sorted differently. If you have multiple views of the same model
+then any sorting activity is reflected in all the views. By using the
+<tt class="classname">TreeModelSort</tt> the base store is left in its original
+unsorted state and the sort models absorb all the sorting activity. To
+create a <tt class="classname">TreeModelSort</tt> use the constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelsort = gtk.TreeModelSort(<b class="parameter"><tt>child_model</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>child_model</tt></i> is a
+<tt class="classname">TreeModel</tt>. Most of the methods of a
+<tt class="classname">TreeModelSort</tt> deal with converting tree paths and
+<tt class="classname">TreeIter</tt>s from the child model to the sorted model
+and back:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  sorted_path = treemodelsort.convert_child_path_to_path(<b class="parameter"><tt>child_path</tt></b>)
+  child_path = treemodelsort.convert_path_to_child_path(<b class="parameter"><tt>sorted_path</tt></b>)
+</pre></td></tr></table><p>These path conversion methods return <tt class="literal">None</tt> if
+the given path cannot be converted to a path in the sorted model or the
+child model respectively. The <tt class="classname">TreeIter</tt> conversion
+methods are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  sorted_iter = treemodelsort.convert_child_iter_to_iter(<b class="parameter"><tt>sorted_iter</tt></b>, <b class="parameter"><tt>child_iter</tt></b>)
+ child_iter = treemodelsort.convert_iter_to_child_iter(<b class="parameter"><tt>child_iter</tt></b>, <b class="parameter"><tt>sorted_iter</tt></b>)
+</pre></td></tr></table><p>The <tt class="classname">TreeIter</tt> conversion methods duplicate
+the converted argument (its both the return value and the first argument)
+due to backward compatibility issues; you should set the first arguments to
+<tt class="literal">None</tt> and just use the return value. For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  sorted_iter = treemodelsort.convert_child_iter_to_iter(None, child_iter)
+  child_iter = treemodelsort.convert_iter_to_child_iter(None, sorted_iter)
+</pre></td></tr></table><p>Like the path conversion methods, these methods return
+<tt class="literal">None</tt> if the given <tt class="classname">TreeIter</tt> cannot
+be converted.</p><p>You can retrieve the child <tt class="classname">TreeModel</tt>
+using the <tt class="methodname">get_model</tt>() method.</p><p>A simple example program using
+<tt class="classname">TreeModelSort</tt> objects is <a href="examples/treemodelsort.py" target="_top">treemodelsort.py</a>. <a href="sec-TreeModelSortAndTreeModelFilter.html#treemodelsortfig" title="Figure 14.9. TreeModelSort Example">Figure 14.9, “TreeModelSort Example”</a> illustrates the result of running the program
+and adding six rows:</p><div class="figure"><a name="treemodelsortfig"></a><p class="title"><b>Figure 14.9. TreeModelSort Example</b></p><div class="mediaobject" align="center"><img src="figures/treemodelsort.png" align="middle" alt="TreeModelSort Example"></div></div><p>Each of the columns in the windows can be clicked to change the
+sort order independent of the other windows. When the "<span class="guibutton">Add a
+Row</span>" button is clicked a new row is added to the base
+<tt class="classname">ListStore</tt> and the new row is displayed in each
+<tt class="classname">TreeView</tt> as the selected row.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-TreeModelFilter"></a>14.10.2. TreeModelFilter</h3></div></div><div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The <tt class="classname">TreeModelFilter</tt> is available in
+PyGTK 2.4 and above.</p></div><p>A <tt class="classname">TreeModelFilter</tt> object provides several
+ways of modifying the view of the base <tt class="classname">TreeModel</tt>
+including:</p><div class="itemizedlist"><ul type="disc"><li>displaying a subset of the rows in the child model either
+based on boolean data in a "visible column", or based on the boolean return
+value of a "visible function" that takes the child model, a
+<tt class="classname">TreeIter</tt> pointing at a row in the child model and
+user data. In both cases if the boolean value is <tt class="literal">TRUE</tt> the
+row will be displayed; otherwise, the row will be hidden.</li><li>using a virtual root node to provide a view of a subtree
+of the children of a row in the child model. This only makes sense if the
+underlying store is a <tt class="classname">TreeStore</tt>.</li><li>synthesizing the columns and data of a model based on the
+data in the child model. For example, you can provide a column where the
+data is calculated from data in several child model columns.</li></ul></div><p>A <tt class="classname">TreeModelFilter</tt> object is created using
+the <tt class="classname">TreeModel</tt> method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelfilter = treemodel.filter_new(<b class="parameter"><tt>root</tt></b>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>root</tt></i> is a tree path in
+<i class="parameter"><tt>treemodel</tt></i> specifying the virtual root for the model
+or <tt class="literal">None</tt> if the root node of
+<i class="parameter"><tt>treemodel</tt></i> is to be used.</p><p>By setting a "virtual root" when creating the
+<tt class="classname">TreeModelFilter</tt>, you can limit the model view to the
+child rows of "root" row in the child model hierarchy. This, of course is
+only useful when the child model is based on a
+<tt class="classname">TreeStore</tt>. For example, you might want to provide a
+view of the parts list that makes up a CDROM drive separate from the full
+parts list of a computer.</p><p>The visibility modes are mutually exclusive and can only be set
+once i.e. once a visibility function or column is set it cannot be changed
+and the alternative mode cannot be set. The simplest visibility mode
+extracts a boolean value from a column in the child model to determine if
+the row should be displayed. The visibility columns is set using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelfilter.set_visible_column(<b class="parameter"><tt>column</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>column</tt></i> is the number of the column
+in the child <tt class="classname">TreeModel</tt> to extract the boolean values
+from. For example, the following code fragment uses the values in the third
+column to set the visibility of the rows:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  ...
+  treestore = gtk.TreeStore(str, str, "gboolean")
+  ...
+  modelfilter = treestore.filter_new()
+  modelfilter.set_visible_column(2)
+  ...
+</pre></td></tr></table><p>Thus any rows in <i class="parameter"><tt>treestore</tt></i> that have a
+value of <tt class="literal">TRUE</tt> in the third column will be
+displayed.</p><p>If you have more complicated visibility criteria setting a
+visibility function should provide sufficient power:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelfilter.set_visible_func(<b class="parameter"><tt>func</tt></b>, <b class="parameter"><tt>data</tt></b>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>func</tt></i> is the function called for
+each child model row to determine if it should be displayed and
+<i class="parameter"><tt>data</tt></i> is user data passed to
+<i class="parameter"><tt>func</tt></i>. <i class="parameter"><tt>func</tt></i> should return
+<tt class="literal">TRUE</tt> if the row should be displayed. The signature of
+<i class="parameter"><tt>func</tt></i> is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def func(<i class="parameter"><tt>model</tt></i>, <i class="parameter"><tt>iter</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>model</tt></i> is the child
+<tt class="classname">TreeModel</tt>, <i class="parameter"><tt>iter</tt></i> is a
+<tt class="classname">TreeIter</tt> pointing at a row in
+<i class="parameter"><tt>model</tt></i> and <i class="parameter"><tt>user_data</tt></i> is the
+passed in <i class="parameter"><tt>data</tt></i>.</p><p>If you make a change to the visibility criteria you should
+call:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelfilter.refilter()
+</pre></td></tr></table><p>to force a refiltering of the child model rows.</p><p>For example, the following code fragment illustrates a
+<tt class="classname">TreeModelFilter</tt> that displays rows based on a
+comparison between the value in the third column and the contents of the
+user data:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  ...
+  def match_type(model, iter, udata):
+      value = model.get_value(iter, 2)
+      return value in udata
+  ...
+  show_vals = ['OPEN', 'NEW', 'RESO']
+  liststore = gtk.ListStore(str, str, str)
+  ...
+  modelfilter = liststore.filter_new()
+  modelfilter.set_visible_func(match_type, show_vals)
+  ...
+</pre></td></tr></table><p>The program <a href="examples/treemodelfilter.py" target="_top">treemodelfilter.py</a> illustrates the
+use of the <tt class="methodname">set_visible_func</tt>() method. <a href="sec-TreeModelSortAndTreeModelFilter.html#treemodelfilterfig" title="Figure 14.10. TreeModelFilter Visibility Example">Figure 14.10, “TreeModelFilter Visibility Example”</a> shows the result of running the
+program.</p><div class="figure"><a name="treemodelfilterfig"></a><p class="title"><b>Figure 14.10. TreeModelFilter Visibility Example</b></p><div class="mediaobject" align="center"><img src="figures/treemodelfilter.png" align="middle" alt="TreeModelFilter Visibility Example"></div></div><p>By toggling the buttons at the bottom the contents of the
+<tt class="classname">TreeView</tt> are changed to display only the rows that
+match one of the active buttons.</p><p>A modify function gives you another level of control over the
+<tt class="classname">TreeView</tt> display to the point where you can
+synthesize one or more (or even all) columns that are represented by the
+<tt class="classname">TreeModelFilter</tt>. You still have to use a base child
+model that is a <tt class="classname">TreeStore</tt> or
+<tt class="classname">ListStore</tt> to determine the number of rows and the
+hierarchy but the columns can be anything you specify in the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treemodelfilter.set_modify_func(<b class="parameter"><tt>types</tt></b>, <b class="parameter"><tt>func</tt></b>, <b class="parameter"><tt>data</tt></b>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>types</tt></i> is a sequence (list or tuple)
+specifying the column types being represented, <i class="parameter"><tt>func</tt></i>
+is a function called to return the value for a row and column and
+<i class="parameter"><tt>data</tt></i> is an argument to be passed to
+<i class="parameter"><tt>func</tt></i>. The signature of <i class="parameter"><tt>func</tt></i>
+is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def func(<i class="parameter"><tt>model</tt></i>, <i class="parameter"><tt>iter</tt></i>, <i class="parameter"><tt>column</tt></i>, <i class="parameter"><tt>user_data</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>model</tt></i> is the
+<tt class="classname">TreeModelFilter</tt>, <i class="parameter"><tt>iter</tt></i> is a
+<tt class="classname">TreeIter</tt> that points to a row in model,
+<i class="parameter"><tt>column</tt></i> is the number of the column that a value is
+needed for and <i class="parameter"><tt>user_data</tt></i> is the parameter
+<i class="parameter"><tt>data</tt></i>. <i class="parameter"><tt>func</tt></i> must return a value
+matching the type for <i class="parameter"><tt>column</tt></i>.</p><p>A modify function is useful where you want to provide a column
+of data that needs to be generated using the data in the child model
+columns. For example if you had a column containing birth dates and wanted
+to provide a column displaying ages, a modify function could generate the
+age information using the birth date and the current date. Another example
+would be to decide what image to display based on some analysis of the data
+(say, a filename) in a column. This effect can also be achieved using the
+<tt class="classname">TreeViewColumn</tt>
+<tt class="methodname">set_cell_data_func</tt>() method.</p><p>Usually within the modify function, you will have to convert the
+<tt class="classname">TreeModelFilter</tt> <tt class="classname">TreeIter</tt> to a
+<tt class="classname">TreeIter</tt> in the child model using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  child_iter = treemodelfilter.convert_iter_to_child_iter(<b class="parameter"><tt>filter_iter</tt></b>)
+</pre></td></tr></table><p>Of course, you'll also need to retrieve the child model
+using:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  child_model = treemodelfilter.get_model()
+</pre></td></tr></table><p>These give you access to the child model row and its values for
+generating the value for the specified
+<tt class="classname">TreeModelFilter</tt> row and column. There's also a method
+to convert a child <tt class="classname">TreeIter</tt> to a filter model
+<tt class="classname">TreeIter</tt> and methods to convert filter model paths to
+and from child tree paths:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  filter_iter = treemodelfilter.convert_child_iter_to_iter(<b class="parameter"><tt>child_iter</tt></b>)
+
+  child_path = treemodelfilter.convert_path_to_child_path(<b class="parameter"><tt>filter_path</tt></b>)
+  filter_path = treemodelfilter.convert_child_path_to_path(<b class="parameter"><tt>child_path</tt></b>)
+</pre></td></tr></table><p>Of course, you can combine the visibility modes and the modify
+function to both filter rows and synthesize columns. To get even more
+control over the view you would have to use a custom
+<tt class="classname">TreeModel</tt>.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TreeViewDragAndDrop.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TreeViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-GenericTreeModel.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.9. TreeView Drag and Drop </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.11. The Generic TreeModel</td></tr></table></div></body></html>

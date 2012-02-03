@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/apps/emailsettings
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/apps/emailsettings/__init__.py
+END
+service.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/gdata/apps/emailsettings/service.py
+END

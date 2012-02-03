@@ -1,0 +1,413 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>16.7. The UIManager</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-NewInPyGTK2.4.html" title="Chapter 16. New Widgets in PyGTK 2.4"><link rel="previous" href="sec-FileChoosers.html" title="16.6. File Selections using FileChooser-based Widgets"><link rel="next" href="ch-UndocumentedWidgets.html" title="Chapter 17. Undocumented Widgets"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.7. The UIManager</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-FileChoosers.html">Prev</a> </td><th width="60%" align="center">Chapter 16. New Widgets in PyGTK 2.4</th><td width="20%" align="right"> <a accesskey="n" href="ch-UndocumentedWidgets.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-UIManager"></a>16.7. The UIManager</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-UIManagerOverview"></a>16.7.1. Overview</h3></div></div><div></div></div><p>The <tt class="classname">UIManager</tt> provides a way to create
+menus and toolbars from an XML-like description. The
+<tt class="classname">UIManager</tt> uses <tt class="classname">ActionGroup</tt>
+objects to manage the <tt class="classname">Action</tt> objects providing the
+common substructure for the menu and toolbar items.</p><p>Using the <tt class="classname">UIManager</tt> you can dynamically
+merge and demerge multiple UI descriptions and actions. This allows you to
+modify the menus and toolbars when the mode changes in the application (for
+example, changing from text editing to image editing), or when new plug-in
+features are added or removed from your application.</p><p>A <tt class="classname">UIManager</tt> can be used to create the menus
+and toolbars for an application user interface as follows:</p><div class="itemizedlist"><ul type="disc"><li>Create a <tt class="classname">UIManager</tt> instance</li><li>Extract the <tt class="classname">AccelGroup</tt> from the
+<tt class="classname">UIManager</tt> and add it to the top level
+<tt class="classname">Window</tt></li><li>Create the <tt class="classname">ActionGroup</tt> instances and
+populate them with the appropriate <tt class="classname">Action</tt>
+instances.</li><li>Add the <tt class="classname">ActionGroup</tt> instances to the
+<tt class="classname">UIManager</tt> in the order that the
+<tt class="classname">Action</tt> instances should be found.</li><li>Add the UI XML descriptions to the
+<tt class="classname">UIManager</tt>. Make sure that all
+<tt class="classname">Actions</tt> referenced by the descriptions are available
+in the <tt class="classname">UIManager</tt> <tt class="classname">ActionGroup</tt>
+instances.</li><li>Extract references to the menubar, menu and toolbar widgets
+by name for use in building the user interface.</li><li>Dynamically modify the user interface by adding and
+removing UI descriptions and by adding, rearranging and removing the
+associated <tt class="classname">ActionGroup</tt> instances.</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-CreatingUIManager"></a>16.7.2. Creating a UIManager</h3></div></div><div></div></div><p>A <tt class="classname">UIManager</tt> instance is created by the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimamager = gtk.UIManager()
+</pre></td></tr></table><p>A new <tt class="classname">UIManager</tt> is created with an
+associated <tt class="classname">AccelGroup</tt> that can be retrieved using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  accelgroup = uimanager.get_accel_group()
+</pre></td></tr></table><p>The <tt class="classname">AccelGroup</tt> should be added to the top
+level window of the application so that the <tt class="classname">Action</tt>
+accelerators can be used by your users. For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  window = gtk.Window()
+  ...
+  uimanager = gtk.UIManager()
+  accelgroup = uimanager.get_accel_group()
+  window.add_accel_group(accelgroup)
+</pre></td></tr></table></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-AddRemoveActionGroups"></a>16.7.3. Adding and Removing ActionGroups</h3></div></div><div></div></div><p>As described in <a href="ch-NewInPyGTK2.4.html#sec-ActionGroups" title="16.1.2. ActionGroups">Section 16.1.2, “ActionGroups”</a>,
+<tt class="classname">ActionGroups</tt> can be populated with
+<tt class="classname">Actions</tt> by using the
+<tt class="methodname">add_actions</tt>(),
+<tt class="methodname">add_toggle_actions</tt>() and
+<tt class="methodname">add_radio_actions</tt>() convenience methods. An
+<tt class="classname">ActionGroup</tt> can be used by a
+<tt class="classname">UIManager</tt> after it has been added to its
+<tt class="classname">ActionGroup</tt> list by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimanager.insert_action_group(<b class="parameter"><tt>action_group</tt></b>, <b class="parameter"><tt>pos</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>pos</tt></i> is the index of the position
+where <i class="parameter"><tt>action_group</tt></i> should be inserted. A
+<tt class="classname">UIManager</tt> may contain several
+<tt class="classname">ActionGroups</tt> with duplicate
+<tt class="classname">Action</tt> names. The order of the
+<tt class="classname">ActionGroup</tt> objects is important because the lookup
+of an <tt class="classname">Action</tt> stops when the first
+<tt class="classname">Action</tt> with the given name is encountered. This means
+that actions in earlier <tt class="classname">ActionGroup</tt> objects mask
+those in later <tt class="classname">ActionGroup</tt> objects.</p><p>The actions referenced in a UI XML description must be added to a
+<tt class="classname">UIManager</tt> before the description can be added to the
+<tt class="classname">UIManager</tt>.</p><p>An <tt class="classname">ActionGroup</tt> can be removed from a
+<tt class="classname">UIManager</tt> by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimanager.remove_action_group(<b class="parameter"><tt>action_group</tt></b>)
+</pre></td></tr></table><p>A list of the <tt class="classname">ActionGroup</tt> objects
+associated with a <tt class="classname">UIManager</tt> can be retrieved using
+the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  actiongrouplist = uimanager.get_action_groups()
+</pre></td></tr></table></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-UIDescriptions"></a>16.7.4. UI Descriptions</h3></div></div><div></div></div><p>The UI descriptions accepted by <tt class="classname">UIManager</tt>
+are simple XML definitions with the following elements:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term"><span class="bold"><b>ui</b></span></span></td><td>The root element of a UI description. It can be
+omitted. Can contain <span class="bold"><b>menubar</b></span>, <span class="bold"><b>popup</b></span>, <span class="bold"><b>toolbar</b></span> and
+<span class="bold"><b>accelerator</b></span> elements.</td></tr><tr><td><span class="term"><span class="bold"><b>menubar</b></span></span></td><td>A top level element describing a
+<tt class="classname">MenuBar</tt> structure that can contain <span class="bold"><b>MenuItem</b></span>, <span class="bold"><b>separator</b></span>,
+<span class="bold"><b>placeholder</b></span> and <span class="bold"><b>menu</b></span> elements. It has an optional
+<span class="emphasis"><em>name</em></span> attribute. If <span class="emphasis"><em>name</em></span> is not
+specified, "menubar" is used as the name.</td></tr><tr><td><span class="term"><span class="bold"><b>popup</b></span></span></td><td>A top level element describing a popup
+<tt class="classname">Menu</tt> structure that can contain <span class="bold"><b>menuitem</b></span>, <span class="bold"><b>separator</b></span>,
+<span class="bold"><b>placeholder</b></span>, and <span class="bold"><b>menu</b></span> elements. It has an optional
+<span class="emphasis"><em>name</em></span> attribute. If <span class="emphasis"><em>name</em></span> is not
+specified, "popup" is used as the name.</td></tr><tr><td><span class="term"><span class="bold"><b>toolbar</b></span></span></td><td>A top level element describing a
+<tt class="classname">Toolbar</tt> structure that can contain <span class="bold"><b>toolitem</b></span>, <span class="bold"><b>separator</b></span>
+and <span class="bold"><b>placeholder</b></span> elements. It has an
+optional <span class="emphasis"><em>name</em></span> attribute. If <span class="emphasis"><em>name</em></span>
+is not specified, "toolbar" is used as the name.</td></tr><tr><td><span class="term"><span class="bold"><b>placeholder</b></span></span></td><td>An element identifying a position in a <span class="bold"><b>menubar</b></span>, <span class="bold"><b>toolbar</b></span>,
+<span class="bold"><b>popup</b></span> or <span class="bold"><b>menu</b></span>. A placeholder can contain <span class="bold"><b>menuitem</b></span>, <span class="bold"><b>separator</b></span>,
+<span class="bold"><b>placeholder</b></span>, and <span class="bold"><b>menu</b></span> elements. <span class="bold"><b>Placeholder</b></span> elements are used when merging UI
+descriptions to allow, for example, a menu to be built up from UI
+descriptions using common <span class="bold"><b>placeholder</b></span>
+names. It has an optional <span class="emphasis"><em>name</em></span> attribute. If
+<span class="emphasis"><em>name</em></span> is not specified, "placeholder" is used as the
+name.</td></tr><tr><td><span class="term"><span class="bold"><b>menu</b></span></span></td><td>An element describing a <tt class="classname">Menu</tt>
+structure that can contain <span class="bold"><b>menuitem</b></span>,
+<span class="bold"><b>separator</b></span>, <span class="bold"><b>placeholder</b></span>, and <span class="bold"><b>menu</b></span> elements. A <span class="bold"><b>menu</b></span> element has a required attribute
+<span class="emphasis"><em>action</em></span> that names an <tt class="classname">Action</tt>
+object to be used to create the <tt class="classname">Menu</tt>. It also has
+optional <span class="emphasis"><em>name</em></span> and <span class="emphasis"><em>position</em></span>
+attributes. If <span class="emphasis"><em>name</em></span> is not specified, the
+<span class="emphasis"><em>action</em></span> name is used as the name. The
+<span class="emphasis"><em>position</em></span> attribute can have either the value "top" or
+"bottom" with "bottom" the default if <span class="emphasis"><em>position</em></span> is not
+specified.</td></tr><tr><td><span class="term"><span class="bold"><b>menuitem</b></span></span></td><td>An element describing a
+<tt class="classname">MenuItem</tt>. A <span class="bold"><b>menuitem</b></span>
+element has a required attribute <span class="emphasis"><em>action</em></span> that names an
+<tt class="classname">Action</tt> object to be used to create the
+<tt class="classname">MenuItem</tt>. It also has optional
+<span class="emphasis"><em>name</em></span> and <span class="emphasis"><em>position</em></span> attributes. If
+<span class="emphasis"><em>name</em></span> is not specified, the <span class="emphasis"><em>action</em></span>
+name is used as the name. The <span class="emphasis"><em>position</em></span> attribute can
+have either the value "top" or "bottom" with "bottom" the default if
+<span class="emphasis"><em>position</em></span> is not specified.</td></tr><tr><td><span class="term"><span class="bold"><b>toolitem</b></span></span></td><td>An element describing a toolbar
+<tt class="classname">ToolItem</tt>. A <span class="bold"><b>toolitem</b></span>
+element has a required attribute <span class="emphasis"><em>action</em></span> that names an
+<tt class="classname">Action</tt> object to be used to create the
+<tt class="classname">Toolbar</tt>. It also has optional
+<span class="emphasis"><em>name</em></span> and <span class="emphasis"><em>position</em></span> attributes. If
+<span class="emphasis"><em>name</em></span> is not specified, the <span class="emphasis"><em>action</em></span>
+name is used as the name. The <span class="emphasis"><em>position</em></span> attribute can
+have either the value "top" or "bottom" with "bottom" the default if
+<span class="emphasis"><em>position</em></span> is not specified.</td></tr><tr><td><span class="term"><span class="bold"><b>separator</b></span></span></td><td>An element describing a
+<tt class="classname">SeparatorMenuItem</tt> or a
+<tt class="classname">SeparatorToolItem</tt> as appropriate.</td></tr><tr><td><span class="term"><span class="bold"><b>accelerator</b></span></span></td><td>An element describing a keyboard accelerator. An
+<span class="bold"><b>accelerator</b></span> element has a required
+attribute <span class="emphasis"><em>action</em></span> that names an
+<tt class="classname">Action</tt> object that defines the accelerator key
+combination and is activated by the accelerator. It also has an optional
+<span class="emphasis"><em>name</em></span> attribute. If <span class="emphasis"><em>name</em></span> is not
+specified, the <span class="emphasis"><em>action</em></span> name is used as the
+name.</td></tr></tbody></table><p>For example, a UI description that could be used to create an
+interface similar that in <a href="ch-NewInPyGTK2.4.html#actiongroupfig" title="Figure 16.4. ActionGroup Example">Figure 16.4, “ActionGroup Example”</a> is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;ui&gt;
+    &lt;menubar name="MenuBar"&gt;
+      &lt;menu action="File"&gt;
+        &lt;menuitem action="Quit"/&gt;
+      &lt;/menu&gt;
+      &lt;menu action="Sound"&gt;
+        &lt;menuitem action="Mute"/&gt;
+      &lt;/menu&gt;
+      &lt;menu action="RadioBand"&gt;
+        &lt;menuitem action="AM"/&gt;
+        &lt;menuitem action="FM"/&gt;
+        &lt;menuitem action="SSB"/&gt;
+      &lt;/menu&gt;
+    &lt;/menubar&gt;
+    &lt;toolbar name="Toolbar"&gt;
+      &lt;toolitem action="Quit"/&gt;
+      &lt;separator/&gt;
+      &lt;toolitem action="Mute"/&gt;
+      &lt;separator name="sep1"/&gt;
+      &lt;placeholder name="RadioBandItems"&gt;
+        &lt;toolitem action="AM"/&gt;
+        &lt;toolitem action="FM"/&gt;
+        &lt;toolitem action="SSB"/&gt;
+      &lt;/placeholder&gt;
+    &lt;/toolbar&gt;
+  &lt;/ui&gt;
+</pre></td></tr></table><p>Note that this description just uses the <span class="bold"><b>action</b></span> attribute names for the names of most elements
+rather than specifying <span class="emphasis"><em>name</em></span> attributes. Also I would
+recommend not specifying the <span class="bold"><b>ui</b></span> element as
+it appears to be unnecessary.</p><p>The widget hierarchy created using a UI description is very
+similar to the XML element hierarchy except that <span class="bold"><b>placeholder</b></span> elements are merged into their
+parents.</p><p>A widget in the hierarchy created by a UI description can be
+accessed using its path which is composed of the name of the widget element
+and its ancestor elements joined by slash ("/") characters. For example
+using the above description the following are valid widget paths:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  /MenuBar
+  /MenuBar/File/Quit
+  /MenuBar/RadioBand/SSB
+  /Toolbar/Mute
+  /Toolbar/RadioBandItems/FM
+</pre></td></tr></table><p>Note that the <span class="bold"><b>placeholder</b></span> name
+must be included in the path. Usually you just access the top level widgets
+(for example, "/MenuBar" and "/Toolbar") but you may need to access a lower
+level widget to, for example, change a property.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-AddRemoveUIDescriptions"></a>16.7.5. Adding and Removing UI Descriptions</h3></div></div><div></div></div><p>Once a <tt class="classname">UIManager</tt> is set up with an
+<tt class="classname">ActionGroup</tt> a UI description can be added and merged
+with the existing UI by using one of the following methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  merge_id = uimanager.add_ui_from_string(<b class="parameter"><tt>buffer</tt></b>)
+
+  merge_id = uimanager.add_ui_from_file(<b class="parameter"><tt>filename</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>buffer</tt></i> is a string containing a UI
+description and <i class="parameter"><tt>filename</tt></i> is the file containing a UI
+description. Both methods return a <i class="parameter"><tt>merge_id</tt></i> which is
+a unique integer value. If the method fails, the <tt class="literal">GError</tt>
+exception is raised. The <i class="parameter"><tt>merge_id</tt></i> can be used to
+remove the UI description from the <tt class="classname">UIManager</tt> by using
+the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimanager.remove_ui(<b class="parameter"><tt>merge_id</tt></b>)
+</pre></td></tr></table><p>The same methods can be used more than once to add additional UI
+descriptions that will be merged to provide a combined XML UI
+description. Merged UIs will be discussed in more detail in <a href="sec-UIManager.html#sec-MergingUIDescriptions" title="16.7.8. Merging UI Descriptions">Section 16.7.8, “Merging UI Descriptions”</a> section.</p><p>A single UI element can be added to the current UI description by
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimanager.add_ui(<b class="parameter"><tt>merge_id</tt></b>, <b class="parameter"><tt>path</tt></b>, <b class="parameter"><tt>name</tt></b>, <b class="parameter"><tt>action</tt></b>, <b class="parameter"><tt>type</tt></b>, <b class="parameter"><tt>top</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>merge_id</tt></i> is a unique integer value,
+<i class="parameter"><tt>path</tt></i> is the path where the new element should be
+added, <i class="parameter"><tt>action</tt></i> is the name of an
+<tt class="classname">Action</tt> or <tt class="literal">None</tt> to add a <span class="bold"><b>separator</b></span>, <i class="parameter"><tt>type</tt></i> is the element
+type to be added and <i class="parameter"><tt>top</tt></i> is a boolean value. If
+<i class="parameter"><tt>top</tt></i> is <tt class="literal">TRUE</tt> the element will be
+added before its siblings, otherwise it is added after.</p><p><i class="parameter"><tt>merge_id</tt></i> should be obtained from the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  merge_id = uimanager.new_merge_id()
+</pre></td></tr></table><p>The integer values returned from the
+<tt class="methodname">new_merge_id</tt>() method are monotonically
+increasing.</p><p><i class="parameter"><tt>path</tt></i> is a string composed of the name of
+the element and the names of its ancestor elements separated by slash ("/")
+characters but not including the optional root node "/ui". For example,
+"/MenuBar/RadioBand" is the path of the <span class="bold"><b>menu</b></span> element named "RadioBand" in the following UI
+description:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu action="RadioBand"&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+</pre></td></tr></table><p>The value of <i class="parameter"><tt>type</tt></i> must be one of:</p><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_AUTO</tt></span></td><td>The type of the UI element (menuitem, toolitem or
+separator) is set according to the context.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_MENUBAR</tt></span></td><td>A menubar. </td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_MENU</tt></span></td><td>A menu.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_TOOLBAR</tt></span></td><td>A toolbar.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_PLACEHOLDER</tt></span></td><td>A placeholder.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_POPUP</tt></span></td><td>A popup menu.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_MENUITEM</tt></span></td><td>A menuitem.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_TOOLITEM</tt></span></td><td>A toolitem.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_SEPARATOR</tt></span></td><td>A separator.</td></tr><tr><td><span class="term"><tt class="literal">gtk.UI_MANAGER_ACCELERATOR</tt></span></td><td>An accelerator.</td></tr></tbody></table><p><tt class="methodname">add_ui</tt>() fails silently if the element is
+not added. Using <tt class="methodname">add_ui</tt>() is so low level that you
+should always try to use the convenience methods
+<tt class="methodname">add_ui_from_string</tt>() and
+<tt class="methodname">add_ui_from_file</tt>() instead.</p><p>Adding a UI description or element causes the widget hierarchy to
+be updated in an idle function. You can make sure that the widget hierarchy
+has been updated before accessing it by calling the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uimanager.ensure_update()
+</pre></td></tr></table></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-AccessingUIWidgets"></a>16.7.6. Accessing UI Widgets</h3></div></div><div></div></div><p>You access a widget in the UI widget hierarchy by using the
+method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  widget = uimanager.get_widget(<b class="parameter"><tt>path</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>path</tt></i> is a string containing the name
+of the widget element and it's ancestors as described in <a href="sec-UIManager.html#sec-UIDescriptions" title="16.7.4. UI Descriptions">Section 16.7.4, “UI Descriptions”</a>.</p><p>For example, given the following UI description:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu action="File"&gt;
+      &lt;menuitem action="Quit"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="Sound"&gt;
+      &lt;menuitem action="Mute"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="RadioBand"&gt;
+      &lt;menuitem action="AM"/&gt;
+      &lt;menuitem action="FM"/&gt;
+      &lt;menuitem action="SSB"/&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+  &lt;toolbar name="Toolbar"&gt;
+    &lt;toolitem action="Quit"/&gt;
+    &lt;separator/&gt;
+    &lt;toolitem action="Mute"/&gt;
+    &lt;separator name="sep1"/&gt;
+    &lt;placeholder name="RadioBandItems"&gt;
+      &lt;toolitem action="AM"/&gt;
+      &lt;toolitem action="FM"/&gt;
+      &lt;toolitem action="SSB"/&gt;
+    &lt;/placeholder&gt;
+  &lt;/toolbar&gt;
+</pre></td></tr></table><p>added to the <tt class="classname">UIManager</tt>
+<i class="parameter"><tt>uimanager</tt></i>, you can access the
+<tt class="classname">MenuBar</tt> and <tt class="classname">Toolbar</tt> for use in
+an application <tt class="classname">Window</tt> by using the following code
+fragment:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  window = gtk.Window()
+  vbox = gtk.VBox()
+  menubar = uimanager.get_widget('/MenuBar')
+  toolbar = uimanager.get_widget('/Toolbar')
+  vbox.pack_start(meunbar, False)
+  vbox.pack_start(toolbar, False)
+</pre></td></tr></table><p>Likewise the lower level widgets in the hierarchy are accessed by
+using their paths. For example the <tt class="classname">RadioToolButton</tt>
+named "SSB" is accessed as follows:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  ssb = uimanager.get_widget('/Toolbar/RadioBandItems/SSB')
+</pre></td></tr></table><p>As a convenience all the top level widgets of a type can be
+retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  toplevels = uimanager.get_toplevels(<i class="parameter"><tt>type</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>type</tt></i> specifies the type of widgets to
+return using a combination of the flags:
+<tt class="literal">gtk.UI_MANAGER_MENUBAR</tt>,
+<tt class="literal">gtk.UI_MANAGER_TOOLBAR</tt> and
+<tt class="literal">gtk.UI_MANAGER_POPUP</tt>. You can use the
+<tt class="methodname">gtk.Widget.get_name</tt>() method to determine which top
+level widget you have.</p><p>You can retrieve the <tt class="classname">Action</tt> that is used by
+the proxy widget associated with a UI element by using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  action = uimanager_get_action(<i class="parameter"><tt>path</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>path</tt></i> is a string containing the path
+to a UI element in <i class="parameter"><tt>uimanager</tt></i>. If the element has no
+associated <tt class="classname">Action</tt>, <tt class="literal">None</tt> is
+returned.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-SimpleUIManagerExample"></a>16.7.7. A Simple UIManager Example</h3></div></div><div></div></div><p>A simple example program illustrating the use of
+<tt class="classname">UIManager</tt> is <a href="examples/uimanager.py" target="_top">uimanager.py</a>. <a href="sec-UIManager.html#uimanagerfig" title="Figure 16.13. Simple UIManager Example">Figure 16.13, “Simple UIManager Example”</a> illustrates the program in operation.</p><div class="figure"><a name="uimanagerfig"></a><p class="title"><b>Figure 16.13. Simple UIManager Example</b></p><div class="mediaobject" align="center"><img src="figures/uimanager.png" align="middle" alt="Simple UIManager Example"></div></div><p>The <a href="examples/uimanager.py" target="_top">uimanager.py</a>
+example program uses the XML description of <a href="sec-UIManager.html#sec-AccessingUIWidgets" title="16.7.6. Accessing UI Widgets">Section 16.7.6, “Accessing UI Widgets”</a>. The text of the two labels are
+changed in response to the activation of the "Mute"
+<tt class="classname">ToggleAction</tt> and "AM", "FM" and "SSB"
+<tt class="classname">RadioAction</tt>s. All the actions are contained in a
+single <tt class="classname">ActionGroup</tt> allowing the sensitivity and
+visibility of all the action proxy widgets to be toggled on and off by using
+the "Sensitive" and "Visible" toggle buttons. The use of the <span class="bold"><b>placeholder</b></span> element will be described in <a href="sec-UIManager.html#sec-MergingUIDescriptions" title="16.7.8. Merging UI Descriptions">Section 16.7.8, “Merging UI Descriptions”</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-MergingUIDescriptions"></a>16.7.8. Merging UI Descriptions</h3></div></div><div></div></div><p>The merging of UI descriptions is done based on the name of the
+XML elements. As noted above the individual elements in the hierarchy can be
+accessed using a pathname consisting of the element name and the names of
+its ancestors. For example, using the UI description in <a href="sec-UIManager.html#sec-UIDescriptions" title="16.7.4. UI Descriptions">Section 16.7.4, “UI Descriptions”</a> the "AM" <span class="bold"><b>toolitem</b></span> element has the pathname
+"/Toolbar/RadioBandItems/AM" while the "FM" <span class="bold"><b>menuitem</b></span> element has the pathname
+"/MenuBar/RadioBand/FM".</p><p>If a UI description is merged with that UI description the
+elements are added as siblings to the existing elements. For example, if
+the UI description:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu action="File"&gt;
+      &lt;menuitem action="Save" position="top"/&gt;
+      &lt;menuitem action="New" position="top"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="Sound"&gt;
+      &lt;menuitem action="Loudness"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="RadioBand"&gt;
+      &lt;menuitem action="CB"/&gt;
+      &lt;menuitem action="Shortwave"/&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+  &lt;toolbar name="Toolbar"&gt;
+    &lt;toolitem action="Save" position="top"/&gt;
+    &lt;toolitem action="New" position="top"/&gt;
+    &lt;separator/&gt;
+    &lt;toolitem action="Loudness"/&gt;
+    &lt;separator/&gt;
+    &lt;placeholder name="RadioBandItems"&gt;
+      &lt;toolitem action="CB"/&gt;
+      &lt;toolitem action="Shortwave"/&gt;
+    &lt;/placeholder&gt;
+  &lt;/toolbar&gt;
+</pre></td></tr></table><p>is added to our example UI description:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu action="File"&gt;
+      &lt;menuitem action="Quit"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="Sound"&gt;
+      &lt;menuitem action="Mute"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="RadioBand"&gt;
+      &lt;menuitem action="AM"/&gt;
+      &lt;menuitem action="FM"/&gt;
+      &lt;menuitem action="SSB"/&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+  &lt;toolbar name="Toolbar"&gt;
+    &lt;toolitem action="Quit"/&gt;
+    &lt;separator/&gt;
+    &lt;toolitem action="Mute"/&gt;
+    &lt;separator name="sep1"/&gt;
+    &lt;placeholder name="RadioBandItems"&gt;
+      &lt;toolitem action="AM"/&gt;
+      &lt;toolitem action="FM"/&gt;
+      &lt;toolitem action="SSB"/&gt;
+    &lt;/placeholder&gt;
+  &lt;/toolbar&gt;
+</pre></td></tr></table><p>the following merged UI description will be created:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu name="File" action="File"&gt;
+      &lt;menuitem name="New" action="New"/&gt;
+      &lt;menuitem name="Save" action="Save"/&gt;
+      &lt;menuitem name="Quit" action="Quit"/&gt;
+    &lt;/menu&gt;
+    &lt;menu name="Sound" action="Sound"&gt;
+      &lt;menuitem name="Mute" action="Mute"/&gt;
+      &lt;menuitem name="Loudness" action="Loudness"/&gt;
+    &lt;/menu&gt;
+    &lt;menu name="RadioBand" action="RadioBand"&gt;
+      &lt;menuitem name="AM" action="AM"/&gt;
+      &lt;menuitem name="FM" action="FM"/&gt;
+      &lt;menuitem name="SSB" action="SSB"/&gt;
+      &lt;menuitem name="CB" action="CB"/&gt;
+      &lt;menuitem name="Shortwave" action="Shortwave"/&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+  &lt;toolbar name="Toolbar"&gt;
+    &lt;toolitem name="New" action="New"/&gt;
+    &lt;toolitem name="Save" action="Save"/&gt;
+    &lt;toolitem name="Quit" action="Quit"/&gt;
+    &lt;separator/&gt;
+    &lt;toolitem name="Mute" action="Mute"/&gt;
+    &lt;separator name="sep1"/&gt;
+    &lt;placeholder name="RadioBandItems"&gt;
+      &lt;toolitem name="AM" action="AM"/&gt;
+      &lt;toolitem name="FM" action="FM"/&gt;
+      &lt;toolitem name="SSB" action="SSB"/&gt;
+      &lt;toolitem name="CB" action="CB"/&gt;
+      &lt;toolitem name="Shortwave" action="Shortwave"/&gt;
+    &lt;/placeholder&gt;
+    &lt;separator/&gt;
+    &lt;toolitem name="Loudness" action="Loudness"/&gt;
+    &lt;separator/&gt;
+  &lt;/toolbar&gt;
+</pre></td></tr></table><p>Examining the merged XML you can see that the "New" and "Save"
+<span class="bold"><b>menuitem</b></span> elements have been merged before
+the "Quit" element as a result of the "position" attribute being set to
+"top" which means the element should be prepended. Likewise, the "New" and
+"Save" <span class="bold"><b>toolitem</b></span> elements have been
+prepended to "Toolbar". Note that the "New" and "Save" elements are reversed
+by the merging process.</p><p>The "Loudness" <span class="bold"><b>toolitem</b></span> element
+is appended to the "Toolbar" elements and appears last in the merged UI
+description even though it's not last in its UI description. The
+"RadioBandItems" <span class="bold"><b>placeholder</b></span> element in
+both UI descriptions combines the "CB" and "Shortwave" <span class="bold"><b>toolitem</b></span> elements with the "AM", "FM", and "SSB"
+elements. If the "RadioBandItems" <span class="bold"><b>placeholder</b></span> element was not used the "CB" and
+"Shortwave" elements would have been placed after the "Loudness"
+element.</p><p>A representation of the UI description used by a
+<tt class="classname">UIManager</tt> can be retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  uidesc = uimanager.get_ui()
+</pre></td></tr></table><p>The <a href="examples/uimerge.py" target="_top">uimerge.py</a> example
+program demonstrates the merging of the above UI descriptions. <a href="sec-UIManager.html#uimergefig" title="Figure 16.14. UIMerge Example">Figure 16.14, “UIMerge Example”</a> illustrates the unmerged and merged UIs:</p><div class="figure"><a name="uimergefig"></a><p class="title"><b>Figure 16.14. UIMerge Example</b></p><div class="mediaobject" align="center"><img src="figures/uimerge.png" align="middle" alt="UIMerge Example"></div></div><p>The example program uses three <tt class="classname">ActionGroup</tt>
+objects:</p><div class="itemizedlist"><ul type="disc"><li><tt class="classname">Action</tt> objects for the "File",
+"Sound" and "Radio Band" menus</li><li><tt class="classname">Action</tt> objects for the "Quit",
+"Mute", "AM", "FM", "SSB" and "Radio Band" menus</li><li><tt class="classname">Action</tt> objects for the "Loudness",
+"CB" and "Shortwave" elements</li></ul></div><p>The "Sensitive" and Visible" <tt class="classname">ToggleButton</tt>
+widgets control the sensitivity and visibility of only the second
+<tt class="classname">ActionGroup</tt>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-UIManagerSignals"></a>16.7.9. UIManager Signals</h3></div></div><div></div></div><p>The <tt class="classname">UIManager</tt> has a couple of interesting
+signals that your application can connect to. The "actions-changed" signal
+is emitted when an <tt class="classname">ActionGroup</tt> is added or
+removed from a <tt class="classname">UIManager</tt>. The signature of the
+callback is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def callback(<i class="parameter"><tt>uimanager</tt></i>, ...)
+</pre></td></tr></table><p>The "add-widget" signal is emitted when a proxy
+<tt class="classname">MenuBar</tt> or <tt class="classname">Toolbar</tt> widget is
+created. The callback signature is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def callback(<i class="parameter"><tt>uimanager</tt></i>, <i class="parameter"><tt>widget</tt></i>, ...)
+</pre></td></tr></table><p>where <i class="parameter"><tt>widget</tt></i> is the newly created
+widget.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-FileChoosers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-NewInPyGTK2.4.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch-UndocumentedWidgets.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">16.6. File Selections using FileChooser-based Widgets </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 17. Undocumented Widgets</td></tr></table></div></body></html>

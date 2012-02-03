@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/294/trunk/jbrout/plugins/viewExif
+END
+viewExif.glade
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/217/trunk/jbrout/plugins/viewExif/viewExif.glade
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/237/trunk/jbrout/plugins/viewExif/__init__.py
+END
+viewExif.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/294/trunk/jbrout/plugins/viewExif/viewExif.py
+END

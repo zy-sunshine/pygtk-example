@@ -1,0 +1,60 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>14.5. TreeViewColumns</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TreeViewWidget.html" title="Chapter 14. Tree View Widget"><link rel="previous" href="sec-CellRenderers.html" title="14.4. CellRenderers"><link rel="next" href="sec-ManipulatingTreeViews.html" title="14.6. Manipulating TreeViews"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.5. TreeViewColumns</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-CellRenderers.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Tree View Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-ManipulatingTreeViews.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TreeViewColumns"></a>14.5. TreeViewColumns</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-CreatingTreeViewColumns"></a>14.5.1. Creating TreeViewColumns</h3></div></div><div></div></div><p>A <tt class="classname">TreeViewColumn</tt> is created using the
+constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn = gtk.TreeViewColumn(<i class="parameter"><tt>title</tt></i>=None, <i class="parameter"><tt>cell_renderer=None</tt></i>, <i class="parameter"><tt>...</tt></i>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>title</tt></i> is the string to be used as
+the column header label, and <i class="parameter"><tt>cell_renderer</tt></i> is the
+first <tt class="classname">CellRenderer</tt> to pack in the column. Additional
+arguments that are passed to the constructor are keyword values (in the
+format attribute=column) that set attributes on
+<i class="parameter"><tt>cell_renderer</tt></i>. For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn = gtk.TreeViewColumn('States', cell, text=0, foreground=1)
+</pre></td></tr></table><p>creates a <tt class="classname">TreeViewColumn</tt> with the
+<tt class="classname">CellRendererText</tt> cell retrieving its text from the
+first column of the tree model and the text color from the second
+column.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ManagingCellRenderers"></a>14.5.2. Managing CellRenderers</h3></div></div><div></div></div><p>A <tt class="classname">CellRenderer</tt> can be added to a
+<tt class="classname">TreeViewColumn</tt> using one of the methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn.pack_start(<b class="parameter"><tt>cell</tt></b>, <b class="parameter"><tt>expand</tt></b>)
+  treeviewcolumn.pack_end(<b class="parameter"><tt>cell</tt></b>, <b class="parameter"><tt>expand</tt></b>)
+</pre></td></tr></table><p><tt class="methodname">pack_start</tt>() and
+<tt class="methodname">pack_end</tt>() add <i class="parameter"><tt>cell</tt></i> to the
+start or end, respectively, of the <tt class="classname">TreeViewColumn</tt>. If
+<i class="parameter"><tt>expand</tt></i> is <tt class="literal">TRUE</tt>,
+<i class="parameter"><tt>cell</tt></i> will share in any available extra space
+allocated by the <tt class="classname">TreeViewColumn</tt>.</p><p>The <tt class="methodname">get_cell_renderers</tt>() method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  cell_list = treeviewcolumn.get_cell_renderers()
+</pre></td></tr></table><p>returns a list of all the <tt class="classname">CellRenderer</tt>s
+in the column.</p><p>The <tt class="methodname">clear</tt>() method removes all the
+<tt class="classname">CellRenderer</tt> attributes from the
+<tt class="classname">TreeViewColumn</tt>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn.clear()
+</pre></td></tr></table><p>There are a large number of other methods available for a
+<tt class="classname">TreeViewColumn</tt> - mostly dealing with setting and
+getting properties. See the <a href="http://www.pygtk.org/pygtk2reference/index.html" target="_top">PyGTK Reference
+Manual</a> for more information on the
+<tt class="classname">TreeViewColumn</tt> properties. The capability of using
+the built-in sorting facility is set using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  treeviewcolumn.set_sort_column_id(<b class="parameter"><tt>sort_column_id</tt></b>)
+</pre></td></tr></table><p>sets <i class="parameter"><tt>sort_column_id</tt></i> as the tree model
+sort column ID to use when sorting the <tt class="classname">TreeView</tt>
+display. This method also sets the "clickable" property of the column that
+allows the user to click on the column header to activate the sorting. When
+the user clicks on the column header, the
+<tt class="classname">TreeViewColumn</tt> sort column ID is set as the
+<tt class="classname">TreeModel</tt> sort column ID and the
+<tt class="classname">TreeModel</tt> rows are resorted using the associated sort
+comparison function. The automatic sorting facility also toggles the sort
+order of the column and manages the display of the sort indicator. See <a href="sec-TreeModelInterface.html#sec-SortingTreeModelRows" title="14.2.9. Sorting TreeModel Rows">Section 14.2.9, “Sorting TreeModel Rows”</a> for more information on sort
+column IDs and sort comparison functions. Typically when using a
+<tt class="classname">ListStore</tt> or <tt class="classname">TreeStore</tt> the
+default sort column ID (i.e. the column index) of the
+<tt class="classname">TreeModel</tt> column associated with the
+<tt class="classname">TreeViewColumn</tt> is set as the
+<tt class="classname">TreeViewColumn</tt> sort column ID.</p><p>If you use the <tt class="classname">TreeViewColumn</tt> headers for
+sorting by using the <tt class="methodname">set_sort_column_id</tt>() method,
+you don't need to use the <tt class="classname">TreeSortable</tt>
+<tt class="methodname">set_sort_column_id</tt>() method.</p><p>You can track the sorting operations or use a header click for
+your own purposes by connecting to the "clicked" signal of the
+<tt class="classname">TreeView</tt> column. The callback function should be
+defined as:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def callback(treeviewcolumn, user_data, ...)
+</pre></td></tr></table></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-CellRenderers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TreeViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-ManipulatingTreeViews.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.4. CellRenderers </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.6. Manipulating TreeViews</td></tr></table></div></body></html>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/309/trunk/jbrout/plugins/multiexport/libs
+END
+mailer.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/227/trunk/jbrout/plugins/multiexport/libs/mailer.py
+END
+flickr.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/289/trunk/jbrout/plugins/multiexport/libs/flickr.py
+END
+pycasaweb.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/46/trunk/jbrout/plugins/multiexport/libs/pycasaweb.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/46/trunk/jbrout/plugins/multiexport/libs/__init__.py
+END

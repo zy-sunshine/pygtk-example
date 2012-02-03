@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom
+END
+core.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/core.py
+END
+mock_http.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/mock_http.py
+END
+mock_service.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/mock_service.py
+END
+data.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/data.py
+END
+token_store.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/token_store.py
+END
+client.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/client.py
+END
+http_interface.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/http_interface.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/__init__.py
+END
+http.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/http.py
+END
+mock_http_core.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/mock_http_core.py
+END
+service.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/service.py
+END
+auth.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/auth.py
+END
+url.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/url.py
+END
+http_core.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/215/trunk/jbrout/plugins/multiexport/libs/picasaweb/atom/http_core.py
+END

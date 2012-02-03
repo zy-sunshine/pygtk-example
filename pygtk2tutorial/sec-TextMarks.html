@@ -1,0 +1,31 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>13.5. Text Marks</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-TextViewWidget.html" title="Chapter 13. TextView Widget"><link rel="previous" href="sec-TextIters.html" title="13.4. Text Iters"><link rel="next" href="sec-TextTagsAndTextTagTables.html" title="13.6. Text Tags and Tag Tables"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.5. Text Marks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-TextIters.html">Prev</a> </td><th width="60%" align="center">Chapter 13. TextView Widget</th><td width="20%" align="right"> <a accesskey="n" href="sec-TextTagsAndTextTagTables.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-TextMarks"></a>13.5. Text Marks</h2></div></div><div></div></div><p>A <tt class="classname">TextMark</tt> indicates a location in a
+<tt class="classname">TextBuffer</tt> between two characters that is preserved
+across buffer modifications.  <tt class="classname">TextMark</tt>s are created,
+moved and deleted using the <tt class="classname">TextBuffer</tt> methods as
+described in the <tt class="classname">TextBuffer</tt> section.</p><p>A <tt class="classname">TextBuffer</tt> has two built-in
+<tt class="classname">TextMark</tt>s named: <i class="parameter"><tt>insert</tt></i> and
+<i class="parameter"><tt>selection_bound</tt></i> which refer to the insertion point
+and the boundary of the selection (these may refer to the same
+location).</p><p>The name of a <tt class="classname">TextMark</tt> can be retrieved
+using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  name = textmark.get_name()
+</pre></td></tr></table><p>By default marks other than insert are not visible (displayed as a
+vertical bar). The visibility of a mark can be set and retrieved using the
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  setting = textmark.get_visible()
+
+  textmark.set_visible(<b class="parameter"><tt>setting</tt></b>)
+</pre></td></tr></table><p>where <i class="parameter"><tt>setting</tt></i> is <tt class="literal">TRUE</tt> if
+the mark is visible.</p><p>The <tt class="classname">TextBuffer</tt> that contains a
+<tt class="classname">TextMark</tt> can be obtained using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  buffer = textmark.get_buffer()
+</pre></td></tr></table><p>You can determine whether a <tt class="classname">TextMark</tt> has
+been deleted using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  setting = textmark.get_deleted()
+</pre></td></tr></table><p>The left gravity of a <tt class="classname">TextMark</tt> can be
+retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  setting = textmark.get_left_gravity()
+</pre></td></tr></table><p>The left gravity of a <tt class="classname">TextMark</tt> indicates
+where the mark will end up after an insertion. If left gravity is
+<tt class="literal">TRUE</tt> the mark will be to the left of the insertion; if
+<tt class="literal">FALSE</tt>, to the right of the insertion.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-TextIters.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-TextViewWidget.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-TextTagsAndTextTagTables.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.4. Text Iters </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.6. Text Tags and Tag Tables</td></tr></table></div></body></html>

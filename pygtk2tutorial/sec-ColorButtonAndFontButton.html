@@ -1,0 +1,100 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>16.3. ColorButton and FontButton Widgets</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-NewInPyGTK2.4.html" title="Chapter 16. New Widgets in PyGTK 2.4"><link rel="previous" href="sec-ComboBoxAndComboboxEntry.html" title="16.2. ComboBox and ComboBoxEntry Widgets"><link rel="next" href="sec-EntryCompletion.html" title="16.4. EntryCompletion Objects"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.3. ColorButton and FontButton Widgets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec-ComboBoxAndComboboxEntry.html">Prev</a> </td><th width="60%" align="center">Chapter 16. New Widgets in PyGTK 2.4</th><td width="20%" align="right"> <a accesskey="n" href="sec-EntryCompletion.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-ColorButtonAndFontButton"></a>16.3. ColorButton and FontButton Widgets</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-ColorButton"></a>16.3.1. ColorButton Widgets</h3></div></div><div></div></div><p>A <tt class="classname">ColorButton</tt> widget provides a convenient
+way of displaying a color in a button that can be clicked to open a
+<tt class="classname">ColorSelectionDialog</tt>. It's useful for displaying and
+setting colors in a user preference dialog. A
+<tt class="classname">ColorButton</tt> takes care of setting up, displaying and
+retrieving the result of a <tt class="classname">ColorSelectionDialog</tt>. A
+<tt class="classname">ColorButton</tt> is created using the constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  colorbutton = gtk.ColorButton(<b class="parameter"><tt>color</tt></b>=gtk.gdk.Color(0,0,0))
+</pre></td></tr></table><p>The initial color can be specified using the
+<i class="parameter"><tt>color</tt></i> parameter or set later using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  colorbutton.set_color(<b class="parameter"><tt>color</tt></b>)
+</pre></td></tr></table><p>The title for the <tt class="classname">ColorSelectionDialog</tt> that
+is displayed when the button is clicked can be set and retrieved using the
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  colorbutton.set_title(<b class="parameter"><tt>title</tt></b>)
+
+  title = colorbutton.get_title()
+</pre></td></tr></table><p>The opacity of the color is set using the alpha channel. The
+following methods get and set the color opacity in the range from 0
+(transparent) to 65535 (opaque):</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  alpha = colorbutton.get_alpha()
+
+  colorbutton.set_alpha(<b class="parameter"><tt>alpha</tt></b>)
+</pre></td></tr></table><p>By default the alpha is ignored because the "use_alpha" property
+is <tt class="literal">FALSE</tt>.  The value of the "use_alpha" property can be
+set and retrieved using the method:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  colorbutton.set_use_alpha(<b class="parameter"><tt>use_alpha</tt></b>)
+
+  use_alpha = colorbutton.get_use_alpha()
+</pre></td></tr></table><p>If "use_alpha" is <tt class="literal">TRUE</tt> the
+<tt class="classname">ColorSelectionDialog</tt> displays a slider for setting
+the opacity and displays the color using a checkerboard background.</p><p>You can track changes in the selected color by connecting to the
+"color-set" signal that is emitted when the user sets the color. The signal
+callback signature is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def color_set_cb(colorbutton, user_data):
+</pre></td></tr></table><p>The example program <a href="examples/colorbutton.py" target="_top">colorbutton.py</a> illustrates the use of
+a <tt class="classname">ColorButton</tt>. <a href="sec-ColorButtonAndFontButton.html#colorbuttonfig" title="Figure 16.8. ColorButton Example">Figure 16.8, “ColorButton Example”</a> shows
+the program in operation.</p><div class="figure"><a name="colorbuttonfig"></a><p class="title"><b>Figure 16.8. ColorButton Example</b></p><div class="mediaobject" align="center"><img src="figures/colorbutton.png" align="middle" alt="ColorButton Example"></div></div><p></p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="sec-FontButton"></a>16.3.2. FontButton Widgets</h3></div></div><div></div></div><p>Like the <tt class="classname">ColorButton</tt>, the
+<tt class="classname">FontButton</tt> is a convenience widget that provides a
+display of the currently selected font and, when clicked, opens a
+<tt class="classname">FontSelectionDialog</tt>. A
+<tt class="classname">FontButton</tt> takes care of setting up, displaying and
+retrieving the result of a <tt class="classname">FontSelectionDialog</tt>. A
+FontButton is created using the constructor:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  fontbutton = gtk.FontButton(<b class="parameter"><tt>fontname</tt></b>=None)
+</pre></td></tr></table><p>where <i class="parameter"><tt>fontname</tt></i> is a string specifying the
+current font for the <tt class="classname">FontSelectionDialog</tt>. For example
+the font name can be specified like 'Sans 12', 'Sans Bold 14', or 'Monospace
+Italic 14'. You need to specify the font family and size at minimum.</p><p>The current font can also be set and retrieved using the following
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  result = fontbutton.set_font_name(<b class="parameter"><tt>fontname</tt></b>)
+
+  fontname = fontbutton.get_font_name()
+</pre></td></tr></table><p>where <i class="parameter"><tt>result</tt></i> returns
+<tt class="literal">TRUE</tt> or <tt class="literal">FALSE</tt> to indicate whether the
+font was successfully set. The <tt class="classname">FontButton</tt> has a
+number of properties and associated methods that affect the display of the
+current font in the <tt class="classname">FontButton</tt>. The "show-size" and
+show-style" properties contain boolean values that control whether the font
+size and style will be displayed in the button label. The following methods
+set and retrieve the value of these properties:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  fontbutton.set_show_style(<b class="parameter"><tt>show_style</tt></b>)
+  show_style = fontbutton.get_show_style()
+
+  fontbutton.set_show_size(<b class="parameter"><tt>show_size</tt></b>)
+  show_size = fontbutton.get_show_size()
+</pre></td></tr></table><p>Alternatively, you can have the current font size and style used
+by the label to directly illustrate the font selection. The "use-size" and
+"use-font" properties and the associated methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  fontbutton.set_use_font(<b class="parameter"><tt>use_font</tt></b>)
+  use_font = fontbutton.get_use_font()
+
+  fontbutton.set_use_size(<b class="parameter"><tt>use_size</tt></b>)
+  use_size = fontbutton.get_use_size()
+</pre></td></tr></table><p>Using the current font in the label seems like a useful
+illustration technique in spite of the inevitable changes in size of the
+button but using the selected size doesn't seem as useful especially when
+using really large or small font sizes. Note if you set "use-font" or
+"use-size" to <tt class="literal">TRUE</tt> and later set them to
+<tt class="literal">FALSE</tt>, the last set font and size will be retained. For
+example, if "use-font" and "use-size" are <tt class="literal">TRUE</tt> and the
+current font is <tt class="literal">Monospace Italic 20</tt>, the
+<tt class="classname">FontButton</tt> label is displayed using
+<tt class="literal">Monospace Italic 20</tt>; then if "use-font" and "use-size"
+are set to <tt class="literal">FALSE</tt> and then the current font is changed to
+<tt class="literal">Sans 12</tt> the label will still be displayed in
+<tt class="literal">Monospace Italic 20</tt>. Use the example program <a href="examples/fontbutton.py" target="_top">fontbutton.py</a> to see how this
+works.</p><p>Finally, the title of the
+<tt class="classname">FontSelectionDialog</tt> can be set and retrieved using
+the methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  fontbutton.set_title(<b class="parameter"><tt>title</tt></b>)
+
+  title = fontbutton.get_title()
+</pre></td></tr></table><p>Like the <tt class="classname">ColorButton</tt>, you can track changes
+in the current font by connecting to the "font-set" signal that is emitted
+when the user sets the font. The signal callback signature is:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  def font_set_cb(fontbutton, user_data):
+</pre></td></tr></table><p>The example program <a href="examples/fontbutton.py" target="_top">fontbutton.py</a> illustrates the use of a
+<tt class="classname">FontButton</tt>. You can set the "use-font", "use-size",
+"show-size" and "show-style" properties using toggle buttons. <a href="sec-ColorButtonAndFontButton.html#fontbuttonfig" title="Figure 16.9. FontButton Example">Figure 16.9, “FontButton Example”</a> shows the program in operation.</p><div class="figure"><a name="fontbuttonfig"></a><p class="title"><b>Figure 16.9. FontButton Example</b></p><div class="mediaobject" align="center"><img src="figures/fontbutton.png" align="middle" alt="FontButton Example"></div></div><p></p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec-ComboBoxAndComboboxEntry.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-NewInPyGTK2.4.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-EntryCompletion.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">16.2. ComboBox and ComboBoxEntry Widgets </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.4. EntryCompletion Objects</td></tr></table></div></body></html>

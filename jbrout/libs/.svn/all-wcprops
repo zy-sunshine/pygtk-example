@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/110/trunk/jbrout/libs
+END
+gladeapp.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/46/trunk/jbrout/libs/gladeapp.py
+END
+i18n.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/46/trunk/jbrout/libs/i18n.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/46/trunk/jbrout/libs/__init__.py
+END
+dict4ini.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/110/trunk/jbrout/libs/dict4ini.py
+END
+extListview.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/61/trunk/jbrout/libs/extListview.py
+END

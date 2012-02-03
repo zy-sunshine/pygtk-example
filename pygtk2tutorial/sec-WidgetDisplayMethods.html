@@ -1,0 +1,30 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>18.2. Widget Display Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="PyGTK 2.0 Tutorial"><link rel="up" href="ch-SettingWidgetAttributes.html" title="Chapter 18. Setting Widget Attributes"><link rel="previous" href="ch-SettingWidgetAttributes.html" title="Chapter 18. Setting Widget Attributes"><link rel="next" href="sec-WidgetAccelerators.html" title="18.3. Widget Accelerators"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">18.2. Widget Display Methods</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch-SettingWidgetAttributes.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Setting Widget Attributes</th><td width="20%" align="right"> <a accesskey="n" href="sec-WidgetAccelerators.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec-WidgetDisplayMethods"></a>18.2. Widget Display Methods</h2></div></div><div></div></div><p>The methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="programlisting">
+  widget.show()
+  
+  widget.show_all()
+  
+  widget.hide()
+  
+  widget.hide_all()
+  
+  widget.realize()
+  
+  widget.unrealize()
+  
+  widget.map()
+  
+  widget.unmap()
+</pre></td></tr></table><p>manage the display of the <i class="parameter"><tt>widget</tt></i>.</p><p>The <tt class="methodname">show</tt>() method arranges to display the
+widget by using the <tt class="methodname">realize</tt>() and
+<tt class="methodname">map</tt>() methods.</p><p>The <tt class="methodname">hide</tt>() method arranges to remove the
+widget from the display and also unmaps it using the
+<tt class="methodname">unmap</tt>() method if necessary.</p><p>The <tt class="methodname">show_all</tt>() and
+<tt class="methodname">hide_all</tt>() methods arrange to show or hide the
+widget and all its children.</p><p>The <tt class="methodname">realize</tt>() method arranges to allocate
+resources to the widget including its window.</p><p>The <tt class="methodname">unrealize</tt>() method releases the
+widget window and other resources. Unrealizing a widget will also hide and
+unmap it.</p><p>The <tt class="methodname">map</tt>() method arranges to allocate
+space on the display for the widget; this only applies to widgets that need
+to be handled by the window manager. Mapping a widget will also cause it to
+be realized if necessary.</p><p>The <tt class="methodname">unmap</tt>() method removes a widget from
+the display and will also hide it if necessary.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch-SettingWidgetAttributes.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch-SettingWidgetAttributes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sec-WidgetAccelerators.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 18. Setting Widget Attributes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 18.3. Widget Accelerators</td></tr></table></div></body></html>

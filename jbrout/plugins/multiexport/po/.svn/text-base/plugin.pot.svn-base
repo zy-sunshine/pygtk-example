@@ -1,0 +1,277 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-23 00:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../plugins/multiexport/winexport.py:23
+msgid "Select the destination"
+msgstr ""
+
+#. def menuEntries(self,l):
+#. return [(3000,_("Export to"),False,self.export,None)]
+#: ../plugins/multiexport/__init__.py:182
+msgid "Export to"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:209
+msgid "Export to archive"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:227
+#: ../plugins/multiexport/__init__.py:237
+#: ../plugins/multiexport/__init__.py:262
+msgid "The selected path doesn't exists !"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:231
+msgid "Export to folder"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:241
+msgid "Export as a Html Gallery"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:266
+msgid "Export to PicasaWeb"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:275
+msgid "Sorry, you can't upload to picasaweb (python import error)"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:277
+msgid "Upload error : "
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:282
+#: ../plugins/multiexport/__init__.py:455
+#: ../plugins/multiexport/__init__.py:457
+msgid "Export to Flickr"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:288
+msgid "Export to Email"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:294
+msgid "Export to FTP"
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:306
+msgid "FTP error : "
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:436
+msgid "Plugin error : "
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:450
+msgid ""
+"You need to give jBrout permission to upload your photos to Flickr.\n"
+"This is done via a Flickr-session in your web browser to which you are "
+"logged in.\n"
+"\n"
+"If you press the OK-button, jBrout will open your browser.\n"
+"When done, return to jBrout to finish the authentication procedure."
+msgstr ""
+
+#: ../plugins/multiexport/__init__.py:457
+msgid ""
+"jBrout should now open a web broser. When you're done there, return to this "
+"message box and click the OK-button."
+msgstr ""
+
+#: ../tmp/winexport.glade.h:1
+msgid "..."
+msgstr ""
+
+#: ../tmp/winexport.glade.h:2
+msgid "32 photos, taille 42mo (demo)"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:3
+msgid ""
+"640\n"
+"800\n"
+"1024\n"
+"1280\n"
+"1600"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:8
+msgid "Apply to all"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:9
+msgid "Archive"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:10
+msgid "Authentication"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:11
+msgid "Export"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:12
+msgid "Export To"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:13
+msgid "FTP"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:14
+msgid "Family"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:15
+msgid "Filesystem"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:16
+msgid "Flickr"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:17
+msgid "Folder"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:18
+msgid "Friends"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:19
+msgid "From email"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:20
+msgid "Html Gallery"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:21
+msgid "Login"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:22
+msgid "Mail"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:23
+msgid "Max side"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:24
+msgid "Message"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:25
+msgid ""
+"Newer first\n"
+"Oldest first"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:27
+msgid ""
+"None\n"
+"SSL\n"
+"Start TLS"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:30
+msgid "Order"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:31
+msgid "Password"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:32
+msgid "Path"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:33
+msgid "PicasaWeb"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:34
+msgid "Port"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:35
+msgid "Privacy"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:36
+msgid "Private"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:37
+msgid "Public"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:38
+msgid "Quality"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:39
+msgid "Resize"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:40
+msgid "SMTP address"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:41
+msgid "Security"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:42
+msgid "Subject"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:43
+msgid "Template "
+msgstr ""
+
+#: ../tmp/winexport.glade.h:44
+msgid "Type"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:45
+msgid "User Name"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:46
+msgid "don't touch originals"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:47
+msgid "gtk-apply"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:48
+msgid "gtk-cancel"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:49
+msgid "resize"
+msgstr ""
+
+#: ../tmp/winexport.glade.h:50
+msgid "to Emails"
+msgstr ""
