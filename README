@@ -1,0 +1,20 @@
+- bookshelf/t-layout.py   grid and bookwidget 网格管理
+    TODO: 参考 jbrout/t-listview.py 中的计算以及 bookshelf/t-iconview.py 中的
+    IconView 的 ListStore，使用唯一的 ListStore 去显示 list view 和 grid view 
+
+- t-changeTheme.py 动态修改界面 Theme
+
+- jbrout/t-listview.py 是 jbrout/jbrout/listview.py 的拷贝
+
+- gnome_pygtk/widget.py 一个 custom widget
+
+- gnome_pygtk From http://git.gnome.org/browse/pygtk/tree/examples/
+
+- writing-a-custom-widget-using-pygtk From http://www.pygtk.org/articles/
+
+- custom widget and zetcode useful tutorials for pygtk From http://zetcode.com/tutorials/pygtktutorial/
+
+- Python GTK+ 3 Tutorial From http://python-gtk-3-tutorial.readthedocs.org/en/latest/index.html
+
+- GTK+ 2.0 教程 - GTK rc 文件的格式 From http://www.huzheng.org/ebook/gtk2-tut/x2088.html
+
